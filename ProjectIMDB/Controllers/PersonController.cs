@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectIMDB.Models.ORM.Context;
+using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Controllers
@@ -33,6 +34,37 @@ namespace ProjectIMDB.Controllers
 
             return View(personLists);
 
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Add(PersonAddVM model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                Person person = new Person();
+                person.Name = model.name;
+                person.SurName = model.surname;
+                person.BirthDate = model.birthdate;
+                person.Nationality = model.nationality;
+      
+
+                _context.People.Add(person);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Admin");
+            }
+
+            else
+            {
+                return View();
+
+            }
         }
     }
 }
