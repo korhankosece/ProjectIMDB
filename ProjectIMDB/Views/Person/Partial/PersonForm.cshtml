@@ -1,0 +1,36 @@
+﻿@model ProjectIMDB.Models.VM.PersonVM
+
+<div class="form-group row">
+    @Html.LabelFor(q => q.name, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.name, new { @placeholder = "Enter name", @class = "form-control", @id = "fname" })
+        @Html.ValidationMessageFor(q => q.name, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(q => q.surname, new { @class = "col-sm-3 text-right control-label col-form-label" })
+
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.surname, new { @placeholder = "Enter surname", @class = "form-control", @id = "lname" })
+        @Html.ValidationMessageFor(q => q.surname, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(q => q.nationality, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.nationality, new { @placeholder = "Enter nationality", @class = "form-control", @id = "nationality" })
+        @Html.ValidationMessageFor(q => q.nationality, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(q => q.birthdate, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        <div class="input-group">
+            @Html.TextBoxFor(q => q.birthdate, new { @type = "datetime", @placeholder = "mm/dd/yyyy", @class = "form-control", @id = "datepicker-autoclose" })
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(q => q.birthdate, "", new { @class = "text-danger" })
+    </div>
+</div>

@@ -4,98 +4,51 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@model ProjectIMDB.Models.VM.PersonAddVM
- 
+@model ProjectIMDB.Models.VM.PersonVM
 
-    <link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 
-
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Person Add</h4>
-                <div class="ml-auto text-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Person</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add</li>
-                        </ol>
-                    </nav>
-                </div>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Person Add</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Person</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Add</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <form action="/Person/Add" method="post" class="form-horizontal">
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <form action="/Person/Add" method="post" class="form-horizontal">
+                    <div class="card-body">
+                        <h4 class="card-title">Personal Info</h4>
+                        @await Html.PartialAsync("Partial/PersonForm") 
+                    </div>
+                    <div class="border-top">
                         <div class="card-body">
-                            <h4 class="card-title">Personal Info</h4>
-                            @Html.ValidationSummary()
-                            <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">First Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="name" id="fname" placeholder="First Name Here">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="surname" id="lname" placeholder="Last Name Here">
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                @Html.LabelFor(q => q.EMail)
-                                @Html.TextBoxFor(q => q.EMail, new { @placeholder = "Enter email", @class = "form-control" })
-
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="nationality" class="col-sm-3 text-right control-label col-form-label">Nationality</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="nationality" id="nationality" placeholder="Nationality Here">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="datepicker-autoclose" class="col-sm-3 text-right control-label col-form-label">Birth Date</label>
-                                <div class="input-group col-sm-9">
-                                    <input type="text" class="form-control" name="birthdate" id="datepicker-autoclose" placeholder="mm/dd/yyyy">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-                        <div class="border-top">
-                            <div class="card-body">
-                                <button type="button" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
         </div>
-
-        
-
     </div>
-    <script src="/Adminsite/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <script>
-        jQuery('#datepicker-autoclose').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
-    </script>
+</div>
+
+<script src="/Adminsite/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
 

@@ -10,8 +10,8 @@ using ProjectIMDB.Models.ORM.Context;
 namespace ProjectIMDB.Migrations
 {
     [DbContext(typeof(IMDBContext))]
-    [Migration("20201201150857_CreateTablesAndDB")]
-    partial class CreateTablesAndDB
+    [Migration("20201203191415_CreateDbandTables")]
+    partial class CreateDbandTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("MovieID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserID")
@@ -71,7 +71,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -95,7 +95,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -128,7 +128,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -155,7 +155,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("PersonID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -186,7 +186,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("MovieID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -217,7 +217,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("PersonID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -248,7 +248,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("PersonID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -285,7 +285,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -312,7 +312,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("PersonID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -343,7 +343,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<double>("Point")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserID")
@@ -383,7 +383,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
@@ -407,7 +407,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<int>("MovieID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateDate")
+                    b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserID")

@@ -20,8 +20,8 @@ namespace ProjectIMDB.Models.ORM.Entities
                 _addDate = value;
             }
         }
-        private DateTime? _updateDate = DateTime.Now;
-        public DateTime? UpdateDate
+        private DateTime _updateDate = DateTime.Now;
+        public DateTime UpdateDate
         {
             get
             {

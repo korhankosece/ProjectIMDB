@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectIMDB.Migrations
 {
-    public partial class CreateTablesAndDB : Migration
+    public partial class CreateDbandTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace ProjectIMDB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -31,7 +31,7 @@ namespace ProjectIMDB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -50,7 +50,7 @@ namespace ProjectIMDB.Migrations
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PosterURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -69,7 +69,7 @@ namespace ProjectIMDB.Migrations
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -88,7 +88,7 @@ namespace ProjectIMDB.Migrations
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -105,7 +105,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     GenreID = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -134,7 +134,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     PersonID = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -163,7 +163,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     PersonID = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -192,7 +192,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     PersonID = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -221,7 +221,7 @@ namespace ProjectIMDB.Migrations
                     PersonID = table.Column<int>(type: "int", nullable: false),
                     JobID = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -251,7 +251,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -281,7 +281,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     Point = table.Column<double>(type: "float", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -310,7 +310,7 @@ namespace ProjectIMDB.Migrations
                     MovieID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
