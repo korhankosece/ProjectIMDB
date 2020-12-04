@@ -83,8 +83,6 @@ namespace ProjectIMDB.Controllers
             personVM.surname = person.SurName;
             personVM.nationality = person.Nationality;
             personVM.birthdate = person.BirthDate;
-            personVM.adddate = person.AddDate;
-
             return View(personVM);
         }
         [HttpPost]
@@ -98,7 +96,6 @@ namespace ProjectIMDB.Controllers
                 person.SurName = model.surname;
                 person.Nationality = model.nationality;
                 person.BirthDate = model.birthdate;
-                person.AddDate = model.adddate;
                 person.UpdateDate = model.updatedate;
 
                 _context.SaveChanges();
