@@ -27,13 +27,11 @@
 <div class="form-group row">
     @Html.LabelFor(q => q.releasedate, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-sm-9">
-        <div class="input-group">
-            @Html.TextBoxFor(q => q.releasedate, new { @type = "datetime", @placeholder = "mm/dd/yyyy", @class = "form-control", @id = "datepicker-autoclose" })
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-            </div>
-        </div>
-        @Html.ValidationMessageFor(q => q.releasedate, "", new { @class = "text-danger" })
+     
+            @Html.TextBoxFor(q => q.releasedate, new { @type = "date", @placeholder = "mm/dd/yyyy", @class = "form-control" })
+            @Html.ValidationMessageFor(q => q.releasedate, "", new { @class = "text-danger" })
+
+        
     </div>
 </div>
                     
