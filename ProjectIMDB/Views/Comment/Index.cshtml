@@ -15,11 +15,11 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Person List</h4>
+            <h4 class="page-title">Comment List</h4>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Person</a></li>
+                        <li class="breadcrumb-item"><a href="#">Comment</a></li>
                         <li class="breadcrumb-item active" aria-current="page">List</li>
                     </ol>
                 </nav>
@@ -80,7 +80,7 @@
         $(document).on("click", ".delete", function () {
             let id = $(this).attr("id");
             $.ajax({
-                url: "/Person/Delete",
+                url: "/Comment/Delete",
                 type: "POST",
                 data: { id: id },
                 success: function (msg) {

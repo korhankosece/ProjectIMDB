@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
+using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Controllers
@@ -34,6 +35,16 @@ namespace ProjectIMDB.Controllers
 
             return View(comments);
 
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            Comment person = _context.Comments.FirstOrDefault(q => q.ID == id);
+            person.IsDeleted = true;
+            _context.SaveChanges();
+
+            return Json("Silme işlemi başarılı!!");
         }
     }
 }
