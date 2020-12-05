@@ -24,22 +24,6 @@ namespace ProjectIMDB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Jobs",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jobs", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Movies",
                 columns: table => new
                 {
@@ -68,6 +52,7 @@ namespace ProjectIMDB.Migrations
                     SurName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Job = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -206,35 +191,6 @@ namespace ProjectIMDB.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MovieStars_People_PersonID",
-                        column: x => x.PersonID,
-                        principalTable: "People",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PersonJobs",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonID = table.Column<int>(type: "int", nullable: false),
-                    JobID = table.Column<int>(type: "int", nullable: false),
-                    AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonJobs", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PersonJobs_Jobs_JobID",
-                        column: x => x.JobID,
-                        principalTable: "Jobs",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PersonJobs_People_PersonID",
                         column: x => x.PersonID,
                         principalTable: "People",
                         principalColumn: "ID",
@@ -381,16 +337,6 @@ namespace ProjectIMDB.Migrations
                 column: "PersonID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonJobs_JobID",
-                table: "PersonJobs",
-                column: "JobID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PersonJobs_PersonID",
-                table: "PersonJobs",
-                column: "PersonID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rates_MovieID",
                 table: "Rates",
                 column: "MovieID");
@@ -429,9 +375,6 @@ namespace ProjectIMDB.Migrations
                 name: "MovieStars");
 
             migrationBuilder.DropTable(
-                name: "PersonJobs");
-
-            migrationBuilder.DropTable(
                 name: "Rates");
 
             migrationBuilder.DropTable(
@@ -439,9 +382,6 @@ namespace ProjectIMDB.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genres");
-
-            migrationBuilder.DropTable(
-                name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "People");

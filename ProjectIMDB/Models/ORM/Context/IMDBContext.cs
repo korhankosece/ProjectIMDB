@@ -13,7 +13,7 @@ namespace ProjectIMDB.Models.ORM.Context
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Job> Jobs { get; set; }
+
         public DbSet<Person> People { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<User> Users { get; set; }
@@ -22,6 +22,7 @@ namespace ProjectIMDB.Models.ORM.Context
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MovieScenarist> MovieScenarists { get; set; }
         public DbSet<MovieStar> MovieStars { get; set; }
+        public DbSet<Job> Jobs { get; set; }
         public DbSet<PersonJob> PersonJobs { get; set; }
 
     }

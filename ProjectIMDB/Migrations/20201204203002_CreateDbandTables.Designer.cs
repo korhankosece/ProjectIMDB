@@ -10,7 +10,7 @@ using ProjectIMDB.Models.ORM.Context;
 namespace ProjectIMDB.Migrations
 {
     [DbContext(typeof(IMDBContext))]
-    [Migration("20201203191415_CreateDbandTables")]
+    [Migration("20201204203002_CreateDbandTables")]
     partial class CreateDbandTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,30 +77,6 @@ namespace ProjectIMDB.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Genres");
-                });
-
-            modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Job", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("AddDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Movie", b =>
@@ -276,6 +252,9 @@ namespace ProjectIMDB.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Job")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -291,37 +270,6 @@ namespace ProjectIMDB.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("People");
-                });
-
-            modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.PersonJob", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("AddDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("JobID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("JobID");
-
-                    b.HasIndex("PersonID");
-
-                    b.ToTable("PersonJobs");
                 });
 
             modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Rate", b =>
@@ -463,7 +411,7 @@ namespace ProjectIMDB.Migrations
             modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.MovieGenre", b =>
                 {
                     b.HasOne("ProjectIMDB.Models.ORM.Entities.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("MovieGenres")
                         .HasForeignKey("GenreID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -517,25 +465,6 @@ namespace ProjectIMDB.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.PersonJob", b =>
-                {
-                    b.HasOne("ProjectIMDB.Models.ORM.Entities.Job", "Job")
-                        .WithMany("PersonJobs")
-                        .HasForeignKey("JobID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectIMDB.Models.ORM.Entities.Person", "Person")
-                        .WithMany("PersonJobs")
-                        .HasForeignKey("PersonID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Rate", b =>
                 {
                     b.HasOne("ProjectIMDB.Models.ORM.Entities.Movie", "Movie")
@@ -574,9 +503,9 @@ namespace ProjectIMDB.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Job", b =>
+            modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Genre", b =>
                 {
-                    b.Navigation("PersonJobs");
+                    b.Navigation("MovieGenres");
                 });
 
             modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.Movie", b =>
@@ -603,8 +532,6 @@ namespace ProjectIMDB.Migrations
                     b.Navigation("MovieScenarists");
 
                     b.Navigation("MovieStars");
-
-                    b.Navigation("PersonJobs");
                 });
 
             modelBuilder.Entity("ProjectIMDB.Models.ORM.Entities.User", b =>

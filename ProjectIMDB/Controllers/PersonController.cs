@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
+using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Controllers
@@ -19,6 +20,7 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
+
             List<PersonVM> personLists = _context.People.Where(q => q.IsDeleted == false).Select(q => new PersonVM()
             {
                 id = q.ID,
@@ -29,6 +31,11 @@ namespace ProjectIMDB.Controllers
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
                 isdeleted = q.IsDeleted,
+               // job = q.Job == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
+               //(q.Job==Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString(): EnumJob.Star.ToString())
+
+
+
 
             }).ToList();
 
@@ -83,6 +90,7 @@ namespace ProjectIMDB.Controllers
             personVM.surname = person.SurName;
             personVM.nationality = person.Nationality;
             personVM.birthdate = person.BirthDate;
+
             return View(personVM);
         }
         [HttpPost]

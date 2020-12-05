@@ -31,8 +31,16 @@
                 <form action="/Person/Add" method="post" class="form-horizontal">
                     <div class="card-body">
                         <h4 class="card-title">Personal Info</h4>
-                        @await Html.PartialAsync("Partial/PersonForm") 
+                        @await Html.PartialAsync("Partial/PersonForm")
+                        @*<div class="form-group row">
+                            @Html.LabelFor(q => q.job, new { @class = "col-sm-3 text-right control-label col-form-label" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(q => q.job, new { @placeholder = "Enter job", @class = "form-control", @id = "job" })
+                                @Html.ValidationMessageFor(q => q.job, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
                     </div>
+
                     <div class="border-top">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary">Submit</button>

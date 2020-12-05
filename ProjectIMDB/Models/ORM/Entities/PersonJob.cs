@@ -16,5 +16,7 @@ namespace ProjectIMDB.Models.ORM.Entities
         public Person Person { get; set; }
         [ForeignKey("JobID")]
         public Job Job { get; set; }
+
+
     }
 }

@@ -9,6 +9,6 @@ namespace ProjectIMDB.Models.Types
     {
         Director=1,
         Scenarist=2,
-        Star=3,
-    }
+        Star=3
+    };
 }
