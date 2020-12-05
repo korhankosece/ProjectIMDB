@@ -18,6 +18,7 @@ namespace ProjectIMDB.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
 
@@ -33,9 +34,6 @@ namespace ProjectIMDB.Controllers
                 isdeleted = q.IsDeleted,
                // job = q.Job == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
                //(q.Job==Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString(): EnumJob.Star.ToString())
-
-
-
 
             }).ToList();
 
@@ -93,6 +91,7 @@ namespace ProjectIMDB.Controllers
 
             return View(personVM);
         }
+
         [HttpPost]
         public IActionResult Edit(PersonVM model)
         {

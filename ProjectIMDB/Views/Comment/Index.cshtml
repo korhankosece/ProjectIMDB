@@ -3,7 +3,12 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-@model List<ProjectIMDB.Models.VM.PersonVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model List<ProjectIMDB.Models.VM.CommentVM>
 
 <link rel="stylesheet" type="text/css" href="/Adminsite/assets/extra-libs/multicheck/multicheck.css">
 <link href="/Adminsite/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -34,15 +39,11 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Surname</th>
-                                    <th>Birth Date</th>
-                                    <th>Nationality</th>
-                                    @*<th>Job</th>*@
+                                    <th>Content</th>
+                                    <th>User</th>
+                                    <th>Movie</th>
                                     <th>Add Date</th>
                                     <th>Update Date</th>
-                                    <th>Is Deleted</th>
-                                    <th>Edit</th>
                                     <th>Delete</th>
 
                                 </tr>
@@ -50,19 +51,15 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr id="@item.id">
-                                    <td>@item.id</td>
-                                    <td>@item.name</td>
-                                    <td>@item.surname</td>
-                                    <td>@item.birthdate.ToString("dd MMMM yyyy")</td>
-                                    <td>@item.nationality</td>
-                                    @*<td>@item.job</td>*@
-                                    <td>@item.adddate</td>
-                                    <td>@item.updatedate</td>
-                                    <td>@item.isdeleted</td>
-                                    <td><a href="/Person/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
-                                    <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
-                                </tr>
+                                    <tr id="@item.id">
+                                        <td>@item.id</td>
+                                        <td>@item.content</td>
+                                        <td>@item.username</td>
+                                        <td>@item.moviename</td>
+                                        <td>@item.adddate</td>
+                                        <td>@item.updatedate</td>
+                                        <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -97,4 +94,5 @@
         });
     });
 </script>
+
 
