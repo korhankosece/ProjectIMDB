@@ -1,0 +1,11 @@
+﻿
+@model ProjectIMDB.Models.VM.GenreVM
+
+
+<div class="form-group row">
+    @Html.LabelFor(q => q.name, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.name, new { @placeholder = "Enter name", @class = "form-control", @id = "fname" })
+        @Html.ValidationMessageFor(q => q.name, "", new { @class = "text-danger" })
+    </div>
+</div>

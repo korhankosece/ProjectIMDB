@@ -7,7 +7,7 @@ namespace ProjectIMDB.Models.ORM.Entities
 {
     public class Genre:Base
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
         public List<MovieGenre> MovieGenres { get; set; }
 
     }

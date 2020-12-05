@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<ProjectIMDB.Models.VM.GenreVM>
+<link rel="stylesheet" type="text/css" href="/Adminsite/assets/extra-libs/multicheck/multicheck.css">
+<link href="/Adminsite/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Genre List</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Movie</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">List</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div id="asdf"></div>
+                    <h5 class="card-title">Basic Datatable</h5>
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Add Date</th>
+                                    <th>Update Date</th>
+                                    <th>Is Deleted</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="@item.id">
+                                        <td>@item.id</td>
+                                        <td>@item.name</td>
+                                        <td>@item.adddate</td>
+                                        <td>@item.updatedate</td>
+                                        <td>@item.isdeleted</td>
+                                        <td><a href="/Genre/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                        <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Adminsite/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+<script src="/Adminsite/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+<script src="/Adminsite/assets/extra-libs/DataTables/datatables.min.js"></script>
+<script>
+    $(function () {
+        $('#zero_config').DataTable();
+
+        $(document).on("click", ".delete", function () {
+            let id = $(this).attr("id");
+            $.ajax({
+                url: "/Genre/Delete",
+                type: "POST",
+                data: { id: id },
+                success: function (msg) {
+                    $("#" + id).fadeOut();
+                    alert("Deleted");
+                },
+                error: function (err) {
+                    alert("Failed")
+                }
+            })
+        });
+    });
+</script>
+
+
+
