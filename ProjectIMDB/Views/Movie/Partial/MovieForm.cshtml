@@ -1,0 +1,39 @@
+﻿
+@model ProjectIMDB.Models.VM.MovieVM
+
+
+<div class="form-group row">
+    @Html.LabelFor(q => q.name, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.name, new { @placeholder = "Enter name", @class = "form-control", @id = "fname" })
+        @Html.ValidationMessageFor(q => q.name, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(q => q.duration, new { @class = "col-sm-3 text-right control-label col-form-label" })
+
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.duration, new { @placeholder = "Enter duration", @class = "form-control", @id = "duration" })
+        @Html.ValidationMessageFor(q => q.duration, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(q => q.posterurl, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        @Html.TextBoxFor(q => q.posterurl, new { @placeholder = "Enter poster URL", @class = "form-control", @id = "posterurl" })
+        @Html.ValidationMessageFor(q => q.posterurl, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(q => q.releasedate, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-sm-9">
+        <div class="input-group">
+            @Html.TextBoxFor(q => q.releasedate, new { @type = "datetime", @placeholder = "mm/dd/yyyy", @class = "form-control", @id = "datepicker-autoclose" })
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(q => q.releasedate, "", new { @class = "text-danger" })
+    </div>
+</div>
+                    

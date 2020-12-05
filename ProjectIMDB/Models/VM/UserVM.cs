@@ -15,7 +15,7 @@ namespace ProjectIMDB.Models.VM
         public DateTime birthdate { get; set; }
         public string nationality { get; set; }
 
-
+        [DisplayName("EMail")]
         [Required(ErrorMessage = "The Email field is required")]
         public string email { get; set; }
 
