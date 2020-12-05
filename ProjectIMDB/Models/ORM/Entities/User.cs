@@ -15,8 +15,6 @@ namespace ProjectIMDB.Models.ORM.Entities
         public string Password { get; set; }
 
 
-
-
         public List<Comment> Comments { get; set; }
         public List<Rate> Rates { get; set; }
         public List<WatchList> WatchLists { get; set; }
