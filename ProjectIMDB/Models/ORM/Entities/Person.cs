@@ -10,7 +10,7 @@ namespace ProjectIMDB.Models.ORM.Entities
     {
         public string Name { get; set; }
         public string SurName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string Nationality { get; set; }
         //public int Job { get; set; }
 
