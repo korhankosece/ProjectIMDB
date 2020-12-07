@@ -25,9 +25,7 @@
 <div class="form-group row">
     @Html.LabelFor(q => q.birthdate, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-sm-9">
-        
-            @Html.TextBoxFor(q => q.birthdate, new {@type="text", @placeholder = "mm/dd/yyyy", @class = "form-control mydatepicker"})
-            @Html.ValidationMessageFor(q => q.birthdate, "", new { @class = "text-danger" })
-
+        @Html.TextBoxFor(q => q.birthdate, new { @type = "text", @placeholder = "mm/dd/yyyy", @class = "form-control mydatepicker" })
+        @Html.ValidationMessageFor(q => q.birthdate, "", new { @class = "text-danger" })
     </div>
 </div>

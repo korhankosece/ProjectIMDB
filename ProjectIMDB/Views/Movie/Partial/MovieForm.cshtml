@@ -27,11 +27,8 @@
 <div class="form-group row">
     @Html.LabelFor(q => q.releasedate, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-sm-9">
-
-        @Html.TextBoxFor(q => q.releasedate, new { @type = "date", @placeholder = "mm/dd/yyyy", @class = "form-control" })
+        @Html.TextBoxFor(q => q.releasedate, new { @type = "text", @placeholder = "mm/dd/yyyy", @class = "form-control mydatepicker" })
         @Html.ValidationMessageFor(q => q.releasedate, "", new { @class = "text-danger" })
-
-
     </div>
 
 
@@ -40,10 +37,10 @@
 <div class="form-group row">
     <label class="col-md-3 m-t-15">Multiple Select</label>
     <div class="col-md-9">
-        <select name="genrearray" class="select2 form-control m-t-15"     multiple="multiple" style="height: 36px;width: 100%;">
+        <select name="genrearray" class="select2 form-control m-t-15" multiple="multiple" style="height: 36px;width: 100%;">
             @foreach (var item in Model.Genres)
             {
-                <option  value="@item.ID" >@item.Name</option>
+                <option value="@item.ID">@item.Name</option>
 
             }
 
