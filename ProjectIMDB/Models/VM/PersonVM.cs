@@ -21,8 +21,8 @@ namespace ProjectIMDB.Models.VM
         public string surname { get; set; }
 
         [DisplayName("Birth Date")]
-        [DataType(DataType.Date)]
-        public DateTime birthdate { get; set; }
+        [Required(ErrorMessage = "The birth date field is required.")]
+        public DateTime? birthdate { get; set; }
 
         [DisplayName("Nationality")]
         [Required(ErrorMessage = "The nationality field is required.")]
