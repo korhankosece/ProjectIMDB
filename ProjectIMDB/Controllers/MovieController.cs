@@ -20,7 +20,7 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
-            List<MovieVM> movies = _context.Movies.Where(q => q.IsDeleted == false).Select(q => new MovieVM()
+            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
             {
                 id = q.ID,
                 name = q.Name,
@@ -30,8 +30,7 @@ namespace ProjectIMDB.Controllers
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
                 isdeleted = q.IsDeleted,
-                
-
+                Genres = q.MovieGenres.Select(q => q.Genre).ToList()
 
             })  .ToList();
 
