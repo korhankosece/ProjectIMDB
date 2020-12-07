@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
@@ -19,30 +20,36 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
-            List <MovieVM> movies = _context.Movies.Where(q => q.IsDeleted == false).Select(q => new MovieVM()
+            List<MovieVM> movies = _context.Movies.Where(q => q.IsDeleted == false).Select(q => new MovieVM()
             {
-                id=q.ID,
-                name=q.Name,
-                duration=q.Duration,
-                releasedate=q.ReleaseDate,
-                posterurl=q.PosterURL,
-                adddate=q.AddDate,
-                updatedate=q.UpdateDate,
-                isdeleted=q.IsDeleted
+                id = q.ID,
+                name = q.Name,
+                duration = q.Duration,
+                releasedate = q.ReleaseDate,
+                posterurl = q.PosterURL,
+                adddate = q.AddDate,
+                updatedate = q.UpdateDate,
+                isdeleted = q.IsDeleted,
+                
 
-            }).ToList();
+
+            })  .ToList();
 
             return View(movies);
         }
 
         public IActionResult Add()
         {
-            return View();
+            MovieVM model = new MovieVM();
+            model.Genres = _context.Genres.ToList();
+
+
+            return View(model);
         }
 
 
         [HttpPost]
-        public IActionResult Add(MovieVM model)
+        public IActionResult Add(MovieVM model, int[] genrearray)
         {
             if (ModelState.IsValid)
             {
@@ -54,6 +61,21 @@ namespace ProjectIMDB.Controllers
 
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
+
+                int MovieID = movie.ID;
+                model.Genres = _context.Genres.ToList();
+
+
+                foreach (var item in genrearray)
+                {
+                    MovieGenre movieGenre = new MovieGenre();
+                    movieGenre.GenreID = item;
+                    movieGenre.MovieID = MovieID;
+
+                    _context.MovieGenres.Add(movieGenre);
+                }
+                _context.SaveChanges();
+
                 return RedirectToAction("Index", "Movie");
             }
 

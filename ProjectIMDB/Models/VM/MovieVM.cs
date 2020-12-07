@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectIMDB.Models.ORM.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -39,6 +40,9 @@ namespace ProjectIMDB.Models.VM
 
 
         public bool isdeleted { get; set; }
+
+        public List<Genre> Genres { get; set; }
+
 
 
     }

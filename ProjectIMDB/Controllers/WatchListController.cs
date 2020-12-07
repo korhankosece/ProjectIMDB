@@ -19,7 +19,7 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
-            List<WatchlistVM> watchlists = _context.Rates.Include(x => x.Movie).Include(x => x.User).Where(q => q.IsDeleted == false).Select(q => new WatchlistVM()
+            List<WatchlistVM> watchlists = _context.WatchLists.Include(x => x.Movie).Include(x => x.User).Where(q => q.IsDeleted == false).Select(q => new WatchlistVM()
             {
                 id = q.ID,
                 username = q.User.Name + " " + q.User.SurName,

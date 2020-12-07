@@ -41,6 +41,7 @@
                                     <th>Add Date</th>
                                     <th>Update Date</th>
                                     <th>Is Deleted</th>
+                                    <th>Genre</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
 
@@ -49,18 +50,20 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr id="@item.id">
-                                        <td>@item.id</td>
-                                        <td>@item.name</td>
-                                        <td>@item.duration</td>
-                                        <td>@item.releasedate</td>
-                                        <td>@item.posterurl</td>
-                                        <td>@item.adddate</td>
-                                        <td>@item.updatedate</td>
-                                        <td>@item.isdeleted</td>
-                                        <td><a href="/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
-                                        <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
-                                    </tr>
+                                <tr id="@item.id">
+                                    <td>@item.id</td>
+                                    <td>@item.name</td>
+                                    <td>@item.duration</td>
+                                    <td>@item.releasedate</td>
+                                    <td>@item.posterurl</td>
+                                    <td>@item.adddate</td>
+                                    <td>@item.updatedate</td>
+                                    <td>@item.isdeleted</td>
+                                    <td>@item.Genres</td>
+
+                                    <td><a href="/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                    <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
