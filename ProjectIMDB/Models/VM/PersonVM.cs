@@ -35,6 +35,7 @@ namespace ProjectIMDB.Models.VM
         public DateTime updatedate { get; set; } = DateTime.Now;
 
 
-        public List<string> job { get; set; }
+        public List<string> jobs { get; set; }
+        public List<EnumJob> enumJobs { get; set; }
     }
 }

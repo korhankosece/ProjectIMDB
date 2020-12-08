@@ -38,12 +38,11 @@
     <label class="col-sm-3 text-right control-label col-form-label">Multiple Select</label>
     <div class="col-md-9">
         <select name="genrearray" class="select2 form-control" multiple="multiple">
-            @foreach (var item in Model.Genres)
+            @foreach (var item in Model.genres)
             {
                 <option value="@item.ID">@item.Name</option>
 
             }
-
         </select>
     </div>
 </div>

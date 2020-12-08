@@ -40,7 +40,7 @@ namespace ProjectIMDB.Models.VM
 
 
 
-        public List<Genre> Genres { get; set; }
+        public List<Genre> genres { get; set; }
 
 
 

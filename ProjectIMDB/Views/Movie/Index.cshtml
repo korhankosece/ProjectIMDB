@@ -41,7 +41,6 @@
                                     <th>Add Date</th>
                                     <th>Update Date</th>
                                     <th>Genre</th>
-                                    <th>Is Deleted</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
 
@@ -58,15 +57,12 @@
                                     <td>@item.posterurl</td>
                                     <td>@item.adddate</td>
                                     <td>@item.updatedate</td>
-                                    <td>@foreach (var item2 in item.Genres)
+                                    <td>@foreach (var item2 in item.genres)
                                     {
                                         <span>@item2.Name/</span>
                                     }
 
                                     </td>
-
-                                    <td>@item.isdeleted</td>
-
                                     <td><a href="/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
                                     <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
                                 </tr>

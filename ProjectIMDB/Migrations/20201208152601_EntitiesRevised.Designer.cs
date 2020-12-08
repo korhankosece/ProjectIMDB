@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjectIMDB.Models.ORM.Context;
@@ -9,9 +10,10 @@ using ProjectIMDB.Models.ORM.Context;
 namespace ProjectIMDB.Migrations
 {
     [DbContext(typeof(IMDBContext))]
-    partial class IMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201208152601_EntitiesRevised")]
+    partial class EntitiesRevised
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,7 +193,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("JobID")
+                    b.Property<int>("Job")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")

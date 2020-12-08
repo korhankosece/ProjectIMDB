@@ -31,7 +31,6 @@ namespace ProjectIMDB.Controllers
                 email = q.EMail,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-                isdeleted = q.IsDeleted,
                
 
 

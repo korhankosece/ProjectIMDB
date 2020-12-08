@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.Types;
@@ -22,7 +23,8 @@ namespace ProjectIMDB.Controllers
         public IActionResult Index()
         {
 
-            List<PersonVM> personLists = _context.People.Where(q => q.IsDeleted == false).Select(q => new PersonVM()
+
+            List<PersonVM> personLists = _context.People.Include(q => q.PersonJobs).Where(q => q.IsDeleted == false).Select(q => new PersonVM()
             {
                 id = q.ID,
                 name = q.Name,
@@ -31,9 +33,12 @@ namespace ProjectIMDB.Controllers
                 nationality = q.Nationality,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-                isdeleted = q.IsDeleted,
-               // job = q.Job == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
-               //(q.Job==Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString(): EnumJob.Star.ToString())
+                jobs = q.PersonJobs.Select(q => q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
+               (q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString() : EnumJob.Star.ToString())).ToList(),
+
+                //jobs = (from action in (EnumJob[])Enum.GetValues(typeof(EnumJob)) select action.ToString()).ToList()
+                // jobs = q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
+                //(q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString() : EnumJob.Star.ToString())
 
             }).ToList();
 
@@ -41,12 +46,20 @@ namespace ProjectIMDB.Controllers
 
         }
         public IActionResult Add()
+
         {
-            return View();
+            List<EnumJob> model = new List<EnumJob>();
+            PersonVM model2 = new PersonVM();
+            model.Add(EnumJob.Director);
+            model.Add(EnumJob.Star);
+            model.Add(EnumJob.Scenarist);
+
+            model2.enumJobs = model;
+            return View(model2);
         }
 
         [HttpPost]
-        public IActionResult Add(PersonVM model)
+        public IActionResult Add(PersonVM model, int[] jobarray)
         {
 
             if (ModelState.IsValid)
@@ -59,6 +72,28 @@ namespace ProjectIMDB.Controllers
 
                 _context.People.Add(person);
                 _context.SaveChanges();
+
+                int PersonID = person.ID;
+
+                List<EnumJob> enumList = new List<EnumJob>();
+                enumList.Add(EnumJob.Director);
+                enumList.Add(EnumJob.Star);
+                enumList.Add(EnumJob.Scenarist);
+
+                List<string> stringList = enumList.ConvertAll(f => f.ToString());
+                model.jobs = stringList;
+
+                foreach (var item in jobarray)
+                {
+                    PersonJob personJob = new PersonJob();
+                    personJob.PersonID = PersonID;
+                    personJob.JobID = item;
+
+                    _context.PersonJobs.Add(personJob);
+                }
+                _context.SaveChanges();
+
+
                 return RedirectToAction("Index", "Person");
             }
 

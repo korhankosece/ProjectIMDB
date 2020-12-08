@@ -25,7 +25,6 @@ namespace ProjectIMDB.Controllers
                 name = q.Name,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-                isdeleted = q.IsDeleted
 
             }).ToList();
 

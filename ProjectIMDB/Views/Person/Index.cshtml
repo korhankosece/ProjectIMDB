@@ -38,10 +38,9 @@
                                     <th>Surname</th>
                                     <th>Birth Date</th>
                                     <th>Nationality</th>
-                                    @*<th>Job</th>*@
+                                    <th>Jobs</th>
                                     <th>Add Date</th>
                                     <th>Update Date</th>
-                                    <th>Is Deleted</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
 
@@ -56,12 +55,17 @@
                                     <td>@item.surname</td>
                                     <td>@item.birthdate.Value.ToString("dd MMMM yyyy")</td>
                                     <td>@item.nationality</td>
-                                    @*<td>@item.job</td>*@
-                                    <td>@item.adddate</td>
-                                    <td>@item.updatedate</td>
-                                    <td>@item.isdeleted</td>
-                                    <td><a href="/Person/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
-                                    <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
+                                    <td>
+                                        @foreach (var item2 in item.jobs)
+                                        {
+                                            <span>@item2/</span>
+                                        }
+
+                                </td>
+                                <td>@item.adddate</td>
+                                <td>@item.updatedate</td>
+                                <td><a href="/Person/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
                                 </tr>
                                 }
                             </tbody>
