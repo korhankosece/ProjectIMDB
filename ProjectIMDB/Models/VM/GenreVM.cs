@@ -19,6 +19,5 @@ namespace ProjectIMDB.Models.VM
 
         public DateTime updatedate { get; set; } = DateTime.Now;
 
-        public bool isdeleted { get; set; }
     }
 }

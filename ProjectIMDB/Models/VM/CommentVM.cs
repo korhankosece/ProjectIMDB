@@ -8,9 +8,9 @@ namespace ProjectIMDB.Models.VM
     public class CommentVM
     {
         public int id { get; set; }
+        public string username { get; set; }
         public string content { get; set; }
         public string moviename { get; set; }
-        public string username { get; set; }
         public DateTime adddate { get; set; }
         public DateTime updatedate { get; set; }
     }

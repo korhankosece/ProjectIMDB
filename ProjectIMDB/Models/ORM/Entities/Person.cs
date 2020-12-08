@@ -12,11 +12,9 @@ namespace ProjectIMDB.Models.ORM.Entities
         public string SurName { get; set; }
         public DateTime? BirthDate { get; set; }
         public string Nationality { get; set; }
-        //public int Job { get; set; }
+        public int Job { get; set; }
 
-        public List<MovieStar> MovieStars { get; set; }
-        public List<MovieScenarist> MovieScenarists { get; set; }
-        public List<MovieDirector> MovieDirectors { get; set; }
+        public List<MoviePerson> MoviePeople { get; set; }
         public List<PersonJob> PersonJobs { get; set; }
 
     }

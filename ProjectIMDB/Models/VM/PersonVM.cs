@@ -33,9 +33,8 @@ namespace ProjectIMDB.Models.VM
 
         [DisplayName("Update Date")]
         public DateTime updatedate { get; set; } = DateTime.Now;
-        public bool isdeleted { get; set; }
 
 
-        //public string job { get; set; }
+        public List<string> job { get; set; }
     }
 }

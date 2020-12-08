@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectIMDB.Models.ORM.Entities
 {
-    public class MovieStar:Base
+    public class MoviePerson : Base
     {
         public int MovieID { get; set; }
         public int PersonID { get; set; }
+        public int JobID { get; set; }
 
 
         [ForeignKey("PersonID")]

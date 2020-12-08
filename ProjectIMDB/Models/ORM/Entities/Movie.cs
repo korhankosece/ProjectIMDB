@@ -17,9 +17,7 @@ namespace ProjectIMDB.Models.ORM.Entities
         public List<Rate> Rates { get; set; }
         public List<WatchList> WatchLists { get; set; }
         public List<MovieGenre> MovieGenres { get; set; }
-        public List<MovieStar> MovieStars { get; set; }
-        public List<MovieScenarist> MovieScenarists { get; set; }
-        public List<MovieDirector> MovieDirectors { get; set; }
+        public List<MoviePerson> MoviePeople { get; set; }
 
 
     }
