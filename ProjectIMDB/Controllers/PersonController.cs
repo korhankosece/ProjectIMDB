@@ -75,14 +75,6 @@ namespace ProjectIMDB.Controllers
 
                 int PersonID = person.ID;
 
-                List<EnumJob> enumList = new List<EnumJob>();
-                enumList.Add(EnumJob.Director);
-                enumList.Add(EnumJob.Star);
-                enumList.Add(EnumJob.Scenarist);
-
-                List<string> stringList = enumList.ConvertAll(f => f.ToString());
-                model.jobs = stringList;
-
                 foreach (var item in jobarray)
                 {
                     PersonJob personJob = new PersonJob();

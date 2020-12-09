@@ -41,7 +41,6 @@ namespace ProjectIMDB.Controllers
             MovieVM model = new MovieVM();
             model.genres = _context.Genres.ToList();
 
-
             return View(model);
         }
 
@@ -61,8 +60,6 @@ namespace ProjectIMDB.Controllers
                 _context.SaveChanges();
 
                 int MovieID = movie.ID;
-                model.genres = _context.Genres.ToList();
-
 
                 foreach (var item in genrearray)
                 {
