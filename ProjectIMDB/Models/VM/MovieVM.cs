@@ -37,11 +37,8 @@ namespace ProjectIMDB.Models.VM
 
         [DisplayName("Update Date")]
         public DateTime updatedate { get; set; } = DateTime.Now;
-
-
-
+        public List<MovieGenre> moviegenres { get; set; }
         public List<Genre> genres { get; set; }
-
 
 
     }

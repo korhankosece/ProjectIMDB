@@ -20,7 +20,7 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
-            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
+            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
             {
                 id = q.ID,
                 name = q.Name,
@@ -29,7 +29,7 @@ namespace ProjectIMDB.Controllers
                 posterurl = q.PosterURL,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-                genres = q.MovieGenres.Select(q => q.Genre).ToList()
+                moviegenres = q.MovieGenres.Where(x => x.IsDeleted == false).ToList()
 
             })  .ToList();
 
@@ -64,8 +64,8 @@ namespace ProjectIMDB.Controllers
                 foreach (var item in genrearray)
                 {
                     MovieGenre movieGenre = new MovieGenre();
-                    movieGenre.GenreID = item;
                     movieGenre.MovieID = MovieID;
+                    movieGenre.GenreID = item;
 
                     _context.MovieGenres.Add(movieGenre);
                 }
@@ -82,8 +82,6 @@ namespace ProjectIMDB.Controllers
 
         }
 
-
-
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -97,14 +95,16 @@ namespace ProjectIMDB.Controllers
 
         public IActionResult Edit(int id)
         {
-            Movie movie = _context.Movies.FirstOrDefault(x => x.ID == id);
+            Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).FirstOrDefault(x => x.ID == id);
             MovieVM model = new MovieVM();
 
             model.id = movie.ID;
             model.name = movie.Name;
-            model.duration = movie.Name;
+            model.duration = movie.Duration;
             model.releasedate = movie.ReleaseDate;
             model.posterurl = movie.PosterURL;
+            model.genres = _context.Genres.ToList();
+            model.moviegenres = movie.MovieGenres.Where(x => x.IsDeleted == false).ToList();
 
             return View(model);
 
@@ -112,9 +112,9 @@ namespace ProjectIMDB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(MovieVM model)
+        public IActionResult Edit(MovieVM model, int[] genrearray)
         {
-            Movie movie = _context.Movies.FirstOrDefault(x => x.ID == model.id);
+            Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).FirstOrDefault(x => x.ID == model.id);
 
             if (ModelState.IsValid)
             {
@@ -125,6 +125,26 @@ namespace ProjectIMDB.Controllers
                 movie.UpdateDate = model.updatedate;
 
                 _context.SaveChanges();
+
+                int MovieID = movie.ID;
+                List<MovieGenre> movie2 = movie.MovieGenres.ToList();
+
+                foreach (var item in movie2)
+                {
+                    item.IsDeleted = true;
+                }
+
+                foreach (var item in genrearray)
+                {
+                    MovieGenre movieGenre = new MovieGenre();
+                    movieGenre.GenreID = item;
+                    movieGenre.MovieID = MovieID;
+
+                    _context.MovieGenres.Add(movieGenre);
+                }
+                
+                _context.SaveChanges();
+
                 return RedirectToAction("Index", "Movie");
             }
             else
@@ -133,7 +153,6 @@ namespace ProjectIMDB.Controllers
             }
 
         }
-
 
     }
 }

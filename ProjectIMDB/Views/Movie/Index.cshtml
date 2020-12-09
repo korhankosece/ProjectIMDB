@@ -57,9 +57,9 @@
                                     <td>@item.posterurl</td>
                                     <td>@item.adddate</td>
                                     <td>@item.updatedate</td>
-                                    <td>@foreach (var item2 in item.genres)
+                                    <td>@foreach (var item2 in item.moviegenres)
                                     {
-                                        <span>@item2.Name/</span>
+                                        <span>@item2.Genre.Name/</span>
                                     }
 
                                     </td>
