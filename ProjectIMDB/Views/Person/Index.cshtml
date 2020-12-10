@@ -37,7 +37,7 @@
                                     <th>Name</th>
                                     <th>Surname</th>
                                     <th>Birth Date</th>
-                                    <th>Nationality</th>
+                                    <th>Country</th>
                                     <th>Jobs</th>
                                     <th>Add Date</th>
                                     <th>Update Date</th>
@@ -56,7 +56,7 @@
                                         <td>
                                             @item.birthdate?.ToString("dd MMMM yyyy")
                                         </td>
-                                        <td>@item.nationality</td>
+                                        <td>@item.country</td>
                                         <td>
                                             @foreach (var item2 in item.jobs)
                                             {

@@ -30,15 +30,11 @@ namespace ProjectIMDB.Controllers
                 name = q.Name,
                 surname = q.SurName,
                 birthdate = q.BirthDate,
-                nationality = q.Nationality,
+                country = q.Country,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-                jobs = q.PersonJobs.Select(q => q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
+                jobs = q.PersonJobs.Where(x => x.IsDeleted == false).Select(q => q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
                (q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString() : EnumJob.Star.ToString())).ToList(),
-
-                //jobs = (from action in (EnumJob[])Enum.GetValues(typeof(EnumJob)) select action.ToString()).ToList()
-                // jobs = q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director.ToString() :
-                //(q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist.ToString() : EnumJob.Star.ToString())
 
             }).ToList();
 
@@ -68,7 +64,7 @@ namespace ProjectIMDB.Controllers
                 person.Name = model.name;
                 person.SurName = model.surname;
                 person.BirthDate = model.birthdate;
-                person.Nationality = model.nationality;
+                person.Country = model.country;
 
                 _context.People.Add(person);
                 _context.SaveChanges();
@@ -117,34 +113,72 @@ namespace ProjectIMDB.Controllers
         public IActionResult Edit(int id)
         {
             PersonVM personVM = new PersonVM();
-            Person person = _context.People.FirstOrDefault(q => q.ID == id);
+            Person person = _context.People.Include(q => q.PersonJobs).FirstOrDefault(q => q.ID == id);
             personVM.id = person.ID;
             personVM.name = person.Name;
             personVM.surname = person.SurName;
-            personVM.nationality = person.Nationality;
+            personVM.country = person.Country;
             personVM.birthdate = person.BirthDate;
+
+
+            personVM.selectedJobs = person.PersonJobs.Where(x => x.IsDeleted == false).Select(q => q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director :
+               (q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist: EnumJob.Star)).ToList();
+
+
+            List<EnumJob> model = new List<EnumJob>();
+            model.Add(EnumJob.Director);
+            model.Add(EnumJob.Star);
+            model.Add(EnumJob.Scenarist);
+            personVM.enumJobs = model;
 
             return View(personVM);
         }
 
         [HttpPost]
-        public IActionResult Edit(PersonVM model)
+        public IActionResult Edit(PersonVM model, int[] selectedJobs)
         {
-            Person person = _context.People.FirstOrDefault(q => q.ID == model.id);
+            Person person = _context.People.Include(q => q.PersonJobs).FirstOrDefault(q => q.ID == model.id);
 
             if (ModelState.IsValid)
             {
                 person.Name = model.name;
                 person.SurName = model.surname;
-                person.Nationality = model.nationality;
+                person.Country = model.country;
                 person.BirthDate = model.birthdate;
                 person.UpdateDate = model.updatedate;
 
                 _context.SaveChanges();
+
+                int PersonID = person.ID;
+
+                List<PersonJob> model2 = person.PersonJobs.ToList();
+
+                foreach (var item in model2)
+                {
+                    item.IsDeleted = true;
+                }
+
+                foreach (var item in selectedJobs)
+                {
+                    PersonJob personJob = new PersonJob();
+                    personJob.PersonID = PersonID;
+                    personJob.JobID = item;
+
+                    _context.PersonJobs.Add(personJob);
+                }
+
+                _context.SaveChanges();
+
                 return RedirectToAction("Index", "Person");
             }
             else
             {
+                List<EnumJob> jobmodel = new List<EnumJob>();
+                jobmodel.Add(EnumJob.Director);
+                jobmodel.Add(EnumJob.Star);
+                jobmodel.Add(EnumJob.Scenarist);
+                ViewBag.jobbag = jobmodel;
+
                 return View();
             }
 

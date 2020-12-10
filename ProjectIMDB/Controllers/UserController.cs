@@ -27,7 +27,7 @@ namespace ProjectIMDB.Controllers
                 name = q.Name,
                 surname = q.SurName,
                 birthdate = q.BirthDate,
-                nationality = q.Nationality,
+                country = q.Country,
                 email = q.EMail,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,

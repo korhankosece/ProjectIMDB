@@ -13,7 +13,7 @@ namespace ProjectIMDB.Models.VM
         public string name { get; set; }
         public string surname { get; set; }
         public DateTime birthdate { get; set; }
-        public string nationality { get; set; }
+        public string country { get; set; }
 
         [DisplayName("EMail")]
         [Required(ErrorMessage = "The Email field is required")]

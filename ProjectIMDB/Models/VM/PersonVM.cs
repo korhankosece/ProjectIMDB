@@ -23,9 +23,9 @@ namespace ProjectIMDB.Models.VM
         [DisplayName("Birth Date")]
         public DateTime? birthdate { get; set; }
 
-        [DisplayName("Nationality")]
-        [Required(ErrorMessage = "The nationality field is required.")]
-        public string nationality { get; set; }
+        [DisplayName("Country")]
+        [Required(ErrorMessage = "The country field is required.")]
+        public string country { get; set; }
 
         [DisplayName("Add Date")]
         public DateTime adddate { get; set; }
@@ -35,11 +35,13 @@ namespace ProjectIMDB.Models.VM
 
 
 
+
+
+        public List<string> jobs { get; set; }
+        public List<EnumJob> enumJobs { get; set; }
         [DisplayName("Jobs")]
         [Required(ErrorMessage = "Jobs field is required.")]
-        public List<string> jobs { get; set; }
-
-        public List<EnumJob> enumJobs { get; set; }
+        public List<EnumJob> selectedJobs { get; set; }
 
         //public List<int> jobarray { get; set; }
 
