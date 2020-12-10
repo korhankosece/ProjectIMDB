@@ -35,9 +35,9 @@
 </div>
 
 <div class="form-group row">
-    @Html.LabelFor(q => q.genrearray, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    @Html.LabelFor(q => q.genres, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
-        <select name="genrearray" class="select2 form-control" multiple="multiple">
+        <select name="genres" class="select2 form-control" multiple="multiple">
             @if (Model != null)
             {
                 @foreach (var item in Model.genres)
@@ -60,6 +60,6 @@
                 }
             }
         </select>
-        @Html.ValidationMessageFor(q => q.genrearray, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(q => q.genres, "", new { @class = "text-danger" })
     </div>
 </div>

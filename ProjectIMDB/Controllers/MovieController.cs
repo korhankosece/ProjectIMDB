@@ -46,7 +46,7 @@ namespace ProjectIMDB.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(MovieVM model, int[] genrearray)
+        public IActionResult Add(MovieVM model, int[] genres)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace ProjectIMDB.Controllers
 
                 int MovieID = movie.ID;
 
-                foreach (var item in genrearray)
+                foreach (var item in genres)
                 {
                     MovieGenre movieGenre = new MovieGenre();
                     movieGenre.MovieID = MovieID;
@@ -114,7 +114,7 @@ namespace ProjectIMDB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(MovieVM model, int[] genrearray)
+        public IActionResult Edit(MovieVM model, int[] genres)
         {
             Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).FirstOrDefault(x => x.ID == model.id);
 
@@ -136,7 +136,7 @@ namespace ProjectIMDB.Controllers
                     item.IsDeleted = true;
                 }
 
-                foreach (var item in genrearray)
+                foreach (var item in genres)
                 {
                     MovieGenre movieGenre = new MovieGenre();
                     movieGenre.GenreID = item;

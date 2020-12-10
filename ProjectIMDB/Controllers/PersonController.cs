@@ -59,7 +59,7 @@ namespace ProjectIMDB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(PersonVM model, int[] jobarray)
+        public IActionResult Add(PersonVM model, int[] jobs)
         {
 
             if (ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace ProjectIMDB.Controllers
 
                 int PersonID = person.ID;
 
-                foreach (var item in jobarray)
+                foreach (var item in jobs)
                 {
                     PersonJob personJob = new PersonJob();
                     personJob.PersonID = PersonID;
