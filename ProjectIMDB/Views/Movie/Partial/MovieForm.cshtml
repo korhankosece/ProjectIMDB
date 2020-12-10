@@ -38,17 +38,23 @@
     @Html.LabelFor(q => q.genres, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
         <select name="genres" class="select2 form-control" multiple="multiple">
+            <option value="" hidden disabled>Please select genres</option>
             @if (Model != null)
             {
-                @foreach (var item in Model.genres)
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-                @if (Model.moviegenres != null)
+                List<int> selected = new List<int>();
+                if (Model.moviegenres != null)
                 {
                     foreach (var item in Model.moviegenres)
                     {
                         <option selected value="@item.Genre.ID">@item.Genre.Name</option>
+                        selected.Add(item.Genre.ID);
+                    }
+                }
+                foreach (var item in Model.genres)
+                {
+                    if (!selected.Contains(item.ID))
+                    {
+                        <option value="@item.ID">@item.Name</option>
                     }
                 }
             }

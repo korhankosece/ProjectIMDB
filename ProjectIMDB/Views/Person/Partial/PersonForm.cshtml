@@ -34,11 +34,24 @@
     <div class="col-md-9">
         <select name="jobs" class="select2 form-control" multiple="multiple">
             <option value="" hidden disabled>Please select jobs</option>
+
             @if (Model != null)
             {
+                List<int> selected = new List<int>();
+                @*if (Model. != null)
+                    {
+                        foreach (var item in Model.moviegenres)
+                        {
+                            <option selected value="@item.Genre.ID">@item.Genre.Name</option>
+                            selected.Add(item.Genre.ID);
+                        }
+                    }*@
                 foreach (var item in Model.enumJobs)
                 {
+                    //if (!selected.Contains(item.ID))
+                    //{
                     <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                    //}
                 }
             }
             else
