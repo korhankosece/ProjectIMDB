@@ -35,22 +35,31 @@
 </div>
 
 <div class="form-group row">
-    <label class="col-sm-3 text-right control-label col-form-label">Multiple Select</label>
+    @Html.LabelFor(q => q.genrearray, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
         <select name="genrearray" class="select2 form-control" multiple="multiple">
-            @if (Model.moviegenres != null)
+            @if (Model != null)
             {
-                foreach (var item in Model.moviegenres)
+                @foreach (var item in Model.genres)
                 {
-                    <option selected value="@item.Genre.ID">@item.Genre.Name</option>
+                    <option value="@item.ID">@item.Name</option>
+                }
+                @if (Model.moviegenres != null)
+                {
+                    foreach (var item in Model.moviegenres)
+                    {
+                        <option selected value="@item.Genre.ID">@item.Genre.Name</option>
+                    }
                 }
             }
-
-            @foreach (var item in Model.genres)
+            else
             {
-                <option value="@item.ID">@item.Name</option>
+                foreach (var item in ViewBag.genresbag)
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
             }
-
         </select>
+        @Html.ValidationMessageFor(q => q.genrearray, "", new { @class = "text-danger" })
     </div>
 </div>

@@ -30,13 +30,25 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-sm-3 text-right control-label col-form-label">Multiple Select</label>
+    @Html.LabelFor(q => q.jobarray, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
         <select name="jobarray" class="select2 form-control" multiple="multiple">
-            @foreach (var item in Model.enumJobs)
+            <option value="" hidden disabled>Please select jobs</option>
+            @if (Model != null)
             {
-            <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                foreach (var item in Model.enumJobs)
+                {
+                    <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                }
+            }
+            else
+            {
+                foreach (var item in ViewBag.jobbag)
+                {
+                    <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                }
             }
         </select>
+        @Html.ValidationMessageFor(q => q.jobarray, "", new { @class = "text-danger" })
     </div>
 </div>

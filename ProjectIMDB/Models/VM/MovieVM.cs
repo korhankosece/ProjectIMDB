@@ -40,6 +40,10 @@ namespace ProjectIMDB.Models.VM
         public List<MovieGenre> moviegenres { get; set; }
         public List<Genre> genres { get; set; }
 
+        [DisplayName("Genres")]
+        [Required(ErrorMessage = "Genres field is required.")]
+        public List<int> genrearray { get; set; }
+
 
     }
 }

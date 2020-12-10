@@ -76,6 +76,8 @@ namespace ProjectIMDB.Controllers
 
             else
             {
+                ViewBag.genresbag = _context.Genres.ToList();
+
                 return View();
 
             }
@@ -149,6 +151,8 @@ namespace ProjectIMDB.Controllers
             }
             else
             {
+                ViewBag.genresbag = _context.Genres.ToList();
+
                 return View();
             }
 

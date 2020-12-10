@@ -21,7 +21,6 @@ namespace ProjectIMDB.Models.VM
         public string surname { get; set; }
 
         [DisplayName("Birth Date")]
-        [Required(ErrorMessage = "The birth date field is required.")]
         public DateTime? birthdate { get; set; }
 
         [DisplayName("Nationality")]
@@ -35,7 +34,14 @@ namespace ProjectIMDB.Models.VM
         public DateTime updatedate { get; set; } = DateTime.Now;
 
 
+
         public List<string> jobs { get; set; }
+
         public List<EnumJob> enumJobs { get; set; }
+
+        [DisplayName("Jobs")]
+        [Required(ErrorMessage = "Jobs field is required.")]
+        public List<int> jobarray { get; set; }
+
     }
 }

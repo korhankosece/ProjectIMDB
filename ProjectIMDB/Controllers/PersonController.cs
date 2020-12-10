@@ -91,6 +91,14 @@ namespace ProjectIMDB.Controllers
 
             else
             {
+                List<EnumJob> jobmodel = new List<EnumJob>();
+                jobmodel.Add(EnumJob.Director);
+                jobmodel.Add(EnumJob.Star);
+                jobmodel.Add(EnumJob.Scenarist);
+
+                ViewBag.jobbag = jobmodel;
+
+
                 return View();
 
             }
