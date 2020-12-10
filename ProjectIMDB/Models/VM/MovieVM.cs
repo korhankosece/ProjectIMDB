@@ -1,4 +1,5 @@
-﻿using ProjectIMDB.Models.ORM.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using ProjectIMDB.Models.ORM.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,8 +28,8 @@ namespace ProjectIMDB.Models.VM
         public DateTime releasedate { get; set; }
 
 
-        [DisplayName("Poster URL")]
-        [Required(ErrorMessage = "The poster url field is required")]
+        public IFormFile movieposter { set; get; }
+
         public string posterurl { get; set; }
 
 

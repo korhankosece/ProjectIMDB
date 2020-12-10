@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace ProjectIMDB.Controllers
                 updatedate = q.UpdateDate,
                 moviegenres = q.MovieGenres.Where(x => x.IsDeleted == false).ToList()
 
-            })  .ToList();
+            }).ToList();
 
             return View(movies);
         }
@@ -48,13 +49,27 @@ namespace ProjectIMDB.Controllers
         [HttpPost]
         public IActionResult Add(MovieVM model, int[] genres)
         {
+            string imagepath = "";
+            if (model.movieposter != null)
+            {
+                var guid = Guid.NewGuid().ToString();
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot/adminsite/movieposter", guid + ".jpg");
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    model.movieposter.CopyTo(stream);
+                }
+                imagepath = guid + ".jpg";
+            }
+
             if (ModelState.IsValid)
             {
                 Movie movie = new Movie();
                 movie.Name = model.name;
                 movie.Duration = model.duration;
                 movie.ReleaseDate = model.releasedate;
-                movie.PosterURL = model.posterurl;
+                movie.PosterURL = imagepath;
 
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
@@ -108,6 +123,14 @@ namespace ProjectIMDB.Controllers
             model.genres = _context.Genres.ToList();
             model.moviegenres = movie.MovieGenres.Where(x => x.IsDeleted == false).ToList();
 
+            //var path = Path.Combine(Directory.GetCurrentDirectory(),
+            //"wwwroot/adminsite/movieposter", movie.PosterURL);
+
+            //var imageFileStream = System.IO.File.OpenRead(path);
+            //model.movieposter = File(imageFileStream, "image/jpeg");
+
+
+
             return View(model);
 
 
@@ -144,7 +167,7 @@ namespace ProjectIMDB.Controllers
 
                     _context.MovieGenres.Add(movieGenre);
                 }
-                
+
                 _context.SaveChanges();
 
                 return RedirectToAction("Index", "Movie");
