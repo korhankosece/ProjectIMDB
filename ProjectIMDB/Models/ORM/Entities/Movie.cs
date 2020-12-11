@@ -18,7 +18,7 @@ namespace ProjectIMDB.Models.ORM.Entities
         public List<WatchList> WatchLists { get; set; }
         public List<MovieGenre> MovieGenres { get; set; }
         public List<MoviePerson> MoviePeople { get; set; }
-        public List<PersonJob> PeopleJob { get; set; }
+
 
 
 

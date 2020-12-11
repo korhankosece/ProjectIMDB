@@ -31,7 +31,7 @@ namespace ProjectIMDB.Controllers
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
                 moviegenres = q.MovieGenres.Where(x => x.IsDeleted == false).ToList(),
-                moviepeople = q.MoviePeople.ToList()
+                moviepeople = q.MoviePeople.Where(x => x.IsDeleted == false).ToList()
 
             }).ToList();
 
@@ -42,7 +42,9 @@ namespace ProjectIMDB.Controllers
         {
             MovieVM model = new MovieVM();
             model.genres = _context.Genres.ToList();
-            model.people = _context.People.Include(q=>q.PersonJobs).ToList();
+            model.personJobs = _context.PersonJobs.Include(q=>q.Person).Where(x => x.IsDeleted == false).ToList();
+
+            model.people = _context.People.Include(q=>q.PersonJobs).Where(x => x.IsDeleted == false).ToList();
             //model.scenarists = _context.People.Where(x => x.JobID == 1).ToList();
             //model.stars = _context.People.Where(x => x.JobID == 1).ToList();
 
@@ -53,7 +55,7 @@ namespace ProjectIMDB.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(MovieVM model, int[] genres, List<Person> people)
+        public IActionResult Add(MovieVM model, int[] genres, List<PersonJob> people)
         {
             string imagepath = "";
             if (model.movieposter != null)
@@ -94,7 +96,7 @@ namespace ProjectIMDB.Controllers
                 {
                     MoviePerson moviePerson = new MoviePerson();
                     moviePerson.MovieID = MovieID;
-                    moviePerson.PersonID = item.ID;
+                    moviePerson.PersonID = item.PersonID;
                     moviePerson.JobID = item.JobID;
                 }
 

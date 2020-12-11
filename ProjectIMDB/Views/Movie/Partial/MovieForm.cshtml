@@ -95,11 +95,11 @@
                         selected.Add(item.Person.ID);
                     }
                 }
-                foreach (var item in Model.personjobs.Where(q => q.JobID == 1))
+                foreach (var item in Model.personJobs.Where(q => q.JobID == 1))
                 {
                     if (!selected.Contains(item.PersonID))
                     {
-                        <option value="@item.PersonID">@item.Person.Name  @item.Person.SurName</option>
+                        <option value="@item"> @item.Person.Name  @item.Person.SurName </option>
                     }
                 }
             }
@@ -137,21 +137,35 @@
                         selected.Add(item.Person.ID);
                     }
                 }
-                foreach (var item in Model.people.per.Where(q => q.People == 2))
+                foreach (var item in Model.personJobs.Where(q => q.JobID == 2))
                 {
                     if (!selected.Contains(item.PersonID))
                     {
-                        <option value="@item.PersonID">@item.Person.Name  @item.Person.SurName</option>
+                        <option value="@item"> @item.Person.Name  @item.Person.SurName </option>
                     }
                 }
+
+                @*List<int> distinct = new List<int>();
+                    foreach (var item in Model.people)
+                    {
+
+                        if (!selected.Contains(item.ID))
+                        {
+                            if (!distinct.Contains(item.PersonID))
+                            {
+                                distinct.Add();
+                                <option value="@item.Person.ID"> @item.Person.Name  @item.Person.SurName </option>
+                            }
+                        }
+                    }*@
             }
             @*else
-        {
-            foreach (var item in ViewBag.genresbag)
-            {
-                <option value="@item.ID">@item.Name</option>
-            }
-        }*@
+                {
+                    foreach (var item in ViewBag.genresbag)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                }*@
         </select>
         @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
     </div>
@@ -179,20 +193,22 @@
                         selected.Add(item.Person.ID);
                     }
                 }
-                foreach (var item in Model.personjobs.Where(q => q.JobID == 3))
+                List<int> distinct = new List<int>();
+                foreach (var item in Model.personJobs.Where(q => q.JobID == 3))
+                {
                     if (!selected.Contains(item.PersonID))
                     {
-                        <option value="@item.PersonID">@item.Person.Name  @item.Person.SurName</option>
+                        <option value="@item"> @item.Person.Name  @item.Person.SurName </option>
                     }
-            }
+                }
             }
             @*else
-        {
-            foreach (var item in ViewBag.genresbag)
-            {
-                <option value="@item.ID">@item.Name</option>
-            }
-        }*@
+                {
+                    foreach (var item in ViewBag.genresbag)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                }*@
         </select>
         @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
     </div>

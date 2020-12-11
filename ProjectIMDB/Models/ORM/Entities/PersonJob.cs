@@ -16,8 +16,5 @@ namespace ProjectIMDB.Models.ORM.Entities
         [ForeignKey("PersonID")]
         public Person Person { get; set; }
 
-
-        [ForeignKey("MovieID")]
-        public Movie Movie { get; set; }
     }
 }

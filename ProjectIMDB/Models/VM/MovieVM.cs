@@ -51,7 +51,10 @@ namespace ProjectIMDB.Models.VM
         //public List<int> genrearray { get; set; }
 
         public List<MoviePerson> moviepeople { get; set; }
+        public List<PersonJob> personJobs { get; set; }
         public List<Person> people { get; set; }
+
+
         //public List<Person> scenarists { get; set; }
         //public List<Person> stars { get; set; }
 
