@@ -21,7 +21,7 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
-            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
+            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson=>MoviePerson.Person).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
             {
                 id = q.ID,
                 name = q.Name,
@@ -30,7 +30,8 @@ namespace ProjectIMDB.Controllers
                 posterurl = q.PosterURL,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-                moviegenres = q.MovieGenres.Where(x => x.IsDeleted == false).ToList()
+                moviegenres = q.MovieGenres.Where(x => x.IsDeleted == false).ToList(),
+                moviepeople = q.MoviePeople.ToList()
 
             }).ToList();
 
@@ -41,13 +42,18 @@ namespace ProjectIMDB.Controllers
         {
             MovieVM model = new MovieVM();
             model.genres = _context.Genres.ToList();
+            model.people = _context.People.Include(q=>q.PersonJobs).ToList();
+            //model.scenarists = _context.People.Where(x => x.JobID == 1).ToList();
+            //model.stars = _context.People.Where(x => x.JobID == 1).ToList();
+
+
 
             return View(model);
         }
 
 
         [HttpPost]
-        public IActionResult Add(MovieVM model, int[] genres)
+        public IActionResult Add(MovieVM model, int[] genres, List<Person> people)
         {
             string imagepath = "";
             if (model.movieposter != null)
@@ -84,6 +90,15 @@ namespace ProjectIMDB.Controllers
 
                     _context.MovieGenres.Add(movieGenre);
                 }
+                foreach (var item in people)
+                {
+                    MoviePerson moviePerson = new MoviePerson();
+                    moviePerson.MovieID = MovieID;
+                    moviePerson.PersonID = item.ID;
+                    moviePerson.JobID = item.JobID;
+                }
+
+
                 _context.SaveChanges();
 
                 return RedirectToAction("Index", "Movie");

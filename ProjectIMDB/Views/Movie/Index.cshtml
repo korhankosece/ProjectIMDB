@@ -41,6 +41,9 @@
                                     <th>Add Date</th>
                                     <th>Update Date</th>
                                     <th>Genre</th>
+                                    <th>Directors</th>
+                                    <th>Scenarists</th>
+                                    <th>Stars</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -57,14 +60,40 @@
                                     <td>@item.adddate</td>
                                     <td>@item.updatedate</td>
                                     <td>
-                                        @foreach (var item2 in item.moviegenres)
+                                        @foreach (var genre in item.moviegenres)
                                         {
-                                            <span>@item2.Genre.Name/</span>
+                                            <span>@genre.Genre.Name/</span>
                                         }
 
-                                </td>
-                                <td><a href="/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
-                                <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
+                                    </td>
+
+                                    <td>
+                                        @foreach (var director in item.moviepeople.Where(q => q.JobID == 1))
+                                        {
+                                            <span>@director.Person.Name @director.Person.SurName /</span>
+                                        }
+
+                                    </td>
+
+
+                                    <td>
+                                        @foreach (var scenarist in item.moviepeople.Where(q => q.JobID == 2))
+                                        {
+                                            <span>@scenarist.Person.Name @scenarist.Person.SurName /</span>
+                                        }
+
+                                    </td>
+
+
+                                    <td>
+                                        @foreach (var star in item.moviepeople.Where(q => q.JobID == 3))
+                                        {
+                                            <span>@star.Person.Name @star.Person.SurName /</span>
+                                        }
+
+                                    </td>
+                                    <td><a href="/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                    <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
                                 </tr>
                                 }
                             </tbody>

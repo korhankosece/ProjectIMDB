@@ -12,7 +12,12 @@ namespace ProjectIMDB.Models.ORM.Entities
         public int JobID { get; set; }
 
 
+
         [ForeignKey("PersonID")]
         public Person Person { get; set; }
+
+
+        [ForeignKey("MovieID")]
+        public Movie Movie { get; set; }
     }
 }

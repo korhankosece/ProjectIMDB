@@ -18,11 +18,11 @@
     </div>
 </div>
 @*<div class="form-group row">
-    <div class="col-sm-9">
-        @Html.TextBoxFor(q => q.posterurl, new { @placeholder = "Enter poster URL", @class = "form-control", @id = "posterurl" })
-        @Html.ValidationMessageFor(q => q.posterurl, "", new { @class = "text-danger" })
-    </div>
-</div>*@
+        <div class="col-sm-9">
+            @Html.TextBoxFor(q => q.posterurl, new { @placeholder = "Enter poster URL", @class = "form-control", @id = "posterurl" })
+            @Html.ValidationMessageFor(q => q.posterurl, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
 <div class="form-group">
     @Html.LabelFor(q => q.movieposter, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <input type="file" name="movieposter" value="" multiple accept="image/x-png,image/gif,image/jpeg" />
@@ -72,3 +72,129 @@
         @Html.ValidationMessageFor(q => q.genres, "", new { @class = "text-danger" })
     </div>
 </div>
+
+
+
+<div class="form-group row">
+    @*@Html.LabelFor(q => q.people, new { @class = "col-sm-3 text-right control-label col-form-label" })*@
+    <label for="director" class="col-sm-3 text-right control-label col-form-label">Directors</label>
+
+
+    <div class="col-md-9">
+
+        <select id="director" name="people" class="select2 form-control" multiple="multiple">
+            <option value="" hidden disabled>Please select director</option>
+            @if (Model != null)
+            {
+                List<int> selected = new List<int>();
+                if (Model.moviepeople != null)
+                {
+                    foreach (var item in Model.moviepeople.Where(q => q.JobID == 1))
+                    {
+                        <option selected value="@item.ID">@item.Person.Name @item.Person.SurName</option>
+                        selected.Add(item.Person.ID);
+                    }
+                }
+                foreach (var item in Model.personjobs.Where(q => q.JobID == 1))
+                {
+                    if (!selected.Contains(item.PersonID))
+                    {
+                        <option value="@item.PersonID">@item.Person.Name  @item.Person.SurName</option>
+                    }
+                }
+            }
+            @*else
+                {
+                    foreach (var item in ViewBag.genresbag)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                }*@
+        </select>
+        @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
+    </div>
+</div>
+
+
+
+<div class="form-group row">
+    @*@Html.LabelFor(q => q.people, new { @class = "col-sm-3 text-right control-label col-form-label" })*@
+    <label for="scenarist" class="col-sm-3 text-right control-label col-form-label">Scenarists</label>
+
+
+    <div class="col-md-9">
+
+        <select id="scenarist" name="people" class="select2 form-control" multiple="multiple">
+            <option value="" hidden disabled>Please select scenarist</option>
+            @if (Model != null)
+            {
+                List<int> selected = new List<int>();
+                if (Model.moviepeople != null)
+                {
+                    foreach (var item in Model.moviepeople.Where(q => q.JobID == 2))
+                    {
+                        <option selected value="@item.ID">@item.Person.Name @item.Person.SurName</option>
+                        selected.Add(item.Person.ID);
+                    }
+                }
+                foreach (var item in Model.people.per.Where(q => q.People == 2))
+                {
+                    if (!selected.Contains(item.PersonID))
+                    {
+                        <option value="@item.PersonID">@item.Person.Name  @item.Person.SurName</option>
+                    }
+                }
+            }
+            @*else
+        {
+            foreach (var item in ViewBag.genresbag)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        }*@
+        </select>
+        @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
+    </div>
+</div>
+
+
+
+<div class="form-group row">
+    @*@Html.LabelFor(q => q.people, new { @class = "col-sm-3 text-right control-label col-form-label" })*@
+    <label for="star" class="col-sm-3 text-right control-label col-form-label">Stars</label>
+
+
+    <div class="col-md-9">
+
+        <select id="star" name="people" class="select2 form-control" multiple="multiple">
+            <option value="" hidden disabled>Please select star</option>
+            @if (Model != null)
+            {
+                List<int> selected = new List<int>();
+                if (Model.moviepeople != null)
+                {
+                    foreach (var item in Model.moviepeople.Where(q => q.JobID == 3))
+                    {
+                        <option selected value="@item.ID">@item.Person.Name @item.Person.SurName</option>
+                        selected.Add(item.Person.ID);
+                    }
+                }
+                foreach (var item in Model.personjobs.Where(q => q.JobID == 3))
+                    if (!selected.Contains(item.PersonID))
+                    {
+                        <option value="@item.PersonID">@item.Person.Name  @item.Person.SurName</option>
+                    }
+            }
+            }
+            @*else
+        {
+            foreach (var item in ViewBag.genresbag)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        }*@
+        </select>
+        @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
+    </div>
+</div>
+
