@@ -21,7 +21,7 @@ namespace ProjectIMDB.Controllers
         }
         public IActionResult Index()
         {
-            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson=>MoviePerson.Person).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
+            List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
             {
                 id = q.ID,
                 name = q.Name,
@@ -42,9 +42,9 @@ namespace ProjectIMDB.Controllers
         {
             MovieVM model = new MovieVM();
             model.genres = _context.Genres.ToList();
-            model.personJobs = _context.PersonJobs.Include(q=>q.Person).Where(x => x.IsDeleted == false).ToList();
+            model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
 
-            model.people = _context.People.Include(q=>q.PersonJobs).Where(x => x.IsDeleted == false).ToList();
+            model.people = _context.People.Include(q => q.PersonJobs).Where(x => x.IsDeleted == false).ToList();
             //model.scenarists = _context.People.Where(x => x.JobID == 1).ToList();
             //model.stars = _context.People.Where(x => x.JobID == 1).ToList();
 
@@ -55,7 +55,7 @@ namespace ProjectIMDB.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(MovieVM model, int[] genres, List<PersonJob> people)
+        public IActionResult Add(MovieVM model, int[] genres, int[] directorarray, int[] scenaristarray, int[] stararray)
         {
             string imagepath = "";
             if (model.movieposter != null)
@@ -92,13 +92,37 @@ namespace ProjectIMDB.Controllers
 
                     _context.MovieGenres.Add(movieGenre);
                 }
-                foreach (var item in people)
+                foreach (var item in directorarray)
                 {
                     MoviePerson moviePerson = new MoviePerson();
                     moviePerson.MovieID = MovieID;
-                    moviePerson.PersonID = item.PersonID;
-                    moviePerson.JobID = item.JobID;
+                    moviePerson.PersonID = item;
+                    moviePerson.JobID = 1;
+                    _context.MoviePeople.Add(moviePerson);
+
                 }
+
+                foreach (var item in scenaristarray)
+                {
+                    MoviePerson moviePerson = new MoviePerson();
+                    moviePerson.MovieID = MovieID;
+                    moviePerson.PersonID = item;
+                    moviePerson.JobID = 2;
+                    _context.MoviePeople.Add(moviePerson);
+
+                }
+
+
+                foreach (var item in stararray)
+                {
+                    MoviePerson moviePerson = new MoviePerson();
+                    moviePerson.MovieID = MovieID;
+                    moviePerson.PersonID = item;
+                    moviePerson.JobID = 3;
+                    _context.MoviePeople.Add(moviePerson);
+
+                }
+
 
 
                 _context.SaveChanges();
@@ -109,6 +133,8 @@ namespace ProjectIMDB.Controllers
             else
             {
                 ViewBag.genresbag = _context.Genres.ToList();
+                ViewBag.jobsbag = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
+
 
                 return View();
 

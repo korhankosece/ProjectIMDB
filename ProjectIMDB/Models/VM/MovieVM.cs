@@ -48,7 +48,9 @@ namespace ProjectIMDB.Models.VM
 
 
 
+
         //public List<int> genrearray { get; set; }
+
 
         public List<MoviePerson> moviepeople { get; set; }
         public List<PersonJob> personJobs { get; set; }

@@ -82,7 +82,7 @@
 
     <div class="col-md-9">
 
-        <select id="director" name="people" class="select2 form-control" multiple="multiple">
+        <select id="director" name="directorarray" class="select2 form-control" multiple="multiple">
             <option value="" hidden disabled>Please select director</option>
             @if (Model != null)
             {
@@ -99,19 +99,19 @@
                 {
                     if (!selected.Contains(item.PersonID))
                     {
-                        <option value="@item"> @item.Person.Name  @item.Person.SurName </option>
+                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName </option>
                     }
                 }
             }
-            @*else
+            else
                 {
-                    foreach (var item in ViewBag.genresbag)
+                    foreach (var item in ViewBag.jobsbag.Where(q => q.JobID == 1))
                     {
                         <option value="@item.ID">@item.Name</option>
                     }
-                }*@
+                }
         </select>
-        @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
+        @Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })
     </div>
 </div>
 
@@ -124,7 +124,7 @@
 
     <div class="col-md-9">
 
-        <select id="scenarist" name="people" class="select2 form-control" multiple="multiple">
+        <select id="scenarist" name="scenaristarray" class="select2 form-control" multiple="multiple">
             <option value="" hidden disabled>Please select scenarist</option>
             @if (Model != null)
             {
@@ -141,7 +141,7 @@
                 {
                     if (!selected.Contains(item.PersonID))
                     {
-                        <option value="@item"> @item.Person.Name  @item.Person.SurName </option>
+                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName </option>
                     }
                 }
 
@@ -159,13 +159,13 @@
                         }
                     }*@
             }
-            @*else
+            else
                 {
-                    foreach (var item in ViewBag.genresbag)
+                    foreach (var item in ViewBag.jobsbag)
                     {
                         <option value="@item.ID">@item.Name</option>
                     }
-                }*@
+                }
         </select>
         @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
     </div>
@@ -180,7 +180,7 @@
 
     <div class="col-md-9">
 
-        <select id="star" name="people" class="select2 form-control" multiple="multiple">
+        <select id="star" name="stararray" class="select2 form-control" multiple="multiple">
             <option value="" hidden disabled>Please select star</option>
             @if (Model != null)
             {
@@ -198,7 +198,7 @@
                 {
                     if (!selected.Contains(item.PersonID))
                     {
-                        <option value="@item"> @item.Person.Name  @item.Person.SurName </option>
+                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName </option>
                     }
                 }
             }
