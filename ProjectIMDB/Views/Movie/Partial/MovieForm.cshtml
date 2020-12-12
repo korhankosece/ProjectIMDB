@@ -76,10 +76,7 @@
 
 
 <div class="form-group row">
-    @*@Html.LabelFor(q => q.people, new { @class = "col-sm-3 text-right control-label col-form-label" })*@
-    <label for="director" class="col-sm-3 text-right control-label col-form-label">Directors</label>
-
-
+   @Html.LabelFor(q => q.directorarray, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
 
         <select id="director" name="directorarray" class="select2 form-control" multiple="multiple">
@@ -91,7 +88,7 @@
                 {
                     foreach (var item in Model.moviepeople.Where(q => q.JobID == 1))
                     {
-                        <option selected value="@item.ID">@item.Person.Name @item.Person.SurName</option>
+                        <option selected value="@item.Person.ID">@item.Person.Name @item.Person.SurName</option>
                         selected.Add(item.Person.ID);
                     }
                 }
@@ -104,24 +101,24 @@
                 }
             }
             else
+            {
+                foreach (var item in ViewBag.jobsbag)
                 {
-                    foreach (var item in ViewBag.jobsbag.Where(q => q.JobID == 1))
+                    if (item.JobID == 1)
                     {
-                        <option value="@item.ID">@item.Name</option>
+                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName</option>
                     }
                 }
+            }
         </select>
-        @Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(q => q.directorarray, "", new { @class = "text-danger" })
     </div>
 </div>
 
 
 
 <div class="form-group row">
-    @*@Html.LabelFor(q => q.people, new { @class = "col-sm-3 text-right control-label col-form-label" })*@
-    <label for="scenarist" class="col-sm-3 text-right control-label col-form-label">Scenarists</label>
-
-
+    @Html.LabelFor(q => q.scenaristarray, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
 
         <select id="scenarist" name="scenaristarray" class="select2 form-control" multiple="multiple">
@@ -133,7 +130,7 @@
                 {
                     foreach (var item in Model.moviepeople.Where(q => q.JobID == 2))
                     {
-                        <option selected value="@item.ID">@item.Person.Name @item.Person.SurName</option>
+                        <option selected value="@item.Person.ID">@item.Person.Name @item.Person.SurName</option>
                         selected.Add(item.Person.ID);
                     }
                 }
@@ -144,40 +141,26 @@
                         <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName </option>
                     }
                 }
-
-                @*List<int> distinct = new List<int>();
-                    foreach (var item in Model.people)
-                    {
-
-                        if (!selected.Contains(item.ID))
-                        {
-                            if (!distinct.Contains(item.PersonID))
-                            {
-                                distinct.Add();
-                                <option value="@item.Person.ID"> @item.Person.Name  @item.Person.SurName </option>
-                            }
-                        }
-                    }*@
             }
             else
+            {
+                foreach (var item in ViewBag.jobsbag)
                 {
-                    foreach (var item in ViewBag.jobsbag)
+                    if (item.JobID == 2)
                     {
-                        <option value="@item.ID">@item.Name</option>
+                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName</option>
                     }
                 }
+            }
         </select>
-        @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
+        @Html.ValidationMessageFor(q => q.scenaristarray, "", new { @class = "text-danger" })
     </div>
 </div>
 
 
 
 <div class="form-group row">
-    @*@Html.LabelFor(q => q.people, new { @class = "col-sm-3 text-right control-label col-form-label" })*@
-    <label for="star" class="col-sm-3 text-right control-label col-form-label">Stars</label>
-
-
+    @Html.LabelFor(q => q.stararray, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
 
         <select id="star" name="stararray" class="select2 form-control" multiple="multiple">
@@ -189,7 +172,7 @@
                 {
                     foreach (var item in Model.moviepeople.Where(q => q.JobID == 3))
                     {
-                        <option selected value="@item.ID">@item.Person.Name @item.Person.SurName</option>
+                        <option selected value="@item.Person.ID">@item.Person.Name @item.Person.SurName</option>
                         selected.Add(item.Person.ID);
                     }
                 }
@@ -202,15 +185,18 @@
                     }
                 }
             }
-            @*else
+            else
+            {
+                foreach (var item in ViewBag.jobsbag)
                 {
-                    foreach (var item in ViewBag.genresbag)
+                    if (item.JobID == 3)
                     {
-                        <option value="@item.ID">@item.Name</option>
+                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName</option>
                     }
-                }*@
+                }
+            }
         </select>
-        @*@Html.ValidationMessageFor(q => q.people, "", new { @class = "text-danger" })*@
+        @Html.ValidationMessageFor(q => q.stararray, "", new { @class = "text-danger" })
     </div>
 </div>
 

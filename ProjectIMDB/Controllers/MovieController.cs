@@ -44,12 +44,6 @@ namespace ProjectIMDB.Controllers
             model.genres = _context.Genres.ToList();
             model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
 
-            model.people = _context.People.Include(q => q.PersonJobs).Where(x => x.IsDeleted == false).ToList();
-            //model.scenarists = _context.People.Where(x => x.JobID == 1).ToList();
-            //model.stars = _context.People.Where(x => x.JobID == 1).ToList();
-
-
-
             return View(model);
         }
 
@@ -112,7 +106,6 @@ namespace ProjectIMDB.Controllers
 
                 }
 
-
                 foreach (var item in stararray)
                 {
                     MoviePerson moviePerson = new MoviePerson();
@@ -122,9 +115,6 @@ namespace ProjectIMDB.Controllers
                     _context.MoviePeople.Add(moviePerson);
 
                 }
-
-
-
                 _context.SaveChanges();
 
                 return RedirectToAction("Index", "Movie");
@@ -134,7 +124,6 @@ namespace ProjectIMDB.Controllers
             {
                 ViewBag.genresbag = _context.Genres.ToList();
                 ViewBag.jobsbag = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
-
 
                 return View();
 
@@ -155,7 +144,8 @@ namespace ProjectIMDB.Controllers
 
         public IActionResult Edit(int id)
         {
-            Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).FirstOrDefault(x => x.ID == id);
+            Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).FirstOrDefault(x => x.ID == id);
+
             MovieVM model = new MovieVM();
 
             model.id = movie.ID;
@@ -165,6 +155,9 @@ namespace ProjectIMDB.Controllers
             model.posterurl = movie.PosterURL;
             model.genres = _context.Genres.ToList();
             model.moviegenres = movie.MovieGenres.Where(x => x.IsDeleted == false).ToList();
+
+            model.moviepeople = movie.MoviePeople.Where(x => x.IsDeleted == false).ToList();
+            model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
 
             //var path = Path.Combine(Directory.GetCurrentDirectory(),
             //"wwwroot/adminsite/movieposter", movie.PosterURL);
@@ -180,9 +173,9 @@ namespace ProjectIMDB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(MovieVM model, int[] genres)
+        public IActionResult Edit(MovieVM model, int[] genres, int[] directorarray, int[] scenaristarray, int[] stararray)
         {
-            Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).FirstOrDefault(x => x.ID == model.id);
+            Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).FirstOrDefault(x => x.ID == model.id);
 
             if (ModelState.IsValid)
             {
@@ -211,6 +204,44 @@ namespace ProjectIMDB.Controllers
                     _context.MovieGenres.Add(movieGenre);
                 }
 
+                List<MoviePerson> moviePeople = movie.MoviePeople.ToList();
+
+                foreach (var item in moviePeople)
+                {
+                    _context.MoviePeople.Remove(item);
+                    //item.IsDeleted = true;
+                }
+
+                foreach (var item in directorarray)
+                {
+                    MoviePerson moviePerson = new MoviePerson();
+                    moviePerson.MovieID = MovieID;
+                    moviePerson.PersonID = item;
+                    moviePerson.JobID = 1;
+                    _context.MoviePeople.Add(moviePerson);
+
+                }
+
+                foreach (var item in scenaristarray)
+                {
+                    MoviePerson moviePerson = new MoviePerson();
+                    moviePerson.MovieID = MovieID;
+                    moviePerson.PersonID = item;
+                    moviePerson.JobID = 2;
+                    _context.MoviePeople.Add(moviePerson);
+
+                }
+
+                foreach (var item in stararray)
+                {
+                    MoviePerson moviePerson = new MoviePerson();
+                    moviePerson.MovieID = MovieID;
+                    moviePerson.PersonID = item;
+                    moviePerson.JobID = 3;
+                    _context.MoviePeople.Add(moviePerson);
+
+                }
+
                 _context.SaveChanges();
 
                 return RedirectToAction("Index", "Movie");
@@ -218,6 +249,7 @@ namespace ProjectIMDB.Controllers
             else
             {
                 ViewBag.genresbag = _context.Genres.ToList();
+                ViewBag.jobsbag = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
 
                 return View();
             }
