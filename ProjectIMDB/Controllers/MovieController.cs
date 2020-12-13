@@ -273,5 +273,14 @@ namespace ProjectIMDB.Controllers
 
         }
 
+        public IActionResult Detail(int id)
+        {
+            
+            Movie movie = _context.Movies.Include(q=>q.MoviePeople).ThenInclude(MoviePerson=>MoviePerson.Person).FirstOrDefault(x => x.ID == id);
+
+            return Json(movie);
+        }
+
+
     }
 }
