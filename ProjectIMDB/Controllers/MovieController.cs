@@ -92,6 +92,7 @@ namespace ProjectIMDB.Controllers
                     moviePerson.MovieID = MovieID;
                     moviePerson.PersonID = item;
                     moviePerson.JobID = 1;
+
                     _context.MoviePeople.Add(moviePerson);
 
                 }
@@ -119,7 +120,6 @@ namespace ProjectIMDB.Controllers
 
                 return RedirectToAction("Index", "Movie");
             }
-
             else
             {
                 ViewBag.genresbag = _context.Genres.ToList();
@@ -152,7 +152,6 @@ namespace ProjectIMDB.Controllers
             model.name = movie.Name;
             model.duration = movie.Duration;
             model.releasedate = movie.ReleaseDate;
-            model.posterurl = movie.PosterURL;
             model.genres = _context.Genres.ToList();
             model.moviegenres = movie.MovieGenres.Where(x => x.IsDeleted == false).ToList();
 
@@ -177,12 +176,30 @@ namespace ProjectIMDB.Controllers
         {
             Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).FirstOrDefault(x => x.ID == model.id);
 
+            string imagepath = "";
+            if (model.movieposter != null)
+            {
+                var guid = Guid.NewGuid().ToString();
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot/adminsite/movieposter", guid + ".jpg");
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    model.movieposter.CopyTo(stream);
+                }
+                imagepath = guid + ".jpg";
+            }
+
             if (ModelState.IsValid)
             {
                 movie.Name = model.name;
                 movie.Duration = model.duration;
                 movie.ReleaseDate = model.releasedate;
-                movie.PosterURL = model.posterurl;
+                if(imagepath != "")
+                {
+                    movie.PosterURL = imagepath;
+                }
+
                 movie.UpdateDate = model.updatedate;
 
                 _context.SaveChanges();
