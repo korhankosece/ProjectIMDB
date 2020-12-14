@@ -36,7 +36,6 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Add(GenreVM model)
         {
@@ -49,11 +48,9 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Genre");
             }
-
             else
             {
                 return View();
-
             }
 
         }
@@ -77,7 +74,6 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             model.name = genre.Name;
 
             return View(model);
-
         }
 
         [HttpPost]
@@ -97,8 +93,6 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             {
                 return View();
             }
-
         }
-
     }
 }

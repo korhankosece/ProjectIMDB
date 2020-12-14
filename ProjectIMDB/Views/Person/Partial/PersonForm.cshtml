@@ -30,9 +30,9 @@
     </div>
 </div>
 <div class="form-group row">
-    @Html.LabelFor(q => q.selectedJobs, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    @Html.LabelFor(q => q.jobs, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
-        <select name="selectedJobs" class="select2 form-control" multiple="multiple">
+        <select name="jobs" class="select2 form-control" multiple="multiple">
             <option value="" hidden disabled>Please select jobs</option>
 
             @if (Model != null)
@@ -54,14 +54,8 @@
                     }
                 }
             }
-            else
-            {
-                foreach (var item in ViewBag.jobbag)
-                {
-                    <option value="@Convert.ToInt32(item)">@item.ToString()</option>
-                }
-            }
+
         </select>
-        @Html.ValidationMessageFor(q => q.selectedJobs, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(q => q.jobs, "", new { @class = "text-danger" })
     </div>
 </div>

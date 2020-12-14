@@ -19,11 +19,8 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
-
-
             List<PersonVM> personLists = _context.People.Include(q => q.PersonJobs).Where(q => q.IsDeleted == false).Select(q => new PersonVM()
             {
                 id = q.ID,
@@ -39,19 +36,21 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             }).ToList();
 
             return View(personLists);
-
         }
-        public IActionResult Add()
 
+        public PersonVM getJobs()
         {
             List<EnumJob> model = new List<EnumJob>();
             PersonVM model2 = new PersonVM();
             model.Add(EnumJob.Director);
             model.Add(EnumJob.Star);
             model.Add(EnumJob.Scenarist);
-
             model2.enumJobs = model;
-            return View(model2);
+            return model2;
+        }
+        public IActionResult Add()
+        {
+            return View(getJobs());
         }
 
         [HttpPost]
@@ -81,22 +80,11 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
                 }
                 _context.SaveChanges();
 
-
                 return RedirectToAction("Index", "Person");
             }
-
             else
             {
-                List<EnumJob> jobmodel = new List<EnumJob>();
-                jobmodel.Add(EnumJob.Director);
-                jobmodel.Add(EnumJob.Star);
-                jobmodel.Add(EnumJob.Scenarist);
-
-                ViewBag.jobbag = jobmodel;
-
-
-                return View();
-
+                return View(getJobs());
             }
         }
 
@@ -110,7 +98,7 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             return Json("Silme işlemi başarılı!!");
         }
 
-        public IActionResult Edit(int id)
+        public PersonVM getPerson(int id)
         {
             PersonVM personVM = new PersonVM();
             Person person = _context.People.Include(q => q.PersonJobs).FirstOrDefault(q => q.ID == id);
@@ -119,23 +107,23 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             personVM.surname = person.SurName;
             personVM.country = person.Country;
             personVM.birthdate = person.BirthDate;
-
-
             personVM.selectedJobs = person.PersonJobs.Where(x => x.IsDeleted == false).Select(q => q.JobID == Convert.ToInt32(EnumJob.Director) ? EnumJob.Director :
-               (q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist: EnumJob.Star)).ToList();
-
+               (q.JobID == Convert.ToInt32(EnumJob.Scenarist) ? EnumJob.Scenarist : EnumJob.Star)).ToList();
 
             List<EnumJob> model = new List<EnumJob>();
             model.Add(EnumJob.Director);
             model.Add(EnumJob.Star);
             model.Add(EnumJob.Scenarist);
             personVM.enumJobs = model;
-
-            return View(personVM);
+            return personVM;
+        }
+        public IActionResult Edit(int id)
+        {
+            return View(getPerson(id));
         }
 
         [HttpPost]
-        public IActionResult Edit(PersonVM model, int[] selectedJobs)
+        public IActionResult Edit(PersonVM model, int[] jobs)
         {
             Person person = _context.People.Include(q => q.PersonJobs).FirstOrDefault(q => q.ID == model.id);
 
@@ -158,7 +146,7 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
                     item.IsDeleted = true;
                 }
 
-                foreach (var item in selectedJobs)
+                foreach (var item in jobs)
                 {
                     PersonJob personJob = new PersonJob();
                     personJob.PersonID = PersonID;
@@ -173,13 +161,7 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             }
             else
             {
-                List<EnumJob> jobmodel = new List<EnumJob>();
-                jobmodel.Add(EnumJob.Director);
-                jobmodel.Add(EnumJob.Star);
-                jobmodel.Add(EnumJob.Scenarist);
-                ViewBag.jobbag = jobmodel;
-
-                return View();
+                return View(getPerson(model.id));
             }
 
         }

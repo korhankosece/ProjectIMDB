@@ -36,14 +36,12 @@ namespace ProjectIMDB.Models.VM
 
 
 
-
-        public List<string> jobs { get; set; }
-        public List<EnumJob> enumJobs { get; set; }
         [DisplayName("Jobs")]
         [Required(ErrorMessage = "Jobs field is required.")]
-        public List<EnumJob> selectedJobs { get; set; }
+        public List<string> jobs { get; set; }
+        public List<EnumJob> enumJobs { get; set; }
 
-        //public List<int> jobarray { get; set; }
+        public List<EnumJob> selectedJobs { get; set; }
 
     }
 }

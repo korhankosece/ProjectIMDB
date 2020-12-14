@@ -61,13 +61,6 @@
                     }
                 }
             }
-            else
-            {
-                foreach (var item in ViewBag.genresbag)
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            }
         </select>
         @Html.ValidationMessageFor(q => q.genres, "", new { @class = "text-danger" })
     </div>
@@ -76,7 +69,7 @@
 
 
 <div class="form-group row">
-   @Html.LabelFor(q => q.directorarray, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    @Html.LabelFor(q => q.directorarray, new { @class = "col-sm-3 text-right control-label col-form-label" })
     <div class="col-md-9">
 
         <select id="director" name="directorarray" class="select2 form-control" multiple="multiple">
@@ -97,16 +90,6 @@
                     if (!selected.Contains(item.PersonID))
                     {
                         <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName </option>
-                    }
-                }
-            }
-            else
-            {
-                foreach (var item in ViewBag.jobsbag)
-                {
-                    if (item.JobID == 1)
-                    {
-                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName</option>
                     }
                 }
             }
@@ -142,22 +125,10 @@
                     }
                 }
             }
-            else
-            {
-                foreach (var item in ViewBag.jobsbag)
-                {
-                    if (item.JobID == 2)
-                    {
-                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName</option>
-                    }
-                }
-            }
         </select>
         @Html.ValidationMessageFor(q => q.scenaristarray, "", new { @class = "text-danger" })
     </div>
 </div>
-
-
 
 <div class="form-group row">
     @Html.LabelFor(q => q.stararray, new { @class = "col-sm-3 text-right control-label col-form-label" })
@@ -182,16 +153,6 @@
                     if (!selected.Contains(item.PersonID))
                     {
                         <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName </option>
-                    }
-                }
-            }
-            else
-            {
-                foreach (var item in ViewBag.jobsbag)
-                {
-                    if (item.JobID == 3)
-                    {
-                        <option value="@item.PersonID"> @item.Person.Name  @item.Person.SurName</option>
                     }
                 }
             }

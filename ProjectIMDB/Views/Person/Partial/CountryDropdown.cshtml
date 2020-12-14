@@ -1,5 +1,14 @@
-﻿<select name="country" class="form-control" id="country">
-    <option value="" hidden disabled selected>Please select country</option>
+﻿@model ProjectIMDB.Models.VM.PersonVM
+
+<select name="country" class="form-control" id="country">
+    @if (Model.country != null)
+    {
+        <option selected value="@Model.country">@Model.country</option>
+    }
+    else
+    {
+        <option value="" hidden disabled selected>Please select country</option>
+    }
     <option value="Afghanistan">Afghanistan</option>
     <option value="Albania">Albania</option>
     <option value="Algeria">Algeria</option>
@@ -196,7 +205,7 @@
     <option value="Somalia">Somalia</option>
     <option value="South Africa">South Africa</option>
     <option value="South Georgia">South Georgia and the South Sandwich Islands</option>
-    <option value="Span">Spain</option>
+    <option value="Spain">Spain</option>
     <option value="SriLanka">Sri Lanka</option>
     <option value="St. Helena">St. Helena</option>
     <option value="St. Pierre and Miguelon">St. Pierre and Miquelon</option>

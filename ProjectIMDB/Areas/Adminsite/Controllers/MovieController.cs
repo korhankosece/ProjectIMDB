@@ -38,15 +38,17 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             return View(movies);
         }
 
-        public IActionResult Add()
+        public MovieVM getGenresJob()
         {
             MovieVM model = new MovieVM();
-            model.genres = _context.Genres.ToList();
+            model.genres = _context.Genres.Where(x => x.IsDeleted == false).ToList();
             model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
-
-            return View(model);
+            return model;
         }
-
+        public IActionResult Add()
+        {
+            return View(getGenresJob());
+        }
 
         [HttpPost]
         public IActionResult Add(MovieVM model, int[] genres, int[] directorarray, int[] scenaristarray, int[] stararray)
@@ -122,11 +124,7 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             }
             else
             {
-                ViewBag.genresbag = _context.Genres.ToList();
-                ViewBag.jobsbag = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
-
-                return View();
-
+                return View(getGenresJob());
             }
 
         }
@@ -141,8 +139,7 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             return Json("Silme işlemi başarılı!!");
         }
 
-
-        public IActionResult Edit(int id)
+        public MovieVM getPerson(int id)
         {
             Movie movie = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenre => MovieGenre.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).FirstOrDefault(x => x.ID == id);
 
@@ -152,23 +149,16 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             model.name = movie.Name;
             model.duration = movie.Duration;
             model.releasedate = movie.ReleaseDate;
-            model.genres = _context.Genres.ToList();
+            model.genres = _context.Genres.Where(x => x.IsDeleted == false).ToList();
             model.moviegenres = movie.MovieGenres.Where(x => x.IsDeleted == false).ToList();
 
             model.moviepeople = movie.MoviePeople.Where(x => x.IsDeleted == false).ToList();
             model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
-
-            //var path = Path.Combine(Directory.GetCurrentDirectory(),
-            //"wwwroot/adminsite/movieposter", movie.PosterURL);
-
-            //var imageFileStream = System.IO.File.OpenRead(path);
-            //model.movieposter = File(imageFileStream, "image/jpeg");
-
-
-
-            return View(model);
-
-
+            return model;
+        }
+        public IActionResult Edit(int id)
+        {
+            return View(getPerson(id));
         }
 
         [HttpPost]
@@ -265,18 +255,18 @@ namespace ProjectIMDB.Areas.Adminsite.Controllers
             }
             else
             {
-                ViewBag.genresbag = _context.Genres.ToList();
-                ViewBag.jobsbag = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
-
-                return View();
+                return View(getPerson(model.id));
             }
-
         }
 
         public IActionResult Detail(int id)
         {
-            
-            Movie movie = _context.Movies.Include(q=>q.MoviePeople).ThenInclude(MoviePerson=>MoviePerson.Person).FirstOrDefault(x => x.ID == id);
+            MovieVM movie = _context.Movies.Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false && q.ID == id).Select(q => new MovieVM()
+            {
+                id = q.ID,
+                moviepeople = q.MoviePeople.Where(x => x.IsDeleted == false).ToList()
+
+            }).FirstOrDefault();
 
             return Json(movie);
         }
