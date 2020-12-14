@@ -7,7 +7,7 @@ using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
 
-namespace ProjectIMDB.Controllers
+namespace ProjectIMDB.Areas.Adminsite.Controllers
 {
     public class GenreController : Controller
     {

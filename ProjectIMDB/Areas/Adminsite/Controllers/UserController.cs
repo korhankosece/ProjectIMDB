@@ -8,40 +8,41 @@ using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
 
-namespace ProjectIMDB.Controllers
+namespace ProjectIMDB.Areas.Adminsite.Controllers
 {
-    public class CommentController : Controller
+    public class UserController : Controller
     {
         private readonly IMDBContext _context;
 
-        public CommentController(IMDBContext context)
+        public UserController(IMDBContext context)
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
-
-            List<CommentVM> comments = _context.Comments.Include(x => x.Movie).Include(x => x.User).Where(q => q.IsDeleted == false).Select(q => new CommentVM()
+            List<UserVM> users = _context.Users.Where(q => q.IsDeleted == false).Select(q => new UserVM()
             {
+
                 id = q.ID,
-                content = q.Content,
-                username = q.User.Name + " " + q.User.SurName,
-                moviename = q.Movie.Name,
+                name = q.Name,
+                surname = q.SurName,
+                birthdate = q.BirthDate,
+                country = q.Country,
+                email = q.EMail,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
+               
+
 
             }).ToList();
-
-            return View(comments);
-
+            return View(users);
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Comment person = _context.Comments.FirstOrDefault(q => q.ID == id);
-            person.IsDeleted = true;
+            User user = _context.Users.FirstOrDefault(q => q.ID == id);
+            user.IsDeleted = true;
             _context.SaveChanges();
 
             return Json("Silme işlemi başarılı!!");

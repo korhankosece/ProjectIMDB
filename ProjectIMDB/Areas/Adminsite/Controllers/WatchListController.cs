@@ -7,24 +7,21 @@ using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.VM;
 
-namespace ProjectIMDB.Controllers
+namespace ProjectIMDB.Areas.Adminsite.Controllers
 {
-    public class RateController : Controller
+    public class WatchListController : Controller
     {
         private readonly IMDBContext _context;
 
-        public RateController(IMDBContext context)
+        public WatchListController(IMDBContext context)
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
-
-            List<RateVM> rates = _context.Rates.Include(x => x.Movie).Include(x => x.User).Where(q => q.IsDeleted == false).Select(q => new RateVM()
+            List<WatchlistVM> watchlists = _context.WatchLists.Include(x => x.Movie).Include(x => x.User).Where(q => q.IsDeleted == false).Select(q => new WatchlistVM()
             {
                 id = q.ID,
-                point = q.Point,
                 username = q.User.Name + " " + q.User.SurName,
                 moviename = q.Movie.Name,
                 adddate = q.AddDate,
@@ -32,8 +29,7 @@ namespace ProjectIMDB.Controllers
 
             }).ToList();
 
-            return View(rates);
-
+            return View(watchlists);
         }
     }
 }

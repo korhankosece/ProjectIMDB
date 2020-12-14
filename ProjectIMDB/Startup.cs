@@ -22,7 +22,7 @@ namespace ProjectIMDB
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddDbContext<IMDBContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
@@ -37,10 +37,31 @@ namespace ProjectIMDB
             app.UseRouting();
             app.UseStaticFiles();
 
-            app.UseEndpoints(endpoints =>
+
+
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Admin}/{action=Index}/{id?}");
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute("default", "{controller=Admin}/{action=Index}/{id?}");
             });
+
+
+
+
+            //app.UseEndpoints(endpoints =>
+            //{
+
+            //    endpoints.MapAreaControllerRoute(
+            //    "Adminsite",
+            //    "Adminsite",
+            //    "Adminsite/{controller=Admin}/{action=Index}/{id?}");
+
+            //    endpoints.MapControllerRoute("default", "{controller=Admin}/{action=Index}/{id?}");
+            //});
         }
     }
 }

@@ -9,7 +9,7 @@ using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 
-namespace ProjectIMDB.Controllers
+namespace ProjectIMDB.Areas.Adminsite.Controllers
 {
     public class PersonController : Controller
     {
