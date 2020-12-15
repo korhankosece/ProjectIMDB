@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
@@ -12,11 +13,11 @@ using ProjectIMDB.Models.VM;
 namespace ProjectIMDB.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class MovieController : Controller
+    public class MovieController : BaseController
     {
         private readonly IMDBContext _context;
 
-        public MovieController(IMDBContext context)
+        public MovieController(IMDBContext context, IMemoryCache memoryCache) : base(context,memoryCache)
         {
             _context = context;
         }

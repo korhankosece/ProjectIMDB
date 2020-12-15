@@ -242,57 +242,139 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        @foreach (var item in ViewBag.menus)
+                        {
+                            if (item.Name.Contains("Dashboard"))
+                            {
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                </li>
+                            }
+                        }
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Person Section</span></a>
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Person"))
+                                {
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/Person" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
-                                <li class="sidebar-item"><a href="/Admin/Person/Add" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu">Add</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">User Section</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/User" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
 
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Person"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Comment Section</span></a>
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("User"))
+                                {
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/Comment" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
 
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("User"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Rate Section</span></a>
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Comment"))
+                                {
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/Rate" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
 
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Comment"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Movie Section</span></a>
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Rate"))
+                                {
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/Movie" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
-                                <li class="sidebar-item"><a href="/Admin/Movie/Add" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu">Add</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Genre Section</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/Genre" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
-                                <li class="sidebar-item"><a href="/Admin/Genre/Add" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu">Add</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Watch List Section</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="/Admin/WatchList" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu">List</span></a></li>
 
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Rate"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
                             </ul>
                         </li>
+                        <li class="sidebar-item">
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Movie"))
+                                {
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
+                            <ul aria-expanded="false" class="collapse  first-level">
+
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Movie"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Watch"))
+                                {
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
+                            <ul aria-expanded="false" class="collapse  first-level">
+
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Watch"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        @*
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-movie"></i><span class="hide-menu">Movie Section</span></a>
+                                <ul aria-expanded="false" class="collapse  first-level">
+                                    <li class="sidebar-item"><a href="/Admin/Movie" class="sidebar-link"><i class="mdi mdi-film"></i><span class="hide-menu">List</span></a></li>
+                                    <li class="sidebar-item"><a href="/Admin/Movie/Add" class="sidebar-link"><i class="mdi mdi-filmstrip"></i><span class="hide-menu">Add</span></a></li>
+                                </ul>
+                            </li>
+                        *@
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -307,7 +389,7 @@
         <!-- ============================================================== -->
         <div class="page-wrapper">
 
-                @RenderBody()
+            @RenderBody()
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">

@@ -20,6 +20,7 @@ namespace ProjectIMDB.Models.ORM.Context
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MoviePerson> MoviePeople { get; set; }
         public DbSet<PersonJob> PersonJobs { get; set; }
+        public DbSet<AdminMenu> AdminMenus { get; set; }
 
     }
 }
