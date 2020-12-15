@@ -22,11 +22,15 @@ namespace ProjectIMDB
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(option => option.EnableEndpointRouting = false).AddRazorRuntimeCompilation(); ;
+            services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            services.AddRazorPages();
             services.AddDbContext<IMDBContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -37,31 +41,27 @@ namespace ProjectIMDB
             app.UseRouting();
             app.UseStaticFiles();
 
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //      name: "areas",
+            //      template: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+            //    );
 
+            //    routes.MapRoute("default", "{controller=Admin}/{action=Index}/{id?}");
+            //});
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                  name: "areas",
-                  template: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
-                );
-
-                routes.MapRoute("default", "{controller=Admin}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                 name: "Admin",
+                 areaName: "Admin",
+                 pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+                 );
+                endpoints.MapControllerRoute("default", "{Controller=Admin}/{Action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
-
-
-
-            //app.UseEndpoints(endpoints =>
-            //{
-
-            //    endpoints.MapAreaControllerRoute(
-            //    "Adminsite",
-            //    "Adminsite",
-            //    "Adminsite/{controller=Admin}/{action=Index}/{id?}");
-
-            //    endpoints.MapControllerRoute("default", "{controller=Admin}/{action=Index}/{id?}");
-            //});
         }
     }
 }

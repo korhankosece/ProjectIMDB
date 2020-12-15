@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model ProjectIMDB.Models.VM.MovieVM
+
+
+<link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/select2/dist/css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/jquery-minicolors/jquery.minicolors.css">
+<link href="/Adminsite/dist/css/style.min.css" rel="stylesheet">
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Movie Edit</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Movie</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <form action="Admin/Movie/Edit" method="post" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <h4 class="card-title">Movie Info</h4>
+                        @await Html.PartialAsync("Partial/MovieForm")
+                        @Html.HiddenFor(q => q.id)
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Adminsite/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery('.mydatepicker').datepicker();
+
+</script>
+<script src="/Adminsite/assets/libs/select2/dist/js/select2.full.min.js"></script>
+<script src="/Adminsite/assets/libs/select2/dist/js/select2.min.js"></script>
+<script src="/Adminsite/assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
+
+<script>
+    $(".select2").select2();
+
+</script>
+
