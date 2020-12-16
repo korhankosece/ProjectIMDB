@@ -251,13 +251,69 @@
                                 </li>
                             }
                         }
+                        <li class="sidebar-item">
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Admin"))
+                                {
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
+                            <ul aria-expanded="false" class="collapse  first-level">
 
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("AdminUser"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Movie"))
+                                {
+                                    <a class="sidebar-link has-arrow waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
+                            <ul aria-expanded="false" class="collapse  first-level">
+
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Movie"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            @foreach (var item in ViewBag.menus)
+                            {
+                                if (item.Name.Contains("Genre"))
+                                {
+                                    <a class="sidebar-link waves-effect has-arrow waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                }
+                            }
+                            <ul aria-expanded="false" class="collapse  first-level">
+
+                                @foreach (var item in ViewBag.menus)
+                                {
+                                    if (item.Path.Contains("Genre"))
+                                    {
+                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
                         <li class="sidebar-item">
                             @foreach (var item in ViewBag.menus)
                             {
                                 if (item.Name.Contains("Person"))
                                 {
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                    <a class="sidebar-link waves-effect has-arrow waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
                                 }
                             }
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -274,28 +330,29 @@
                         <li class="sidebar-item">
                             @foreach (var item in ViewBag.menus)
                             {
-                                if (item.Name.Contains("User"))
+                                if (item.Name.Contains("Users"))
                                 {
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                    <a class="sidebar-link waves-effect has-arrow waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
                                 }
                             }
                             <ul aria-expanded="false" class="collapse  first-level">
 
                                 @foreach (var item in ViewBag.menus)
                                 {
-                                    if (item.Path.Contains("User"))
+                                    if (item.Path.Contains("/User"))
                                     {
                                         <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
                                     }
                                 }
                             </ul>
                         </li>
+
                         <li class="sidebar-item">
                             @foreach (var item in ViewBag.menus)
                             {
                                 if (item.Name.Contains("Comment"))
                                 {
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                    <a class="sidebar-link waves-effect has-arrow waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
                                 }
                             }
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -314,7 +371,7 @@
                             {
                                 if (item.Name.Contains("Rate"))
                                 {
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                    <a class="sidebar-link waves-effect has-arrow waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
                                 }
                             }
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -331,28 +388,9 @@
                         <li class="sidebar-item">
                             @foreach (var item in ViewBag.menus)
                             {
-                                if (item.Name.Contains("Movie"))
-                                {
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
-                                }
-                            }
-                            <ul aria-expanded="false" class="collapse  first-level">
-
-                                @foreach (var item in ViewBag.menus)
-                                {
-                                    if (item.Path.Contains("Movie"))
-                                    {
-                                        <li class="sidebar-item"><a href="@item.Path" class="sidebar-link"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a></li>
-                                    }
-                                }
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            @foreach (var item in ViewBag.menus)
-                            {
                                 if (item.Name.Contains("Watch"))
                                 {
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
+                                    <a class="sidebar-link waves-effect has-arrow waves-dark sidebar-link" href="@item.Path" aria-expanded="false"><i class="@item.IconName"></i><span class="hide-menu">@item.Name</span></a>
                                 }
                             }
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -367,13 +405,13 @@
                             </ul>
                         </li>
                         @*
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-movie"></i><span class="hide-menu">Movie Section</span></a>
-                                <ul aria-expanded="false" class="collapse  first-level">
-                                    <li class="sidebar-item"><a href="/Admin/Movie" class="sidebar-link"><i class="mdi mdi-film"></i><span class="hide-menu">List</span></a></li>
-                                    <li class="sidebar-item"><a href="/Admin/Movie/Add" class="sidebar-link"><i class="mdi mdi-filmstrip"></i><span class="hide-menu">Add</span></a></li>
-                                </ul>
-                            </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-movie"></i><span class="hide-menu">Movie Section</span></a>
+            <ul aria-expanded="false" class="collapse  first-level">
+                <li class="sidebar-item"><a href="/Admin/Movie" class="sidebar-link"><i class="mdi mdi-film"></i><span class="hide-menu">List</span></a></li>
+                <li class="sidebar-item"><a href="/Admin/Movie/Add" class="sidebar-link"><i class="mdi mdi-filmstrip"></i><span class="hide-menu">Add</span></a></li>
+            </ul>
+        </li>
                         *@
                     </ul>
                 </nav>

@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-@model ProjectIMDB.Models.VM.MovieVM
+@model ProjectIMDB.Models.VM.AdminUserVM
 
 
 <link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
@@ -12,11 +12,11 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Genre Add</h4>
+            <h4 class="page-title">Admin User Add</h4>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Genre</a></li>
+                        <li class="breadcrumb-item"><a href="#">Admin User</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Add</li>
                     </ol>
                 </nav>
@@ -29,12 +29,12 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <form action="/Admin/AdminUser/Add" method="post" class="form-horizontal">
+                <form action="/Admin/AdminUser/Edit" method="post" class="form-horizontal">
                     <div class="card-body">
-                        <h4 class="card-title">Genre Info</h4>
-                        @await Html.PartialAsync("Partial/GenreForm")
+                        <h4 class="card-title">Admin User Info</h4>
+                        @await Html.PartialAsync("Partial/AdminUserForm")
+                        @Html.HiddenFor(q => q.id)
                     </div>
-
                     <div class="border-top">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary">Submit</button>

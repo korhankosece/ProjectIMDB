@@ -3,18 +3,20 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-@model List<ProjectIMDB.Models.VM.PersonVM>
+
+@model List<ProjectIMDB.Models.VM.AdminUserVM>
+
 
 <link rel="stylesheet" type="text/css" href="/Adminsite/assets/extra-libs/multicheck/multicheck.css">
 <link href="/Adminsite/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Person List</h4>
+            <h4 class="page-title">User List</h4>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Person</a></li>
+                        <li class="breadcrumb-item"><a href="#">User</a></li>
                         <li class="breadcrumb-item active" aria-current="page">List</li>
                     </ol>
                 </nav>
@@ -36,14 +38,11 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Surname</th>
-                                    <th>Birth Date</th>
-                                    <th>Country</th>
-                                    <th>Jobs</th>
+                                    <th>Email</th>
                                     <th>Add Date</th>
                                     <th>Update Date</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,20 +52,10 @@
                                         <td>@item.id</td>
                                         <td>@item.name</td>
                                         <td>@item.surname</td>
-                                        <td>
-                                            @item.birthdate?.ToString("dd MMMM yyyy")
-                                        </td>
-                                        <td>@item.country</td>
-                                        <td>
-                                            @foreach (var item2 in item.jobs)
-                                            {
-                                                <span>@item2/</span>
-                                            }
-
-                                        </td>
+                                        <td>@item.email</td>
                                         <td>@item.adddate</td>
                                         <td>@item.updatedate</td>
-                                        <td><a href="/Admin/Person/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                        <td><a href="/Admin/AdminUser/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
                                         <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
                                     </tr>
                                 }
@@ -89,7 +78,7 @@
         $(document).on("click", ".delete", function () {
             let id = $(this).attr("id");
             $.ajax({
-                url: "/Person/Delete",
+                url: "/User/Delete",
                 type: "POST",
                 data: { id: id },
                 success: function (msg) {
@@ -103,4 +92,5 @@
         });
     });
 </script>
+
 

@@ -47,15 +47,14 @@
                                     <th>Stars</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
-                                    @*<th>Detail</th>*@
-
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr id="@item.id">
-                                        *<td><img width="100" height="150" src="/adminsite/movieposter/@item.posterurl" alt="Alternate Text" /></td>
+                                        <td><img width="100" height="150" src="/adminsite/movieposter/@item.posterurl" alt="Alternate Text" /></td>
                                         <td>@item.id</td>
                                         <td>@item.name</td>
                                         <td>@item.duration</td>
@@ -95,14 +94,14 @@
                                             }
 
                                         </td>
-                                        <td><a href="/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                        <td><a href="/Admin/Movie/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
                                         <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
-                                        @*<td>
-                                                <a href="javascript:void(0)" id="@item.id" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light detail">
-                                                    Detail
+                                        <td>
+                                            <a href="javascript:void(0)" id="@item.id" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light detail">
+                                                Detail
 
-                                                </a>
-                                            </td>*@
+                                            </a>
+                                        </td>
 
                                     </tr>
                                 }
@@ -138,17 +137,17 @@
             })
         });
 
-        //$(document).on("click", ".detail", function () {
-        //    let id = $(this).attr("id");
-        //    fetch("/Movie/Detail/" + id)
-        //        .then((res) => res.json())
-        //        .then((result) => {
-        //            console.log(result);
-        //            //        $("#scenarist").html(result.);
-        //            //        $("#eklenmetarih").html(result.addDate);
-        //            //        //$("#baslik").html(result.title);
-        //        })
-        //    //$("#detailmodal").modal();
-        //})
+        $(document).on("click", ".detail", function () {
+            let id = $(this).attr("id");
+            fetch("/Movie/Detail/" + id)
+                .then((res) => res.json())
+                .then((result) => {
+                    console.log(result);
+                    //        $("#scenarist").html(result.);
+                    //        $("#eklenmetarih").html(result.addDate);
+                    //        //$("#baslik").html(result.title);
+                })
+            //$("#detailmodal").modal();
+        })
     });
 </script>
