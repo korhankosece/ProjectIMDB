@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,14 @@ namespace ProjectIMDB
             services.AddRazorPages();
             services.AddDbContext<IMDBContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddMemoryCache();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Admin/AdminLogin/Index/";
+            }); ;
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -40,6 +49,8 @@ namespace ProjectIMDB
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             //app.UseMvc(routes =>
             //{

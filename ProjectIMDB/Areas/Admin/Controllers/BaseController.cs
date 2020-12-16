@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using ProjectIMDB.Models.ORM.Context;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProjectIMDB.Areas.Admin.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         private readonly IMDBContext _context;
@@ -34,6 +36,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 _memoryCache.Set("menus", adminMenus, cacheEntryOptions);
             }
 
+            ViewBag.email = HttpContext.User.Claims.ToArray()[0].Value;
             ViewBag.menus = adminMenus;
             base.OnActionExecuting(context);
         }
