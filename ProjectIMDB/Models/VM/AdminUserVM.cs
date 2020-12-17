@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectIMDB.Models.Types;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -35,5 +36,14 @@ namespace ProjectIMDB.Models.VM
 
         [DisplayName("Update Date")]
         public DateTime updatedate { get; set; } = DateTime.Now;
+
+
+
+        [DisplayName("Roles")]
+        [Required(ErrorMessage = "The roles field is required.")]
+        public List<string> roles { get; set; }
+        public List<EnumRole> enumRoles { get; set; }
+
+        public List<EnumRole> selectedRoles { get; set; }
     }
 }

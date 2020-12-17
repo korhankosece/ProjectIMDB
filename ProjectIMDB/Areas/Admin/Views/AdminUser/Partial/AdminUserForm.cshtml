@@ -37,3 +37,35 @@
         @Html.ValidationMessageFor(q => q.confirmpassword, "", new { @class = "text-danger" })
     </div>
 </div>
+
+
+<div class="form-group row">
+    @Html.LabelFor(q => q.roles, new { @class = "col-sm-3 text-right control-label col-form-label" })
+    <div class="col-md-9">
+        <select name="roles" class="select2 form-control" multiple="multiple">
+            <option value="" hidden disabled>Please select jobs</option>
+
+            @if (Model != null)
+            {
+                List<int> selected = new List<int>();
+                if (Model.selectedRoles != null)
+                {
+                    foreach (var item in Model.selectedRoles)
+                    {
+                        <option selected value="@Convert.ToInt32(item)">@item.ToString()</option>
+                        selected.Add(Convert.ToInt32(item));
+                    }
+                }
+                foreach (var item in Model.enumRoles)
+                {
+                    if (!selected.Contains(Convert.ToInt32(item)))
+                    {
+                        <option value="@Convert.ToInt32(item)">@item.ToString()</option>
+                    }
+                }
+            }
+
+        </select>
+        @Html.ValidationMessageFor(q => q.roles, "", new { @class = "text-danger" })
+    </div>
+</div>

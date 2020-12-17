@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
+using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,8 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+        [RoleControl(EnumRole.AdminUserList)]
         public IActionResult Index()
         {
             List<AdminUserVM> users = _context.AdminUsers.Where(q => q.IsDeleted == false).Select(q => new AdminUserVM()
@@ -30,6 +34,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 password = q.Password,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
+
+                
+
 
             }).ToList();
             return View(users);
@@ -43,12 +50,27 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
             return Json("Silme işlemi başarılı!!");
         }
+
+        [RoleControl(EnumRole.AdminUserAdd)]
         public IActionResult Add()
         {
-            return View();
+            List<EnumRole> model = new List<EnumRole>();
+
+            AdminUserVM model2 = new AdminUserVM();
+
+            model = Enum.GetValues(typeof(EnumRole))
+                .Cast<EnumRole>().ToList();
+
+
+            //model.Add(EnumRole.AdminUserAdd);
+            //model.Add(EnumRole.AdminUserList);
+            model2.enumRoles = model;
+
+
+            return View(model2);
         }
         [HttpPost]
-        public IActionResult Add(AdminUserVM model)
+        public IActionResult Add(AdminUserVM model, int[] roles)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +82,33 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
                 _context.AdminUsers.Add(adminUser);
                 _context.SaveChanges();
+
+                //int AdminUserID = adminUser.ID;
+                //foreach (var item in roles)
+                //{
+                //    adminUser.ID = AdminUserID;
+                //    adminUser.RoleID = item.ToString();
+
+                //    _context.SaveChanges();
+
+
+                //}
+
+                string rolenames = " ";
+
+                foreach (var item in roles)
+                {
+                    rolenames = rolenames + item.ToString() + ";";
+
+
+                }
+                adminUser.Roles = rolenames;
+
+                _context.SaveChanges();
+
+
+
+
                 return RedirectToAction("Index", "AdminUser");
             }
             else

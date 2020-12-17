@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjectIMDB.Models.ORM.Context;
@@ -9,9 +10,10 @@ using ProjectIMDB.Models.ORM.Context;
 namespace ProjectIMDB.Migrations
 {
     [DbContext(typeof(IMDBContext))]
-    partial class IMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201217195426_AdminUserTabEditRoleid")]
+    partial class AdminUserTabEditRoleid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,7 +76,7 @@ namespace ProjectIMDB.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
-                    b.Property<string>("Roles")
+                    b.Property<string>("RoleID")
                         .HasColumnType("text");
 
                     b.Property<string>("SurName")

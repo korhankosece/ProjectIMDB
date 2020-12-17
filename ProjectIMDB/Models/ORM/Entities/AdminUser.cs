@@ -12,5 +12,7 @@ namespace ProjectIMDB.Models.ORM.Entities
         public string EMail { get; set; }
         public string Password { get; set; }
         public DateTime LastLoginDate { get; set; }
+        public string Roles { get; set; }
+
     }
 }
