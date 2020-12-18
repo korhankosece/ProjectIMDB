@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
+using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Admin.Controllers
@@ -20,6 +22,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+        [RoleControl(EnumRole.WatchListList)]
+
         public IActionResult Index()
         {
             List<WatchlistVM> watchlists = _context.WatchLists.Include(x => x.Movie).Include(x => x.User).Where(q => q.IsDeleted == false).Select(q => new WatchlistVM()

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
+using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Admin.Controllers
@@ -21,6 +23,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+        [RoleControl(EnumRole.MovieList)]
+
         public IActionResult Index()
         {
             List<MovieVM> movies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false).Select(q => new MovieVM()
@@ -47,10 +52,16 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
             return model;
         }
+
+
+
+        [RoleControl(EnumRole.MovieAdd)]
+
         public IActionResult Add()
         {
             return View(getGenresJob());
         }
+
 
         [HttpPost]
         public IActionResult Add(MovieVM model, int[] genres, int[] directorarray, int[] scenaristarray, int[] stararray)
@@ -131,6 +142,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
         }
 
+
+        [RoleControl(EnumRole.MovieDelete)]
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -158,6 +172,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             model.personJobs = _context.PersonJobs.Include(q => q.Person).Where(x => x.IsDeleted == false).ToList();
             return model;
         }
+
+        [RoleControl(EnumRole.MovieEdit)]
+
         public IActionResult Edit(int id)
         {
             return View(getPerson(id));

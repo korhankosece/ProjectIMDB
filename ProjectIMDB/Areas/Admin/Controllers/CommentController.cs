@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
+using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Admin.Controllers
@@ -20,6 +22,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+
+        [RoleControl(EnumRole.CommentList)]
 
         public IActionResult Index()
         {
@@ -39,6 +44,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
         }
 
+        [RoleControl(EnumRole.CommentDelete)]
         [HttpPost]
         public IActionResult Delete(int id)
         {

@@ -22,7 +22,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             _context = context;
         }
 
-        [RoleControl(EnumRole.AdminUserList)]
+        //[RoleControl(EnumRole.AdminUserList)]
         public IActionResult Index()
         {
             List<AdminUserVM> users = _context.AdminUsers.Where(q => q.IsDeleted == false).Select(q => new AdminUserVM()
@@ -41,6 +41,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             }).ToList();
             return View(users);
         }
+
+        //[RoleControl(EnumRole.AdminUserDelete)
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -51,7 +54,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             return Json("Silme işlemi başarılı!!");
         }
 
-        [RoleControl(EnumRole.AdminUserAdd)]
+        //[RoleControl(EnumRole.AdminUserAdd)]
         public IActionResult Add()
         {
             List<EnumRole> model = new List<EnumRole>();
@@ -117,6 +120,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             }
 
         }
+
+        //[RoleControl(EnumRole.AdmminUserEdit)]
+
         public IActionResult Edit(int id)
         {
             AdminUser adminUser = _context.AdminUsers.FirstOrDefault(x => x.ID == id);

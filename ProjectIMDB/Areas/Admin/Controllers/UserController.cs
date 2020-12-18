@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
+using ProjectIMDB.Models.Types;
 using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Admin.Controllers
@@ -20,6 +22,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+        [RoleControl(EnumRole.UserList)]
+
         public IActionResult Index()
         {
             List<UserVM> users = _context.Users.Where(q => q.IsDeleted == false).Select(q => new UserVM()
@@ -39,6 +44,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             }).ToList();
             return View(users);
         }
+
+        [RoleControl(EnumRole.UserDelete)]
+
 
         [HttpPost]
         public IActionResult Delete(int id)

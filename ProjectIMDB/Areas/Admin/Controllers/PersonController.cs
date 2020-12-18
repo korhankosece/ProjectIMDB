@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.Types;
@@ -21,6 +22,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         {
             _context = context;
         }
+
+        [RoleControl(EnumRole.PersonList)]
+
         public IActionResult Index()
         {
             List<PersonVM> personLists = _context.People.Include(q => q.PersonJobs).Where(q => q.IsDeleted == false).Select(q => new PersonVM()
@@ -50,6 +54,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             model2.enumJobs = model;
             return model2;
         }
+
+        [RoleControl(EnumRole.PersonAdd)]
+
         public IActionResult Add()
         {
             return View(getJobs());
@@ -90,6 +97,8 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             }
         }
 
+
+        [RoleControl(EnumRole.PersonDelete)]
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -99,6 +108,8 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
             return Json("Silme işlemi başarılı!!");
         }
+
+
 
         public PersonVM getPerson(int id)
         {
@@ -119,6 +130,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             personVM.enumJobs = model;
             return personVM;
         }
+
+        [RoleControl(EnumRole.PersonEdit)]
+
         public IActionResult Edit(int id)
         {
             return View(getPerson(id));
