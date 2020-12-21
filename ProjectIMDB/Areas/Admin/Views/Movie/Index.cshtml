@@ -139,7 +139,7 @@
 
         $(document).on("click", ".detail", function () {
             let id = $(this).attr("id");
-            fetch("/Movie/Detail/" + id)
+            fetch("/Admin/Movie/Detail/" + id)
                 .then((res) => res.json())
                 .then((result) => {
                     console.log(result);
