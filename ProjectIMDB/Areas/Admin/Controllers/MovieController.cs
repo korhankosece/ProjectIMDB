@@ -278,7 +278,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             }
         }
 
-        public IActionResult Detail(int id)
+        public JsonResult Detail(int id)
         {
             MovieVM movie = _context.Movies.Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false && q.ID == id).Select(q => new MovieVM()
             {
