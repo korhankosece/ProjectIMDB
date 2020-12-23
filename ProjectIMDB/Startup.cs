@@ -74,6 +74,18 @@ namespace ProjectIMDB
                 endpoints.MapRazorPages();
             });
 
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapAreaControllerRoute(
+                 name: "Site",
+                 areaName: "Site",
+                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                 );
+                endpoints.MapControllerRoute("default", "{Controller=Home}/{Action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
+
         }
     }
 }
