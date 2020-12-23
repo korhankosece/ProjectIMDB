@@ -13,27 +13,14 @@
     <title>Matrix Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
     <link href="/Adminsite/dist/css/style.min.css" rel="stylesheet">
+    <link href="/Adminsite/dist/css/float-chart.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="/Adminsite/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="/Adminsite/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/Adminsite/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="/Adminsite/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/Adminsite/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="/Adminsite/dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="/Adminsite/dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="/Adminsite/dist/js/custom.min.js"></script>
+
 </head>
 
 <body>
@@ -134,8 +121,8 @@
                         <!-- Comment -->
                         <!-- ============================================================== -->
                         <li style="display:flex;align-items:center">
-                            <span><h5 style="color:white;margin:0">Welcome! </h5></span>  
-                            <span><h6  style="color: rgb(154 155 156 );margin:0 0 0 5px"> @ViewBag.email</h6></span>
+                            <span><h5 style="color:white;margin:0">Welcome! </h5></span>
+                            <span><h6 style="color: rgb(154 155 156 );margin:0 0 0 5px"> @ViewBag.email</h6></span>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -409,19 +396,20 @@
                             </ul>
                         </li>
                         @*
-        <li class="sidebar-item">
-            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-movie"></i><span class="hide-menu">Movie Section</span></a>
-            <ul aria-expanded="false" class="collapse  first-level">
-                <li class="sidebar-item"><a href="/Admin/Movie" class="sidebar-link"><i class="mdi mdi-film"></i><span class="hide-menu">List</span></a></li>
-                <li class="sidebar-item"><a href="/Admin/Movie/Add" class="sidebar-link"><i class="mdi mdi-filmstrip"></i><span class="hide-menu">Add</span></a></li>
-            </ul>
-        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-movie"></i><span class="hide-menu">Movie Section</span></a>
+                                <ul aria-expanded="false" class="collapse  first-level">
+                                    <li class="sidebar-item"><a href="/Admin/Movie" class="sidebar-link"><i class="mdi mdi-film"></i><span class="hide-menu">List</span></a></li>
+                                    <li class="sidebar-item"><a href="/Admin/Movie/Add" class="sidebar-link"><i class="mdi mdi-filmstrip"></i><span class="hide-menu">Add</span></a></li>
+                                </ul>
+                            </li>
                         *@
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
+
         </aside>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
@@ -430,7 +418,6 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-
             @RenderBody()
             <!-- footer -->
             <!-- ============================================================== -->
@@ -452,4 +439,21 @@
 
 </body>
 
+@RenderSection("Scripts", false)
+
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/Adminsite/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/Adminsite/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/Adminsite/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/Adminsite/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/Adminsite/assets/extra-libs/sparkline/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/Adminsite/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/Adminsite/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/Adminsite/dist/js/custom.min.js"></script>
 </html>

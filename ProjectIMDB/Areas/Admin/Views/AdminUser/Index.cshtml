@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-@model List<ProjectIMDB.Models.VM.AdminUserVM>
+@model List<AdminUserVM>
 
 
 <link rel="stylesheet" type="text/css" href="/Adminsite/assets/extra-libs/multicheck/multicheck.css">
@@ -50,23 +50,23 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr id="@item.id">
-                                    <td>@item.id</td>
-                                    <td>@item.name</td>
-                                    <td>@item.surname</td>
-                                    <td>@item.email</td>
-                                    <td>
-                                        @*@foreach (var item2 in item.roles)
-                                        {
-                                            <span>@item2/</span>
-                                        }*@
+                                    <tr id="@item.id">
+                                        <td>@item.id</td>
+                                        <td>@item.name</td>
+                                        <td>@item.surname</td>
+                                        <td>@item.email</td>
+                                        <td>
+                                            @*@foreach (var item2 in item.roles)
+                                                {
+                                                    <span>@item2/</span>
+                                                }*@
 
-                                    </td>
-                                    <td>@item.adddate</td>
-                                    <td>@item.updatedate</td>
-                                    <td><a href="/Admin/AdminUser/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
-                                    <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
-                                </tr>
+                                        </td>
+                                        <td>@item.adddate</td>
+                                        <td>@item.updatedate</td>
+                                        <td><a href="/Admin/AdminUser/Edit/@item.id"><button type="submit" class="btn btn-outline-warning">Edit</button></a></td>
+                                        <td><button id="@item.id" class="btn btn-outline-danger delete">Delete</button></td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -76,30 +76,31 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script src="/Adminsite/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="/Adminsite/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="/Adminsite/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script>
+        $(function () {
+            $('#zero_config').DataTable();
 
-<script src="/Adminsite/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-<script src="/Adminsite/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
-<script src="/Adminsite/assets/extra-libs/DataTables/datatables.min.js"></script>
-<script>
-    $(function () {
-        $('#zero_config').DataTable();
-
-        $(document).on("click", ".delete", function () {
-            let id = $(this).attr("id");
-            $.ajax({
-                url: "/User/Delete",
-                type: "POST",
-                data: { id: id },
-                success: function (msg) {
-                    $("#" + id).fadeOut();
-                    alert("Deleted");
-                },
-                error: function (err) {
-                    alert("Failed")
-                }
-            })
+            $(document).on("click", ".delete", function () {
+                let id = $(this).attr("id");
+                $.ajax({
+                    url: "/User/Delete",
+                    type: "POST",
+                    data: { id: id },
+                    success: function (msg) {
+                        $("#" + id).fadeOut();
+                        alert("Deleted");
+                    },
+                    error: function (err) {
+                        alert("Failed")
+                    }
+                })
+            });
         });
-    });
-</script>
+    </script>
 
-
+}

@@ -1,5 +1,5 @@
 ﻿
-@model ProjectIMDB.Models.VM.LoginVM
+@model LoginVM
 <!DOCTYPE html>
 <html dir="ltr">
 <head>
@@ -46,20 +46,11 @@
                         <span class="db"><img src="/Adminsite/assets/images/logo.png" alt="logo" /></span>
                     </div>
                     <!-- Form -->
-                         @Html.ValidationSummary()
+                    @Html.ValidationSummary()
                     <p style="color:red">@ViewBag.error</p>
                     <form class="form-horizontal m-t-20" id="loginform" method="post" action="/Admin/AdminLogin/Index">
                         <div class="row p-b-30">
                             <div class="col-12">
-
-                                @*<div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Username" name="EMail" aria-label="Username" aria-describedby="basic-addon1" required="">
-                                    </div>*@
-
-
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
@@ -67,21 +58,8 @@
 
                                     @Html.TextBoxFor(q => q.EMail, new { @placeholder = "Username", @class = "form-control form-control-lg", @arialabel = "Username", @ariadescribedby = "basic-addon1", @style = "background-clip: unset;" })
 
-                                    @*@Html.ValidationMessageFor(q => q.EMail, "", new { @class = "text-danger" })*@
 
                                 </div>
-
-
-
-
-
-                                @*<div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Password" name="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
-                                    </div>*@
-
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -90,11 +68,7 @@
 
                                     @Html.PasswordFor(q => q.Password, new { @placeholder = "Password", @class = "form-control form-control-lg", @arialabel = "Password", @ariadescribedby = "basic-addon1", @style = "background-clip: unset;" })
 
-                                    @*@Html.ValidationMessageFor(q => q.Password, "", new { @class = "text-danger" })*@
-
                                 </div>
-
-
 
                             </div>
                         </div>
@@ -118,7 +92,6 @@
                         <!-- Form -->
                         <form class="col-12" action="index.html">
                             <!-- email -->
-
                             <!--<div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
@@ -135,7 +108,6 @@
 
                                 @Html.TextBoxFor(q => q.EMail, new { @placeholder = "Email Address", @class = "form-control form-control-lg", @arialabel = "Username", @ariadescribedby = "basic-addon1", @style = "background-clip: unset;" })
 
-                                @*@Html.ValidationMessageFor(q => q.EMail, "", new { @class = "text-danger" })*@
 
                             </div>
 
@@ -167,6 +139,7 @@
         <!-- Right Sidebar -->
         <!-- ============================================================== -->
     </div>
+
     <!-- ============================================================== -->
     <!-- All Required js -->
     <!-- ============================================================== -->

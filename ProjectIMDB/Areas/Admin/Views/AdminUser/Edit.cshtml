@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-@model ProjectIMDB.Models.VM.AdminUserVM
+@model AdminUserVM
 
 
 <link rel="stylesheet" type="text/css" href="/Adminsite/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
@@ -46,7 +46,10 @@
     </div>
 </div>
 
-<script src="/Adminsite/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+@section Scripts
+{
+    <script src="/Adminsite/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+}
 
 
 
