@@ -41,9 +41,11 @@ namespace ProjectIMDB.Models.VM
 
         [DisplayName("Roles")]
         [Required(ErrorMessage = "The roles field is required.")]
-        public List<string> roles { get; set; }
-        public List<EnumRole> enumRoles { get; set; }
+        public List<string> roles { get; set; } 
+        public List<EnumRole> enumRoles { get; set; }  
 
         public List<EnumRole> selectedRoles { get; set; }
+
+        public string role { get; set; }
     }
 }

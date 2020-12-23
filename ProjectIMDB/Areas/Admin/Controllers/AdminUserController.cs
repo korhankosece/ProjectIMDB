@@ -25,7 +25,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         //[RoleControl(EnumRole.AdminUserList)]
         public IActionResult Index()
         {
-            List<AdminUserVM> users = _context.AdminUsers.Where(q => q.IsDeleted == false).Select(q => new AdminUserVM()
+            List<AdminUserVM> adminUsers = _context.AdminUsers.Where(q => q.IsDeleted == false).Select(q => new AdminUserVM()
             {
                 id = q.ID,
                 name = q.Name,
@@ -34,62 +34,45 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 password = q.Password,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
-
+                role = q.Roles
                 
 
 
             }).ToList();
-            return View(users);
+
+            List<EnumRole> enumRoles = new List<EnumRole>();
+            enumRoles = Enum.GetValues(typeof(EnumRole)).Cast<EnumRole>().ToList();
+
+
+            foreach (var item in adminUsers)
+            {
+                item.roles = new List<string>();
+
+                foreach (var data in enumRoles)
+                {
+                    if (item.role != null)
+                    {
+                        string[] userroles = item.role.Split(';');
+                        foreach (var x in userroles)
+                        {
+                            if (!String.IsNullOrEmpty(x))
+                            {
+                                if (Convert.ToInt32(x) == Convert.ToInt32(data))
+                                {
+                                    item.roles.Add(data.ToString());
+                                    //item.roleview = item.roleview + " - " + data.ToString();
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+            return View(adminUsers);
         }
-        //[RoleControl(EnumRole.AdminUserList)]
-        //public IActionResult Index()
-        //{
-        //    List<AdminUserVM> admins = _bookcontext.AdminUsers.Where(q => q.IsDeleted == false).Select(q => new AdminUserVM()
-        //    {
-        //        UserID = q.ID,
-        //        Name = q.Name,
-        //        SurName = q.SurName,
-        //        role = q.Role,
-        //        Email = q.Email,
-        //        Password = q.Password,
-        //        AddDate = q.AddDate,
-        //        UpdateDate = q.UpdateDate,
-        //        IsDeleted = q.IsDeleted,
-        //    }).ToList();
-
-
-        //    List<EnumRole> role = new List<EnumRole>();
-        //    role = Enum.GetValues(typeof(EnumRole)).Cast<EnumRole>().ToList();
-
-
-        //    foreach (var item in admins)
-        //    {
-        //        item.rolelist = new List<string>();
-
-        //        foreach (var data in role)
-        //        {
-        //            if (item.role != null)
-        //            {
-        //                string[] userroles = item.role.Split(';');
-        //                foreach (var x in userroles)
-        //                {
-        //                    if (!String.IsNullOrEmpty(x))
-        //                    {
-        //                        if (Convert.ToInt32(x) == Convert.ToInt32(data))
-        //                        {
-        //                            item.rolelist.Add(data.ToString());
-        //                            //item.roleview = item.roleview + " - " + data.ToString();
-        //                        }
-        //                    }
-        //                }
-        //            }
-
-        //        }
-
-        //    }
-
-        //    return View(admins);
-        //}
+    
         //[RoleControl(EnumRole.AdminUserDelete)
 
         [HttpPost]
