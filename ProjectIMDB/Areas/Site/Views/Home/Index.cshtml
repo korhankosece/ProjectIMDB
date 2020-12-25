@@ -24,7 +24,7 @@
                             <a href="#"><img src="/adminsite/movieposter/@item.PosterURL" alt="" width="285" height="437"></a>
                         </div>
                         <div class="title-in">
-                            @foreach (var data in item.MovieGenres)
+                            @foreach (var data in item.MovieGenres.Where(q=>q.IsDeleted==false))
                             {
                                 <div class="cate">
                                     <span class="orange"><a href="#">@data.Genre.Name</a></span>

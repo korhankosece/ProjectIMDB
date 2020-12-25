@@ -23,6 +23,11 @@ namespace ProjectIMDB.Models.VM
         public DateTime releasedate { get; set; }
         public IFormFile movieposter { set; get; }
         public string posterurl { get; set; }
+
+        [DisplayName("Description")]
+        [Required(ErrorMessage = "The description field is required")]
+        public string description { get; set; }
+
         [DisplayName("Add Date")]
         public DateTime adddate { get; set; }
         [DisplayName("Update Date")]

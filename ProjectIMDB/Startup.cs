@@ -86,6 +86,9 @@ namespace ProjectIMDB
                 endpoints.MapRazorPages();
             });
 
+     
+
+
         }
     }
 }

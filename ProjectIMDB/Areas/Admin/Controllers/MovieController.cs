@@ -37,6 +37,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 posterurl = q.PosterURL,
                 adddate = q.AddDate,
                 updatedate = q.UpdateDate,
+                description=q.Description,
                 moviegenres = q.MovieGenres.Where(x => x.IsDeleted == false).ToList(),
                 moviepeople = q.MoviePeople.Where(x => x.IsDeleted == false).ToList()
 
@@ -87,6 +88,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 movie.Duration = model.duration;
                 movie.ReleaseDate = model.releasedate;
                 movie.PosterURL = imagepath;
+                movie.Description = model.description;
 
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
@@ -165,6 +167,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
             model.name = movie.Name;
             model.duration = movie.Duration;
             model.releasedate = movie.ReleaseDate;
+            model.description = movie.Description;
             model.genres = _context.Genres.Where(x => x.IsDeleted == false).ToList();
             model.moviegenres = movie.MovieGenres.Where(x => x.IsDeleted == false).ToList();
 
@@ -204,6 +207,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 movie.Name = model.name;
                 movie.Duration = model.duration;
                 movie.ReleaseDate = model.releasedate;
+                movie.Description = model.description;
                 if (imagepath != "")
                 {
                     movie.PosterURL = imagepath;
