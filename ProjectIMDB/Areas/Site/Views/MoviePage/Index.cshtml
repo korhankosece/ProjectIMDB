@@ -4,6 +4,7 @@
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
 
+@using System.Globalization;
 
 @model ProjectIMDB.Models.VM.MoviePageVM
 <!-- END | Header -->
@@ -47,10 +48,10 @@
                     <div class="movie-item-style-2">
                         <img src="/adminsite/movieposter/@item.PosterURL" alt="">
                         <div class="mv-item-infor">
-                            <h6><a href="moviesingle.html">@item.Name <span>(@item.ReleaseDate.Year)</span></a></h6>
+                            <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                             <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
                             <p class="describe">@item.Description</p>
-                            <p class="run-time"> Run Time: @item.Duration <span>Release Date: @item.ReleaseDate.ToString("dd MMMM yyyy")</span></p>
+                            <p class="run-time"> Run Time: @item.Duration <span>Release Date: @item.ReleaseDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></p>
 
                             <p>Director:
                                 @foreach (var data in item.MoviePeople.Where(q => q.JobID == 1))
@@ -86,6 +87,7 @@
                 <div class="topbar-filter">
                     <label>Movies per page:</label>
                     <select>
+                  
                         <option value="range">5 Movies</option>
                         <option value="saab">10 Movies</option>
                     </select>
