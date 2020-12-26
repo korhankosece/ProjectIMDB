@@ -33,6 +33,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
             MoviePageVM model = new MoviePageVM();
             model.MovieDetail = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false && q.ID == id).FirstOrDefault(q =>q.ID==id);
 
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
+
+
             return View(model);
         }
     }

@@ -107,29 +107,31 @@
                                                 <a href="#" class="time">Full Cast & Crew  <i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <!-- movie cast -->
-
                                             <div class="mvcast-item">
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        @foreach (var item in @Model.MovieDetail.MoviePeople.Where(q => q.JobID == 3))
-                                                        {
+
+                                                @foreach (var item in @Model.MovieDetail.MoviePeople.Where(q => q.JobID == 3))
+                                                {
+                                                    <div class="cast-it">
+                                                        <div class="cast-left">
+
                                                             <img src="/Site/images/uploads/cast1.jpg" alt="">
 
                                                             <a href="#">@item.Person.Name @item.Person.SurName</a>
-                                                        }
 
-                                                    </div>
-                                                    <p>...  Tony Stark/ Iron Man</p>
-                                                </div>
-                                                @*<div class="cast-it">
-                                                        <div class="cast-left">
-                                                            <img src="/Site/images/uploads/cast2.jpg" alt="">
-                                                            <a href="#">Chris Hemsworth</a>
                                                         </div>
-                                                        <p>...  Thor</p>
-                                                    </div>*@
+                                                        <p>...  Tony Stark/ Iron Man</p>
+                                                    </div>
+                                                    @*<div class="cast-it">
+                                                            <div class="cast-left">
+                                                                <img src="/Site/images/uploads/cast2.jpg" alt="">
+                                                                <a href="#">Chris Hemsworth</a>
+                                                            </div>
+                                                            <p>...  Thor</p>
+                                                        </div>*@
 
+                                                }
                                             </div>
+
                                             <div class="title-hd-sm">
                                                 <h4>User reviews</h4>
                                                 <a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>
@@ -160,7 +162,7 @@
                                                 <h6>Director: </h6>
                                                 @foreach (var item in @Model.MovieDetail.MoviePeople.Where(q => q.JobID == 1))
                                                 {
-                                                    <p><a href="#">@item.Person.Name @item.Person.SurName </a></p>
+                                                    <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName </a></p>
 
                                                 }
                                             </div>
@@ -168,7 +170,7 @@
                                                 <h6>Writer: </h6>
                                                 @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 2))
                                                 {
-                                                    <p><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+                                                    <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
 
                                                 }
                                             </div>
@@ -176,16 +178,17 @@
                                                 <h6>Stars: </h6>
                                                 @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 3))
                                                 {
-                                                    <p><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+                                                    <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
 
                                                 }
 
                                             </div>
+
                                             <div class="sb-it">
                                                 <h6>Genres:</h6>
                                                 @foreach (var item in Model.MovieDetail.MovieGenres.Where(q => q.IsDeleted == false))
                                                 {
-                                                    <p><a href="#">@item.Genre.Name, </a></p>
+                                                    <p style="display:inline;"><a href="#">@item.Genre.Name, </a></p>
 
                                                 }
                                             </div>
@@ -223,8 +226,8 @@
                                     <div class="row">
                                         <div class="rv-hd">
                                             <div class="div">
-                                                <h3>Related Movies To</h3>
-                                                <h2>Skyfall: Quantum of Spectre</h2>
+                                                <h3>Reviews Of</h3>
+                                                <h2>@Model.MovieDetail.Name</h2>
                                             </div>
                                             <a href="#" class="redbtn">Write Review</a>
                                         </div>
@@ -407,36 +410,39 @@
                                             <h4>Directed by </h4>
                                         </div>
                                         <div class="mvcast-item">
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    @foreach (var item in Model.MovieDetail.MoviePeople.Where(q =>q.JobID==1))
-                                                    {
+                                            @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 1))
+                                            {
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+
                                                         <h4>@item.Person.Name.First()@item.Person.SurName.First()</h4>
                                                         <a href="#">@item.Person.Name @item.Person.SurName</a>
-                                                    }
 
+                                                    </div>
+                                                    <p>...  Director</p>
                                                 </div>
-                                                <p>...  Director</p>
-                                            </div>
+                                            }
+
                                         </div>
                                         <!-- //== -->
                                         <div class="title-hd-sm">
                                             <h4>Credit Writers</h4>
                                         </div>
                                         <div class="mvcast-item">
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 2))
-                                                    {
+                                            @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 2))
+                                            {
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+
                                                         <h4>@item.Person.Name.First()@item.Person.SurName.First()</h4>
                                                         <a href="#">@item.Person.Name @item.Person.SurName</a>
 
 
-                                                    }
 
+                                                    </div>
+                                                    <p>...  (based on Marvel comics)</p>
                                                 </div>
-                                                <p>...  (based on Marvel comics)</p>
-                                            </div>
+                                            }
 
                                             <div class="cast-it">
                                                 <div class="cast-left">
@@ -450,20 +456,23 @@
                                         <div class="title-hd-sm">
                                             <h4>Cast</h4>
                                         </div>
+
+                                       
                                         <div class="mvcast-item">
-                                            
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    @foreach (var item in Model.MovieDetail.MoviePeople.Where(q =>q.JobID ==3))
-                                                    {
+                                            @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 3))
+                                            {
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+
                                                         <img src="/Site/images/uploads/cast3.jpg" alt="">
                                                         <a href="#">@item.Person.Name @item.Person.SurName</a>
-                                                    }
 
+                                                    </div>
+                                                    <p>...  Bruce Banner/ Hulk</p>
                                                 </div>
-                                                <p>...  Bruce Banner/ Hulk</p>
-                                            </div>
-                                         
+                                            }
+
+
                                             <div class="cast-it">
                                                 <div class="cast-left">
                                                     <img src="/Site/images/uploads/cast9.jpg" alt="">
@@ -472,6 +481,7 @@
                                                 <p>...  James Rhodes/ War Machine</p>
                                             </div>
                                         </div>
+
                                         <!-- //== -->
                                         <div class="title-hd-sm">
                                             <h4>Produced by</h4>
@@ -484,7 +494,7 @@
                                                 </div>
                                                 <p>...  executive producer</p>
                                             </div>
-                                
+
                                         </div>
                                     </div>
                                 </div>
@@ -493,7 +503,7 @@
                                         <div class="rv-hd">
                                             <div>
                                                 <h3>Videos & Photos of</h3>
-                                                <h2>Skyfall: Quantum of Spectre</h2>
+                                                <h2>@Model.MovieDetail.Name</h2>
                                             </div>
                                         </div>
                                         <div class="title-hd-sm">
@@ -612,9 +622,9 @@
                                 <div id="moviesrelated" class="tab">
                                     <div class="row">
                                         <h3>Related Movies To</h3>
-                                        <h2>Skyfall: Quantum of Spectre</h2>
+                                        <h2>@Model.MovieDetail.Name</h2>
                                         <div class="topbar-filter">
-                                            <p>Found <span>12 movies</span> in total</p>
+                                            <p>Found <span>@Model.MovieList.Count()</span> in total</p>
                                             <label>Sort by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>
@@ -625,17 +635,37 @@
                                                 <option value="date">Release date Ascending</option>
                                             </select>
                                         </div>
-                                        <div class="movie-item-style-2">
-                                            <img src="/Site/images/uploads/mv1.jpg" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">oblivion <span>(2012)</span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-                                                <p class="describe">Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Joss Whedon</a></p>
-                                                <p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
+
+                                        @foreach (var item in Model.MovieList)
+                                        {
+                                            <div class="movie-item-style-2">
+                                                <img src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                <div class="mv-item-infor">
+                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
+                                                    <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                                                    <p class="describe">@item.Description</p>
+                                                    <p class="run-time"> Run Time: @item.Duration <span>Release Date: @item.ReleaseDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></p>
+
+                                                    <p>
+                                                        Director:
+                                                        @foreach (var data in item.MoviePeople.Where(q => q.JobID == 1))
+                                                        {
+                                                            <a href="#">@data.Person.Name @data.Person.SurName</a>
+                                                        }
+                                                    </p>
+
+                                                    <p>
+                                                        Stars:
+                                                        @foreach (var x in item.MoviePeople.Where(q => q.JobID == 3))
+                                                        {
+                                                            <a href="#">@x.Person.Name @x.Person.SurName,</a>
+                                                        }
+                                                    </p>
+
+
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                         <div class="movie-item-style-2">
                                             <img src="/Site/images/uploads/mv2.jpg" alt="">
                                             <div class="mv-item-infor">
@@ -647,39 +677,7 @@
                                                 <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
                                             </div>
                                         </div>
-                                        <div class="movie-item-style-2">
-                                            <img src="/Site/images/uploads/mv3.jpg" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">blade runner  <span>(2015)</span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
-                                                <p class="describe">Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help...</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Peyton Reed</a></p>
-                                                <p>Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael Douglas</a></p>
-                                            </div>
-                                        </div>
-                                        <div class="movie-item-style-2">
-                                            <img src="/Site/images/uploads/mv4.jpg" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">Mulholland pride<span> (2013)  </span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
-                                                <p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Shane Black</a></p>
-                                                <p>Stars: <a href="#">Robert Downey Jr., </a> <a href="#">  Guy Pearce,</a><a href="#">Don Cheadle</a></p>
-                                            </div>
-                                        </div>
-                                        <div class="movie-item-style-2">
-                                            <img src="/Site/images/uploads/mv5.jpg" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">skyfall: evil of boss<span> (2013)  </span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
-                                                <p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Alan Taylor</a></p>
-                                                <p>Stars: <a href="#">Chris Hemsworth,  </a> <a href="#">  Natalie Portman,</a><a href="#">Tom Hiddleston</a></p>
-                                            </div>
-                                        </div>
+
                                         <div class="topbar-filter">
                                             <label>Movies per page:</label>
                                             <select>

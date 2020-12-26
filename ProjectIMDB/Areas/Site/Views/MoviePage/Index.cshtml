@@ -45,22 +45,24 @@
 
                 @foreach (var item in Model.MovieList)
                 {
-                    <div class="movie-item-style-2">
-                        <img src="/adminsite/movieposter/@item.PosterURL" alt="">
+                    <div  class="movie-item-style-2">
+                        <img src="/adminsite/movieposter/@item.PosterURL" alt="" width="285" height="437">
                         <div class="mv-item-infor">
                             <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                             <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
                             <p class="describe">@item.Description</p>
                             <p class="run-time"> Run Time: @item.Duration <span>Release Date: @item.ReleaseDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></p>
 
-                            <p>Director:
+                            <p>
+                                Director:
                                 @foreach (var data in item.MoviePeople.Where(q => q.JobID == 1))
                                 {
                                     <a href="#">@data.Person.Name @data.Person.SurName</a>
                                 }
                             </p>
 
-                            <p>Stars:
+                            <p>
+                                Stars:
                                 @foreach (var x in item.MoviePeople.Where(q => q.JobID == 3))
                                 {
                                     <a href="#">@x.Person.Name @x.Person.SurName,</a>
@@ -73,21 +75,23 @@
                 }
 
                 @*<div class="movie-item-style-2">
-                    <img src="/Site/images/uploads/mv2.jpg" alt="">
-                    <div class="mv-item-infor">
-                        <h6><a href="moviesingle.html">into the wild <span>(2014)</span></a></h6>
-                        <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                        <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                        <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                        <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                        <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                    </div>
-                </div>*@
-            
+                        <img src="/Site/images/uploads/mv2.jpg" alt="">
+                        <div class="mv-item-infor">
+                            <h6><a href="moviesingle.html">into the wild <span>(2014)</span></a></h6>
+                            <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
+                            <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
+                            <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+                            <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
+                            <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
+                        </div>
+                    </div>*@
+
+
+
                 <div class="topbar-filter">
                     <label>Movies per page:</label>
                     <select>
-                  
+
                         <option value="range">5 Movies</option>
                         <option value="saab">10 Movies</option>
                     </select>
