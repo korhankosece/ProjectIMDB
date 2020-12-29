@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
@@ -11,11 +12,11 @@ using ProjectIMDB.Models.VM;
 namespace ProjectIMDB.Areas.Site.Controllers
 {
     [Area("Site")]
-    public class MoviePageController : Controller
+    public class MoviePageController : BaseController
     {
         private readonly IMDBContext _context;
 
-        public MoviePageController(IMDBContext context)
+        public MoviePageController(IMDBContext context) : base(context)
         {
             _context = context;
         }
@@ -27,7 +28,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View(model);
         }
 
-
+        [Authorize]
         public IActionResult Detail(int id)
         {
             MoviePageVM model = new MoviePageVM();

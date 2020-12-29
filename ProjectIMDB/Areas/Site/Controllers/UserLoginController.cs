@@ -12,13 +12,13 @@ using ProjectIMDB.Models.VM;
 namespace ProjectIMDB.Areas.Site.Controllers
 {
     [Area("Site")]
-    public class UserLoginController : Controller
+    public class UserLoginController : BaseController
     {
         private readonly IMDBContext _context;
 
-        public UserLoginController(IMDBContext blogcontext)
+        public UserLoginController(IMDBContext context) : base(context)
         {
-            _context = blogcontext;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -52,17 +52,14 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
                     _context.SaveChanges();
 
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ViewBag.error = "Username or password wrong!";
+                    TempData["error"] = "Username or password wrong!";
 
-                    //return Json("Username or password wrong!");
-
-                    //ModelState.AddModelError(nameof(user.UserName), "Incorrect UserName"); ModelState.AddModelError(nameof(user.Password), "Incorrect password");
                     return RedirectToAction("Index", "Home");
-
 
                 }
             }
@@ -76,7 +73,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
 

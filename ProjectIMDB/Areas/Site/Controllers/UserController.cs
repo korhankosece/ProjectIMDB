@@ -10,11 +10,11 @@ using ProjectIMDB.Models.VM;
 namespace ProjectIMDB.Areas.Site.Controllers
 {
     [Area("Site")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IMDBContext _context;
 
-        public UserController(IMDBContext context)
+        public UserController(IMDBContext context) : base (context)
         {
             _context = context;
         }

@@ -56,7 +56,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 }
                 else
                 {
-                    //ViewBag.error = "Email or password wrong!";
+                    ViewBag.error = "Email or password wrong!";
                     return View();
                 }
             }

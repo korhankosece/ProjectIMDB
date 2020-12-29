@@ -47,18 +47,19 @@
         <div class="login-content">
             <a href="#" class="close">x</a>
             <h3>Login</h3>
+            <p style="color:red">@TempData["error"]</p>
             <form method="post" action="/Site/UserLogin/Index">
                 <div class="row">
                     <label for="username">
                         Username:
-                        <input type="text" name="username" id="username" placeholder="Hugh Jackman" />
+                        <input type="text" name="username" id="username" required="" placeholder="Hugh Jackman" />
                     </label>
                 </div>
 
                 <div class="row">
                     <label for="password">
                         Password:
-                        <input type="password" name="password" id="password" placeholder="******"  />
+                        <input type="password" name="password" id="password" required="" placeholder="******" />
                     </label>
                 </div>
                 <div class="row">
@@ -70,7 +71,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit">Login</button>
+                    <button id="login-submit" type="submit">Login</button>
                 </div>
             </form>
             <div class="row">
@@ -92,7 +93,7 @@
                 <div class="row">
                     <label for="username-2">
                         Username:
-                        <input type="text" name="username" id="username-2" placeholder="Hugh Jackman"  />
+                        <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" />
                     </label>
                 </div>
 
@@ -204,9 +205,10 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav flex-child-menu menu-right">
-                        <li style="color:red">@ViewBag.error</li>
-
-                        <li class="loginLink"><a href="#">LOG In</a></li>
+                        <li style="color:red">@TempData["error"]</li>
+                        <li style="color:red">@ViewBag.username</li>
+                        <li id="login-modal" class="loginLink"><a href="#">LOG In</a></li>
+                        <li ><a href="/Site/UserLogin/Logout">Log Out</a></li>
                         <li class="btn signupLink"><a href="#">sign up</a></li>
                     </ul>
                 </div>
@@ -292,7 +294,6 @@
         </div>
     </footer>
     <!-- end of footer section-->
-
     @*@RenderSection("Scripts", false)*@
 
 
@@ -306,3 +307,13 @@
 
 
 </html>
+<script>
+
+    @*(function () {
+        if (@TempData["error"] != null) {
+            $("#login-modal").click();
+            console.log("asdasd")
+        }
+    });*@
+
+</script>
