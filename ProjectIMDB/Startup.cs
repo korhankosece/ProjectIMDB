@@ -63,16 +63,6 @@ namespace ProjectIMDB
             //    routes.MapRoute("default", "{controller=Admin}/{action=Index}/{id?}");
             //});
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapAreaControllerRoute(
-                 name: "Admin",
-                 areaName: "Admin",
-                 pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
-                 );
-                endpoints.MapControllerRoute("default", "{Controller=Admin}/{Action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
 
 
             app.UseEndpoints(endpoints =>
@@ -85,6 +75,19 @@ namespace ProjectIMDB
                 endpoints.MapControllerRoute("default", "{Controller=Home}/{Action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapAreaControllerRoute(
+                 name: "Admin",
+                 areaName: "Admin",
+                 pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+                 );
+                endpoints.MapControllerRoute("default", "{Controller=Admin}/{Action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
+
+
 
      
 
