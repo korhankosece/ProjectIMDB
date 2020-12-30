@@ -39,7 +39,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
                     var claims = new List<Claim>
                  {
                 new Claim(ClaimTypes.Name, model.username),
-               
+                new Claim(ClaimTypes.UserData, "User")
+
+
                  };
 
                     var userIdentity = new ClaimsIdentity(claims, "login");

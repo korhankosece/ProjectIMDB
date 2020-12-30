@@ -39,7 +39,8 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                     var claims = new List<Claim>
                  {
                 new Claim(ClaimTypes.Name, model.EMail),
-                new Claim(ClaimTypes.Role, adminuser.Roles)
+                new Claim(ClaimTypes.Role, adminuser.Roles),
+                new Claim(ClaimTypes.UserData, "Admin")
                  };
 
                     var userIdentity = new ClaimsIdentity(claims, "login");
@@ -69,7 +70,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Admin");
         }
 
     }

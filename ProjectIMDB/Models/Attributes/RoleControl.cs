@@ -17,41 +17,61 @@ namespace ProjectIMDB.Models.Attributes
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            string roles = context.HttpContext.User.Claims.ToArray()[1].Value;
 
-
-
-            if (roles != null)
+            if (context.HttpContext.User.Identity.IsAuthenticated)
             {
-                string[] rolenames = roles.Split(';');
+                string adminrole = context.HttpContext.User.Claims.ToArray()[2].Value;
 
-                bool yetkiVarmi = false;
-
-                foreach (var item in rolenames)
+                if (adminrole == "Admin")
                 {
-                    if (item == pagerol)
+                    string roles = context.HttpContext.User.Claims.ToArray()[1].Value;
+
+                    if (roles != null)
                     {
-                        yetkiVarmi = true;
+                        string[] rolenames = roles.Split(';');
+
+                        bool authority = false;
+
+                        foreach (var item in rolenames)
+                        {
+                            if (item.Trim() == pagerol)
+                            {
+                                authority = true;
+                            }
+                        }
+
+                        if (authority)
+                        {
+                            base.OnActionExecuting(context);
+                        }
+
+                        else
+                        {
+                            context.HttpContext.Response.Redirect("/Admin/Error/UnauthorizedAccess");
+                        }
+
+                    }
+                    else
+                    {
+                        context.HttpContext.Response.Redirect("/Admin/Error/UnauthorizedAccess");
                     }
                 }
 
-                if (yetkiVarmi)
-                {
-                    base.OnActionExecuting(context);
-                }
                 else
                 {
-                    context.HttpContext.Response.Redirect("/Admin/Error/UnauthorizedAccess");
+                    context.HttpContext.Response.Redirect("/Admin/AdminLogin/");
                 }
 
-
             }
-
             else
             {
-                context.HttpContext.Response.Redirect("/Admin/Error/UnauthorizedAccess");
+                context.HttpContext.Response.Redirect("/Admin/AdminLogin/");
 
             }
+
+
         }
+      
+        
     }
 }

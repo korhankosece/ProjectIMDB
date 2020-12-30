@@ -20,8 +20,13 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             if (HttpContext.User.Identity.Name != null)
             {
-                ViewBag.username = "Welcome! " + HttpContext.User.Claims.ToArray()[0].Value;
+                if (HttpContext.User.Claims.ToArray()[1].Value == "User")
+                {
+                    ViewBag.username = "Welcome! " + HttpContext.User.Claims.ToArray()[0].Value;
+
+                }
             }
+
             base.OnActionExecuting(context);
         }
 

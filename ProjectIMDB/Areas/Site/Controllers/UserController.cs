@@ -41,5 +41,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+       
     }
 }
