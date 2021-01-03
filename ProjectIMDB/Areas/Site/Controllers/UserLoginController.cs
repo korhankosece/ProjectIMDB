@@ -32,14 +32,17 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = _context.Users.FirstOrDefault(x => x.UserName == model.username && x.Password == model.password);
+                User user = _context.Users.FirstOrDefault(x => x.UserName == model.username && x.Password == model.password );
 
                 if (user != null)
                 {
                     var claims = new List<Claim>
                  {
                 new Claim(ClaimTypes.Name, model.username),
-                new Claim(ClaimTypes.UserData, "User")
+                new Claim(ClaimTypes.UserData, "User"),
+                new Claim(ClaimTypes.Sid, user.ID.ToString())
+
+
 
 
                  };

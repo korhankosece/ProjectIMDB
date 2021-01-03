@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
+}
+
+@model ProjectIMDB.Models.VM.UserVM
+
+
+
+
+
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+
+<div class="hero user-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+
+
+                    @if (Model.name != null && Model.surname != null)
+                    {
+                        <h1>@Model.name @Model.surname’s profile</h1>
+
+                    }
+                    else
+                    {
+                        <h1>@Model.username’s profile</h1>
+
+                    }
+
+                    <ul class="breadcumb">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span>Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single">
+    <div class="container">
+        <div class="row ipad-width">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="user-information">
+                    <div class="user-img">
+                        <a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
+                        <a href="#" class="redbtn">Change avatar</a>
+                    </div>
+                    <div class="user-fav">
+                        <p>Account Details</p>
+                        <ul>
+                            <li class="active"><a href="userprofile.html">Profile</a></li>
+                            <li><a href="userfavoritelist.html">Favorite movies</a></li>
+                            <li><a href="userrate.html">Rated movies</a></li>
+                        </ul>
+                    </div>
+                    <div class="user-fav">
+                        <p>Others</p>
+                        <ul>
+                            <li><a href="#">Change password</a></li>
+                            <li><a href="#">Log out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="form-style-1 user-pro" action="#">
+                    <form action="/Site/User/Edit" method="post" class="user">
+                        <h4>01. Profile details</h4>
+                        @Html.HiddenFor(q => q.id)
+
+                       
+
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                @Html.LabelFor(q => q.username)
+                                @Html.TextBoxFor(q => q.username, new { @type = "text", @placeholder = "Username" })
+                                @Html.ValidationMessageFor(q => q.username, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6 form-it">
+                                @Html.LabelFor(q => q.email)
+                                @Html.TextBoxFor(q => q.email, new { @type = "email", @placeholder = "Email Address" })
+                                @Html.ValidationMessageFor(q => q.email, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+
+                                @Html.LabelFor(q => q.name)
+                                @Html.TextBoxFor(q => q.name, new { @type = "text", @placeholder = "First Name" })
+                                @Html.ValidationMessageFor(q => q.name, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-6 form-it">
+                                @Html.LabelFor(q => q.surname)
+                                @Html.TextBoxFor(q => q.surname, new { @type = "text", @placeholder = "Last Name" })
+                                @Html.ValidationMessageFor(q => q.surname, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                @Html.LabelFor(q => q.birthdate)
+                                @Html.TextBoxFor(q => q.birthdate, "{0:yyyy-MM-dd}", new { @type = "date" })
+
+                                @Html.ValidationMessageFor(q => q.birthdate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6 form-it">
+                                @Html.LabelFor(q => q.country)
+                                @await Html.PartialAsync("Partial/CountryDropdown")
+                                @Html.ValidationMessageFor(q => q.country, "", new { @class = "text-danger" })
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+
+                                <input class="submit" type="submit" value="save">
+                            </div>
+                        </div>
+
+                    </form>
+                    <form action="/Site/User/Change" method="post" class="password">
+                        <h4>02. Change password</h4>
+                        @Html.HiddenFor(q => q.id)
+                        @Html.HiddenFor(q => q.password)
+
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>Old Password</label>
+                                <input type="password" name="oldpassword" placeholder="">
+                                @Html.ValidationMessageFor(q => q.password, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>New Password</label>
+                                <input type="password" name="newpassword" placeholder="">
+                                @Html.ValidationMessageFor(q => q.newpassword, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-it">
+                                <label>Confirm New Password</label>
+                                <input type="password" name="confirmpassword" placeholder="">
+                                @Html.ValidationMessageFor(q => q.confirmpassword, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <input class="submit" type="submit" value="save">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

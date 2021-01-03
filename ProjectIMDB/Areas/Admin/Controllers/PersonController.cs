@@ -89,7 +89,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 }
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Person");
+                return Redirect("/Admin/Person/Index");
             }
             else
             {

@@ -36,7 +36,15 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 _memoryCache.Set("menus", adminMenus, cacheEntryOptions);
             }
 
-            ViewBag.email = HttpContext.User.Claims.ToArray()[0].Value;
+            if (HttpContext.User.Identity.Name != null)
+            {
+                if (HttpContext.User.Claims.ToArray()[2].Value == "Admin")
+                {
+                    ViewBag.email = HttpContext.User.Claims.ToArray()[0].Value;
+
+                }
+            }
+           
             ViewBag.menus = adminMenus;
             base.OnActionExecuting(context);
         }

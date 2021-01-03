@@ -10,22 +10,39 @@ namespace ProjectIMDB.Models.VM
     public class UserVM
     {
         public int id { get; set; }
+
+        [DisplayName("Username")]
+        [Required(ErrorMessage = "The Username field is required")]
+        public string username { get; set; }
+
+        [DisplayName("Name")]
         public string name { get; set; }
+
+        [DisplayName("Surname")]
         public string surname { get; set; }
+
+        [DisplayName("Birthdate")]
         public DateTime birthdate { get; set; }
+
+        [DisplayName("Country")]
         public string country { get; set; }
 
         [DisplayName("EMail")]
         [Required(ErrorMessage = "The Email field is required")]
         public string email { get; set; }
 
-
-        [Required(ErrorMessage = "The password field is required")]
-        [Display(Name = "Password")]
         public string password { get; set; }
 
-        [Required(ErrorMessage = "The confirm password field is required.")]
-        [Compare("Password", ErrorMessage = "Not match")]
+        [Compare("password", ErrorMessage = "Not match")]
+        [Display(Name = "Old Password")]
+        public string oldpassword { get; set; }
+
+
+        [Display(Name = "New Password")]
+        public string newpassword { get; set; }
+
+
+        [Compare("newpassword", ErrorMessage = "Not match")]
         [Display(Name = "Confirm Password")]
         public string confirmpassword { get; set; }
 

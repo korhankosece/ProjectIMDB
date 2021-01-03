@@ -8,7 +8,8 @@ namespace ProjectIMDB.Models.VM
 {
     public class UserLoginVM
     {
- 
+
+        public int id { get; set; }
 
         [Required(ErrorMessage = "The name field is required")]
         [Display(Name = "Username")]
