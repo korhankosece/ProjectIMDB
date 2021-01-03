@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
+}
+
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
+}
+
+@model ProjectIMDB.Models.VM.CommentVM
+<div class="page-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="blog-detail-ct">
+                    <div class="comment-form">
+                        <h4>Leave a comment</h4>
+                        <form action="/Site/Comment/Edit" method="post">
+                            @Html.HiddenFor(q => q.movieid)
+                            @Html.HiddenFor(q => q.id)
+
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    @Html.TextBoxFor(q => q.header, new { @type = "text", @class = "form-control", @name = "header", @placeholder = "header" })
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.TextAreaFor(q => q.content, new { @type = "text", @class = "form-control", @name = "content", @placeholder = "Write Comment" })
+                                </div>
+                            </div>
+                            <input class="submit" type="submit" placeholder="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- comment form -->

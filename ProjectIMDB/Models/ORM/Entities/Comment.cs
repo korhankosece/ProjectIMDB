@@ -11,6 +11,9 @@ namespace ProjectIMDB.Models.ORM.Entities
         public int UserID { get; set; }
         public int MovieID { get; set; }
         public string Content { get; set; }
+        public string Header { get; set; }
+
+
 
 
 

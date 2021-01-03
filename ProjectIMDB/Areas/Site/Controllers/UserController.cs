@@ -21,10 +21,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+       
 
         [HttpPost]
         public IActionResult Register(UserRegisterVM model)
