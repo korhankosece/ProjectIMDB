@@ -208,7 +208,7 @@
                         <li style="color:red">@TempData["error"]</li>
                         <li style="color:red">@ViewBag.username</li>
                         <li id="login-modal" class="loginLink"><a href="#">LOG In</a></li>
-                        <li ><a href="/Site/UserLogin/Logout">Log Out</a></li>
+                        <li><a href="/Site/UserLogin/Logout">Log Out</a></li>
                         <li class="btn signupLink"><a href="#">sign up</a></li>
                     </ul>
                 </div>
@@ -301,6 +301,9 @@
     <script src="/Site/js/plugins.js"></script>
     <script src="/Site/js/plugins2.js"></script>
     <script src="/Site/js/custom.js"></script>
+
+    @RenderSection("scripts", false)
+
 
 </body>
 

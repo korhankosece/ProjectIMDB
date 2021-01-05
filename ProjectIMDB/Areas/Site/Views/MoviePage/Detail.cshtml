@@ -39,11 +39,26 @@
             </div>
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="movie-single-ct main-content">
-
-
                     <h1 class="bd-hd">@Model.MovieDetail.Name <span>@Model.MovieDetail.ReleaseDate.Year</span></h1>
-                    <div class="social-btn">
+
+                    @*<div class="social-btn">
                         <a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+                        <div class="hover-bnt">
+                            <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
+                            <div class="hvr-item">
+                                <a href="#" class="hvr-grow"><i class="ion-social-facebook"></i></a>
+                                <a href="#" class="hvr-grow"><i class="ion-social-twitter"></i></a>
+                                <a href="#" class="hvr-grow"><i class="ion-social-googleplus"></i></a>
+                                <a href="#" class="hvr-grow"><i class="ion-social-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div  class="social-btn">
+                        <form  action="/Site/WatchList/Add" method="post">
+                            <input  type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                            <button style="background-color: transparent; border:none;" type="submit" class="parent-btn"><i class="ion-heart"></i> Add to Watchlist</button>
+                        </form>
+
                         <div class="hover-bnt">
                             <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
                             <div class="hvr-item">
@@ -59,7 +74,7 @@
                             <i class="ion-android-star"></i>
                             <p>
                                 <span>8.1</span> /10<br>
-                                <span class="rv">@Model.MovieDetail.Comments.Count() Reviews</span>
+                                <span class="rv">@Model.MovieDetail.Comments.Where(q =>q.IsDeleted == false).Count() Reviews</span>
                             </p>
                         </div>
                         <div class="rate-star">
@@ -122,24 +137,24 @@
                                                         <p>...  Tony Stark/ Iron Man</p>
                                                     </div>
                                                     @*<div class="cast-it">
-                                                            <div class="cast-left">
-                                                                <img src="/Site/images/uploads/cast2.jpg" alt="">
-                                                                <a href="#">Chris Hemsworth</a>
-                                                            </div>
-                                                            <p>...  Thor</p>
-                                                        </div>*@
+                                            <div class="cast-left">
+                                                <img src="/Site/images/uploads/cast2.jpg" alt="">
+                                                <a href="#">Chris Hemsworth</a>
+                                            </div>
+                                            <p>...  Thor</p>
+                                        </div>*@
 
                                                 }
                                             </div>
 
                                             <div class="title-hd-sm">
                                                 <h4>User reviews</h4>
-                                                <a href="#" class="time">See All @Model.MovieDetail.Comments.Count() Reviews <i class="ion-ios-arrow-right"></i></a>
+                                                <a href="#" class="time">See All @Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).Count() Reviews <i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <!-- movie user review -->
-                                            @foreach (var item in Model.MovieDetail.Comments)
+                                            @foreach (var item in Model.MovieDetail.Comments.Where(q => q.IsDeleted == false))
                                             {
-                                                <div class="mv-user-review-item">
+                                                <div class="mv-user-review-item" id="c_@item.ID">
                                                     <h3>@item.Header</h3>
                                                     <div class="no-star">
                                                         <i class="ion-android-star"></i>
@@ -237,7 +252,7 @@
                                             @*@Html.HiddenFor(q => q.MovieDetail.ID)*@
                                         </div>
                                         <div class="topbar-filter">
-                                            <p>Found <span>@Model.MovieDetail.Comments.Count()</span> in total</p>
+                                            <p>Found <span>@Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).Count()</span> in total</p>
                                             <label>Filter by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>
@@ -251,12 +266,13 @@
 
 
 
-                                        @foreach (var item in Model.MovieDetail.Comments)
+                                        @foreach (var item in Model.MovieDetail.Comments.Where(q => q.IsDeleted == false))
                                         {
-                                            <div class="mv-user-review-item ">
-                                                <div class="user-infor">
-                                                    <img src="/Site/images/uploads/userava4.jpg" alt="">
-                                                    <div style="display:flex; justify-content:space-between">
+                                            <div class="mv-user-review-item " id="c_@item.ID">
+                                                <div style="justify-content:space-between" class="user-infor">
+                                                    <div class="user-infor">
+
+                                                        <img src="/Site/images/uploads/userava4.jpg" alt="">
                                                         <div>
                                                             <h3>@item.Header</h3>
                                                             <div class="no-star">
@@ -277,18 +293,29 @@
                                                             <p>@item.Content</p>
                                                         </div>
 
+
+
+
+                                                    </div>
+
+                                                    <div>
                                                         <div class="row">
                                                             <div class="rv-hd">
-                                                                <a href="/Site/Comment/Edit/@item.ID"style="padding: 9px 13px; font-size: 12px;" class="redbtn">Edit</a>
+                                                                <a href="/Site/Comment/Edit/@item.ID" style="padding: 3px 27px; font-size: 13px;" class="redbtn">Edit</a>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div id="@item.ID" class="row">
+                                                            <div class="rv-hd">
+                                                                <button id="@item.ID" style="padding: 3px 16px; font-size: 13px;" class="redbtn delete">Delete</button>
                                                             </div>
                                                         </div>
                                                     </div>
 
-
-
                                                 </div>
-
                                             </div>
+
+
 
 
 
@@ -620,3 +647,30 @@
         </div>
     </div>
 </div>
+
+
+@section scripts
+{
+    <script>
+
+        $(document).on("click", ".delete", function () {
+            let id = $(this).attr("id");
+            $.ajax({
+                url: "/Site/Comment/Delete",
+                type: "POST",
+                data: { id: id },
+                success: function (msg) {
+                    console.log($("#c_" + id));
+                    alert("Deleted");
+                    $("#c_" + id).fadeOut();
+
+                },
+                error: function (err) {
+                    alert("Failed")
+                }
+            })
+        });
+
+    </script>
+
+}

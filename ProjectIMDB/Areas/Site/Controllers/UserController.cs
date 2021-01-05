@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
@@ -20,8 +21,19 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
+        public IActionResult Watchlist()
+        {
+            int id = Convert.ToInt32(ViewBag.ID);
+            UserPageVM model = new UserPageVM();
 
-       
+            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Where(q => q.UserID == id).ToList();
+
+
+            return View(model);
+
+        }
+
+
 
         [HttpPost]
         public IActionResult Register(UserRegisterVM model)
@@ -47,7 +59,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             UserVM model = new UserVM();
 
             User user = _context.Users.FirstOrDefault(q => q.ID == id);
-
+            //  model.id = user.ID; //dene olmalı mı
             model.username = user.UserName;
             model.email = user.EMail;
             model.name = user.Name;
@@ -70,15 +82,16 @@ namespace ProjectIMDB.Areas.Site.Controllers
             if (ModelState.IsValid)
             {
 
-                user.ID = model.id;
+                //user.ID = model.id;  olmalı mı
                 user.UserName = model.username;
                 user.Name = model.name;
                 user.SurName = model.surname;
                 user.EMail = model.email;
                 user.Country = model.country;
                 user.BirthDate = model.birthdate;
-                //user.Password = model.newpassword;
+                //user.Password = model.newpassword; ??
                 _context.SaveChanges();
+
                 return RedirectToAction("Index", "Home");
 
 
@@ -123,7 +136,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 model.country = user.Country;
                 model.birthdate = user.BirthDate;
                 model.password = user.Password;
-                return RedirectToAction("Edit","User",model);
+                return RedirectToAction("Edit", "User", model);
             }
 
 

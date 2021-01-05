@@ -86,6 +86,22 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+
+
+            
+          
+        }
+
+
+        [HttpPost]
+
+        public IActionResult Delete(int id)
+        {
+            Comment comment = _context.Comments.FirstOrDefault(q => q.ID == id);
+            comment.IsDeleted = true;
+            _context.SaveChanges();
+
+            return Json("Silme işlemi başarılı!!");
         }
 
     }

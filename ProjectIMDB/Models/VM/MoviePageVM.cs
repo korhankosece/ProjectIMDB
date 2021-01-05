@@ -11,7 +11,7 @@ namespace ProjectIMDB.Models.VM
 
         public List<Movie> MovieList { get; set; }
         public Movie MovieDetail { get; set; }
-        public  List<User> Users { get; set; }
+       
 
         //public string Name { get; set; }
         //public string Poster { get; set; }
