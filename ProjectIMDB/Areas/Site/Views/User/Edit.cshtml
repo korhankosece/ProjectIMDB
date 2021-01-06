@@ -55,8 +55,8 @@
                     <div class="user-fav">
                         <p>Account Details</p>
                         <ul>
-                            <li class="active"><a href="/Site/User/Edit/@ViewBag.ID">Profile</a></li>
-                            <li><a href="/Site/User/Watchlist/@ViewBag.ID">My Watchlist</a></li>
+                            <li class="active"><a href="/Site/User/Edit/@TempData["ID"]">Profile</a></li>
+                            <li><a href="/Site/User/Watchlist">My Watchlist</a></li>
                             <li><a href="">Rated movies</a></li>
                         </ul>
                     </div>
@@ -139,7 +139,7 @@
                             <div class="col-md-6 form-it">
                                 <label>Old Password</label>
                                 <input type="password" name="oldpassword" placeholder="">
-                                @Html.ValidationMessageFor(q => q.password, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(q => q.oldpassword, "", new { @class = "text-danger" })
 
                             </div>
                         </div>

@@ -24,6 +24,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
+        
         public IActionResult Add(int id)
         {
             CommentVM model = new CommentVM();
@@ -37,8 +38,11 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View(model);
         }
 
-        [HttpPost]
 
+
+        
+
+        [HttpPost]
 
         public IActionResult Add(CommentVM model)
         {
@@ -57,6 +61,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        
+
         public IActionResult Edit(int id)
         {
             Comment comment = _context.Comments.FirstOrDefault(q => q.ID == id);
@@ -69,6 +75,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
            
             return View(model);
         }
+
+
+        
 
         [HttpPost]
 
@@ -91,6 +100,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
           
         }
 
+
+        [SiteAuth]
 
         [HttpPost]
 

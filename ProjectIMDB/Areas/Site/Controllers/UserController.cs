@@ -63,7 +63,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             UserVM model = new UserVM();
 
             User user = _context.Users.FirstOrDefault(q => q.ID == id);
-            //  model.id = user.ID; //dene olmalı mı
+            //model.id = user.ID; //dene olmalı mı
             model.username = user.UserName;
             model.email = user.EMail;
             model.name = user.Name;
@@ -138,7 +138,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 model.country = user.Country;
                 model.birthdate = user.BirthDate;
                 model.password = user.Password;
-                return RedirectToAction("Edit", "User", model);
+                return View("Edit", model);
             }
 
 

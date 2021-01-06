@@ -1,4 +1,4 @@
-﻿
+﻿f
 @{
     ViewData["Title"] = "Detail";
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
@@ -298,19 +298,34 @@
 
                                                     </div>
 
-                                                    <div>
-                                                        <div class="row">
-                                                            <div class="rv-hd">
-                                                                <a href="/Site/Comment/Edit/@item.ID" style="padding: 3px 27px; font-size: 13px;" class="redbtn">Edit</a>
+
+                                                    @if (TempData["ID"] != null)
+                                                    {
+
+                                                        @if (Convert.ToInt32(TempData["ID"]) == item.UserID)
+                                                        {
+                                                            <div>
+                                                                <div class="row">
+                                                                    <div class="rv-hd">
+                                                      
+                                                                        <a href="/Site/Comment/Edit/@item.ID" style="padding: 0px 16px;
+                                                                           font-size: 20px;" class="redbtn"><i style="margin:0;" class="ion-android-create"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div id="@item.ID" class="row">
+                                                                    <div class="rv-hd">
+                                                                        <button id="@item.ID" style=" padding: 0px 16px; font-size: 20px;" class="redbtn delete"><i style="margin:0;" class="ion-ios-trash-outline"></i></button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <br />
-                                                        <div id="@item.ID" class="row">
-                                                            <div class="rv-hd">
-                                                                <button id="@item.ID" style="padding: 3px 16px; font-size: 13px;" class="redbtn delete">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        }
+                                                    }
+
+
+
+
+
 
                                                 </div>
                                             </div>
