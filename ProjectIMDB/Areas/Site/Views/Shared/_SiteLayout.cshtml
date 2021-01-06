@@ -155,7 +155,7 @@
                     <ul class="nav navbar-nav flex-child-menu menu-right">
                         <li style=" color: #dd003f; font-weight: bold;">@TempData["error"]</li>
                         <li id="must-login-err" style=" color: #dd003f; font-weight: bold;"></li>
-                        <li style=" color: #dd003f; font-weight: bold;">@ViewBag.username</li>
+                        <li style=" color: #dd003f; font-weight: bold;">@TempData["username"]</li>
                         <li id="account-modal" class="dropdown first">
                             <a id="myAccLink" href="/Site/User/Edit/@TempData["ID"]">My Account</a>
                         </li>
@@ -250,7 +250,7 @@
     <script src="/Site/js/custom.js"></script>
 
     <script>
-        var username = "@ViewBag.username";
+        var username = "@TempData["username"]";
         var userID = "@TempData["ID"]";
         if (username == "") {
             document.getElementById("account-modal").style.display = "none"

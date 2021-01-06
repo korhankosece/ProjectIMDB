@@ -42,9 +42,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 new Claim(ClaimTypes.UserData, "User"),
                 new Claim(ClaimTypes.Sid, user.ID.ToString())
 
-
-
-
                  };
 
                     var userIdentity = new ClaimsIdentity(claims, "login");
@@ -78,7 +75,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
+            TempData["username"] = "";
             return RedirectToAction("Index", "Home");
+
         }
 
 

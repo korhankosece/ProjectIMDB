@@ -14,7 +14,6 @@ using ProjectIMDB.Models.VM;
 namespace ProjectIMDB.Areas.Site.Controllers
 {
     [Area("Site")]
-    [Authorize]
 
     public class UserController : BaseController
     {
@@ -25,6 +24,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
+        [SiteAuth]
         public IActionResult Watchlist()
         {
             int id = Convert.ToInt32(TempData["ID"]);
@@ -57,7 +57,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
 
-        
+        [SiteAuth]
         public IActionResult Edit(int id)
         {
             UserVM model = new UserVM();
@@ -76,6 +76,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View(model);
         }
 
+        [SiteAuth]
         [HttpPost]
         public IActionResult Edit(UserVM model)
         {
@@ -95,6 +96,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 //user.Password = model.newpassword; ??
                 _context.SaveChanges();
 
+                TempData["username"] = "Welcome! " + model.username;
                 return RedirectToAction("Index", "Home");
 
 
@@ -113,10 +115,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             }
         }
 
-
-
-
-
+        [SiteAuth]
         [HttpPost]
         public IActionResult Change(UserVM model)
         {

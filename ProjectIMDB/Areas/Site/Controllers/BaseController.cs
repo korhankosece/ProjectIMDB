@@ -22,7 +22,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             {
                 if (HttpContext.User.Claims.ToArray()[1].Value == "User")
                 {
-                    ViewBag.username = "Welcome! " + HttpContext.User.Claims.ToArray()[0].Value;
+
+                    TempData["username"] = "Welcome! " + HttpContext.User.Claims.ToArray()[0].Value;
                     TempData["ID"] = HttpContext.User.Claims.ToArray()[2].Value;
                 }
             }
