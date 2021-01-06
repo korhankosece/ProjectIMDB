@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
@@ -10,6 +11,7 @@ using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
+    [Authorize]
     [Area("Site")]
     public class CommentController : BaseController
     {
@@ -30,7 +32,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             CommentVM model = new CommentVM();
             
 
-            int a = Convert.ToInt32(ViewBag.ID);
+            int a = Convert.ToInt32(TempData["ID"]);
             User user = _context.Users.Where(q => q.IsDeleted == false).FirstOrDefault(q => q.ID == a);
             
             model.movieid = id;
@@ -45,7 +47,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             Comment comment = new Comment();
             comment.Content = model.content;
-            comment.UserID = Convert.ToInt32(ViewBag.ID);
+            comment.UserID = Convert.ToInt32(TempData["ID"]);
             comment.MovieID = model.movieid;
             comment.Header = model.header;
 

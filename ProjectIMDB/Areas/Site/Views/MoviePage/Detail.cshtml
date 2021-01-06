@@ -42,20 +42,20 @@
                     <h1 class="bd-hd">@Model.MovieDetail.Name <span>@Model.MovieDetail.ReleaseDate.Year</span></h1>
 
                     @*<div class="social-btn">
-                        <a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
-                        <div class="hover-bnt">
-                            <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
-                            <div class="hvr-item">
-                                <a href="#" class="hvr-grow"><i class="ion-social-facebook"></i></a>
-                                <a href="#" class="hvr-grow"><i class="ion-social-twitter"></i></a>
-                                <a href="#" class="hvr-grow"><i class="ion-social-googleplus"></i></a>
-                                <a href="#" class="hvr-grow"><i class="ion-social-youtube"></i></a>
+                            <a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+                            <div class="hover-bnt">
+                                <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
+                                <div class="hvr-item">
+                                    <a href="#" class="hvr-grow"><i class="ion-social-facebook"></i></a>
+                                    <a href="#" class="hvr-grow"><i class="ion-social-twitter"></i></a>
+                                    <a href="#" class="hvr-grow"><i class="ion-social-googleplus"></i></a>
+                                    <a href="#" class="hvr-grow"><i class="ion-social-youtube"></i></a>
+                                </div>
                             </div>
-                        </div>
-                    </div>*@
-                    <div  class="social-btn">
-                        <form  action="/Site/WatchList/Add" method="post">
-                            <input  type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                        </div>*@
+                    <div class="social-btn">
+                        <form action="/Site/WatchList/Add" method="post">
+                            <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
                             <button style="background-color: transparent; border:none;" type="submit" class="parent-btn"><i class="ion-heart"></i> Add to Watchlist</button>
                         </form>
 
@@ -74,7 +74,7 @@
                             <i class="ion-android-star"></i>
                             <p>
                                 <span>8.1</span> /10<br>
-                                <span class="rv">@Model.MovieDetail.Comments.Where(q =>q.IsDeleted == false).Count() Reviews</span>
+                                <span class="rv">@Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).Count() Reviews</span>
                             </p>
                         </div>
                         <div class="rate-star">
@@ -137,12 +137,12 @@
                                                         <p>...  Tony Stark/ Iron Man</p>
                                                     </div>
                                                     @*<div class="cast-it">
-                                            <div class="cast-left">
-                                                <img src="/Site/images/uploads/cast2.jpg" alt="">
-                                                <a href="#">Chris Hemsworth</a>
-                                            </div>
-                                            <p>...  Thor</p>
-                                        </div>*@
+                                                            <div class="cast-left">
+                                                                <img src="/Site/images/uploads/cast2.jpg" alt="">
+                                                                <a href="#">Chris Hemsworth</a>
+                                                            </div>
+                                                            <p>...  Thor</p>
+                                                        </div>*@
 
                                                 }
                                             </div>
@@ -583,7 +583,7 @@
                                         @foreach (var item in Model.MovieList)
                                         {
                                             <div class="movie-item-style-2">
-                                                <img src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                    <img src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                 <div class="mv-item-infor">
                                                     <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                                                     <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>

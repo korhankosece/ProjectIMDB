@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
@@ -12,6 +14,8 @@ using ProjectIMDB.Models.VM;
 namespace ProjectIMDB.Areas.Site.Controllers
 {
     [Area("Site")]
+    [Authorize]
+
     public class UserController : BaseController
     {
         private readonly IMDBContext _context;
@@ -23,7 +27,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         public IActionResult Watchlist()
         {
-            int id = Convert.ToInt32(ViewBag.ID);
+            int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
             model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Where(q => q.UserID == id).ToList();
@@ -53,7 +57,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
 
-
+        
         public IActionResult Edit(int id)
         {
             UserVM model = new UserVM();
@@ -71,7 +75,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             return View(model);
         }
-
 
         [HttpPost]
         public IActionResult Edit(UserVM model)

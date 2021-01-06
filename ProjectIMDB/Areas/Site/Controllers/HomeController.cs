@@ -22,10 +22,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             SiteHomeVM model = new SiteHomeVM();
             model.BannerMovies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted==false).OrderByDescending(q => q.ID).Take(10).ToList();
-
-           
-
-            
             
             return View(model);
 

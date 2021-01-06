@@ -9,6 +9,16 @@
 @model ProjectIMDB.Models.VM.MoviePageVM
 <!-- END | Header -->
 
+<style>
+
+    .movie-container {
+        width: 224px;
+        height: 337px;
+        position:absolute;
+    }
+
+</style>
+
 <div class="hero common-hero">
     <div class="container">
         <div class="row">
@@ -45,8 +55,9 @@
 
                 @foreach (var item in Model.MovieList)
                 {
-                    <div  class="movie-item-style-2">
-                        <img src="/adminsite/movieposter/@item.PosterURL" alt="" width="285" height="437">
+                    <div class="movie-item-style-2">
+                        <a class="movie-container" href="/Site/MoviePage/Detail/@item.ID"></a>
+                            <img  src="/adminsite/movieposter/@item.PosterURL" alt="" width="285" height="437">
                         <div class="mv-item-infor">
                             <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                             <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>

@@ -136,7 +136,7 @@
                             <span></span>
                         </div>
                     </div>
-                    <a href="index-2.html"><img class="logo" src="/Site/images/logo1.png" alt="" width="119" height="58"></a>
+                    <a href="/Site/Home"><img class="logo" src="/Site/images/logo1.png" alt="" width="119" height="58"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -145,71 +145,22 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-                                Home <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
-                                <li><a href="~/Site/Home">Home 01</a></li>
-                                <li><a href="homev2.html">Home 02</a></li>
-                                <li><a href="homev3.html">Home 03</a></li>
-                            </ul>
+                            <a href="/Site/MoviePage">Movies</a>
                         </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                                movies<i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movie grid<i class="ion-ios-arrow-forward"></i></a>
-                                    <ul class="dropdown-menu level2">
-                                        <li><a href="moviegrid.html">Movie grid</a></li>
-                                        <li><a href="moviegridfw.html">movie grid full width</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/Site/MoviePage">Movie list</a></li>
-                                <li><a href="moviesingle.html">Movie single</a></li>
-                                <li class="it-last"><a href="seriessingle.html">Series single</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                                celebrities <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
-                                <li><a href="celebritygrid01.html">celebrity grid 01</a></li>
-                                <li><a href="celebritygrid02.html">celebrity grid 02 </a></li>
-                                <li><a href="celebritylist.html">celebrity list</a></li>
-                                <li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                                news <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
-                                <li><a href="bloglist.html">blog List</a></li>
-                                <li><a href="bloggrid.html">blog Grid</a></li>
-                                <li class="it-last"><a href="blogdetail.html">blog Detail</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown first">
-                            <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                                community <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu level1">
-                                <li><a href="userfavoritegrid.html">user favorite grid</a></li>
-                                <li><a href="userfavoritelist.html">user favorite list</a></li>
-                                <li><a href="/Site/User/Edit/@ViewBag.ID">user profile</a></li>
-                                <li class="it-last"><a href="userrate.html">user rate</a></li>
-                            </ul>
-                        </li>
+                        @*<li class="dropdown first">
+                                <a href="celebritygrid01.html">Celebrities</a>
+                            </li>*@
+
                     </ul>
                     <ul class="nav navbar-nav flex-child-menu menu-right">
-                        <li style="color:red">@TempData["error"]</li>
-                        <li style="color:red">@ViewBag.username</li>
+                        <li style=" color: #dd003f; font-weight: bold;">@TempData["error"]</li>
+                        <li id="must-login-err" style=" color: #dd003f; font-weight: bold;"></li>
+                        <li style=" color: #dd003f; font-weight: bold;">@ViewBag.username</li>
+                        <li id="account-modal" class="dropdown first">
+                            <a id="myAccLink" href="/Site/User/Edit/@TempData["ID"]">My Account</a>
+                        </li>
                         <li id="login-modal" class="loginLink"><a href="#">LOG In</a></li>
-                        <li><a href="/Site/UserLogin/Logout">Log Out</a></li>
-                        <li class="btn signupLink"><a href="#">sign up</a></li>
+                        <li id="signUp-modal" class="btn signupLink"><a href="#">sign up</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -217,10 +168,6 @@
 
             <!-- top search form -->
             <div class="top-search">
-                <select>
-                    <option value="united">TV show</option>
-                    <option value="saab">Others</option>
-                </select>
                 <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
             </div>
         </div>
@@ -302,6 +249,17 @@
     <script src="/Site/js/plugins2.js"></script>
     <script src="/Site/js/custom.js"></script>
 
+    <script>
+        var username = "@ViewBag.username";
+        var userID = "@TempData["ID"]";
+        if (username == "") {
+            document.getElementById("account-modal").style.display = "none"
+        } else {
+            document.getElementById("login-modal").style.display = "none"
+            document.getElementById("signUp-modal").style.display = "none"
+        }
+
+    </script>
     @RenderSection("scripts", false)
 
 
@@ -310,13 +268,3 @@
 
 
 </html>
-<script>
-
-    @*(function () {
-        if (@TempData["error"] != null) {
-            $("#login-modal").click();
-            console.log("asdasd")
-        }
-    });*@
-
-</script>

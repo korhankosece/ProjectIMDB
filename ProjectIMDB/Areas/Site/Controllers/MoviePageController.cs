@@ -28,7 +28,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View(model);
         }
 
-        //[Authorize]
         public IActionResult Detail(int id)
         {
             MoviePageVM model = new MoviePageVM();

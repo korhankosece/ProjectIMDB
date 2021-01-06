@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
+using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProjectIMDB.Areas.Admin.Controllers
 {
-    [Authorize]
+    [AdminAuth]
     public class BaseController : Controller
     {
         private readonly IMDBContext _context;

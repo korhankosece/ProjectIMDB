@@ -22,12 +22,12 @@ namespace ProjectIMDB.Models.Attributes
                 }
                 else
                 {
-                    context.HttpContext.Response.Redirect("/Admin/Admin");
+                    context.HttpContext.Response.Redirect("/Admin");
                 }
             }
             else
             {
-                context.HttpContext.Response.Redirect("/Admin/Admin");
+                context.HttpContext.Response.Redirect("/Admin");
 
             }
         }
