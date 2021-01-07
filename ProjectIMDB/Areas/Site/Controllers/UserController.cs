@@ -26,16 +26,33 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         [SiteAuth]
         public IActionResult Watchlist()
+
         {
             int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
-            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Where(q => q.UserID == id).ToList();
+            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Include(q => q.User).Where(q => q.UserID == id && q.IsDeleted==false).ToList();
 
 
             return View(model);
 
         }
+
+
+        public IActionResult RateList()
+
+        {
+            int id = Convert.ToInt32(TempData["ID"]);
+            UserPageVM model = new UserPageVM();
+
+            model.UserRate = _context.Rates.Include(x => x.Movie).ThenInclude(Movie => Movie.Comments).Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(q => q.User).ThenInclude(User =>User.Comments).Where(q => q.UserID == id && q.IsDeleted == false).ToList();
+
+            return View(model);
+
+
+
+        }
+
 
 
 

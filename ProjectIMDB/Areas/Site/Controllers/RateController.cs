@@ -22,29 +22,39 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
+        [SiteAuth]
         [HttpPost]
         public IActionResult Add(RateVM model)
         {
-
+           
             int id = model.movieid;
             int userID = Convert.ToInt32(TempData["ID"]);
             var oldRates = _context.Rates.Where(q => q.MovieID == id && q.UserID == userID).ToList();
 
-            foreach (var item in oldRates)
+            if (userID ==0)
             {
-                item.IsDeleted = true;
+                return Redirect("/Site/MoviePage/Detail/" + id);
             }
-            _context.SaveChanges();
 
-            Rate rate = new Rate();
-            rate.MovieID = id;
-            rate.Point = model.point;
-            rate.UserID = userID;
+            else
+            {
+                foreach (var item in oldRates)
+                {
+                    item.IsDeleted = true;
+                }
+                _context.SaveChanges();
 
-            _context.Rates.Add(rate);
-            _context.SaveChanges();
+                Rate rate = new Rate();
+                rate.MovieID = id;
+                rate.Point = model.point;
+                rate.UserID = userID;
 
-            return Redirect("/Site/MoviePage/Detail/"+id);
+                _context.Rates.Add(rate);
+                _context.SaveChanges();
+
+                return Redirect("/Site/MoviePage/Detail/" + id);
+            }
+          
         }
     }
 }

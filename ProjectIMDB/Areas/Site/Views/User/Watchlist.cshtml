@@ -13,7 +13,25 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-ct">
-                    <h1>Edward kennedy’s profile</h1>
+
+
+
+                    @if (Model.UserWatch[0].User.Name != null && Model.UserWatch[0].User.SurName != null)
+                    {
+                        <h1>@Model.UserWatch[0].User.Name @Model.UserWatch[0].User.SurName’s profile</h1>
+                    }
+
+                    else
+                    {
+
+                        <h1>@Model.UserWatch[0].User.UserName’s profile</h1>
+
+                    }
+
+
+
+
+
                     <ul class="breadcumb">
                         <li class="active"><a href="#">Home</a></li>
                         <li> <span class="ion-ios-arrow-right"></span>Favorite movies</li>
@@ -37,14 +55,14 @@
                         <ul>
                             <li><a href="/Site/User/Edit/@TempData["ID"]">Profile</a></li>
                             <li class="active"><a href="/Site/User/Watchlist">My Watchlist</a></li>
-                            <li><a href="userrate.html">Rated movies</a></li>
+                            <li><a href="/Site/User/RateList">Rated movies</a></li>
                         </ul>
                     </div>
                     <div class="user-fav">
                         <p>Others</p>
                         <ul>
-                            <li><a href="#">Change password</a></li>
-                            <li><a href="#">Log out</a></li>
+                            <li><a href="/Site/User/Edit/@TempData["ID"]">Change password</a></li>
+                            <li><a href="/Site/UserLogin/Logout">Log out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,7 +83,8 @@
                     @foreach (var item in Model.UserWatch)
                     {
                         <div class="movie-item-style-2">
-                            <img src="/adminsite/movieposter/@item.Movie.PosterURL" alt="">
+                            <a href="/Site/MoviePage/Detail/@item.MovieID"><img src="/adminsite/movieposter/@item.Movie.PosterURL" alt=""></a>
+                            
                             <div class="mv-item-infor">
                                 <h6><a href="#">@item.Movie.Name<span>(@item.Movie.ReleaseDate.Year)</span></a></h6>
                                 <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
@@ -95,16 +114,16 @@
                     }
 
                     @*<div class="movie-item-style-2">
-                        <img src="images/uploads/mv2.jpg" alt="">
-                        <div class="mv-item-infor">
-                            <h6><a href="#">into the wild <span>(2014)</span></a></h6>
-                            <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                            <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                            <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                            <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                            <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                        </div>
-                    </div>*@
+                            <img src="images/uploads/mv2.jpg" alt="">
+                            <div class="mv-item-infor">
+                                <h6><a href="#">into the wild <span>(2014)</span></a></h6>
+                                <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
+                                <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
+                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+                                <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
+                                <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
+                            </div>
+                        </div>*@
 
                 </div>
                 <div class="topbar-filter">
@@ -129,5 +148,5 @@
         </div>
     </div>
 </div>
-        
+
 
