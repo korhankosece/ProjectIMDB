@@ -28,13 +28,13 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View();
         }
 
-        public IActionResult Add(int id)
-        {
-            WatchlistVM model = new WatchlistVM();
+        //public IActionResult Add(int id)
+        //{
+        //    WatchlistVM model = new WatchlistVM();
 
-            model.movieid = id;
-            return View(model);
-        }
+        //    model.movieid = id;
+        //    return View(model);
+        //}
 
 
         [HttpPost]

@@ -1,11 +1,25 @@
-﻿f
-@{
+﻿@{
     ViewData["Title"] = "Detail";
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
 @using System.Globalization;
 
 @model ProjectIMDB.Models.VM.MoviePageVM
+
+<style>
+    .btn-star {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .star-hover:hover {
+        color: red !important;
+    }
+</style>
+
 <div class="hero mv-single-hero">
     <div class="container">
         <div class="row">
@@ -56,7 +70,7 @@
                     <div class="social-btn">
                         <form action="/Site/WatchList/Add" method="post">
                             <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
-                            <button style="background-color: transparent; border:none;" type="submit" class="parent-btn"><i class="ion-heart"></i> Add to Watchlist</button>
+                            <button style="background-color: transparent; border:none;outline:none" type="submit" class="parent-btn"><i class="ion-heart"></i> Add to Watchlist</button>
                         </form>
 
                         <div class="hover-bnt">
@@ -79,15 +93,51 @@
                         </div>
                         <div class="rate-star">
                             <p>Rate This Movie:  </p>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star-outline"></i>
+
+                            @{
+                                double puan = 0;
+                            }
+                            @if (Model.Rate != null)
+                            {
+                                puan = Model.Rate.Point;
+                                @for (int i = 1; i <= 10; i++)
+                                {
+                                    if (i <= puan)
+                                    {
+                                        <form action="/Site/Rate/Add" method="post">
+
+                                            <input type="hidden" name="Point" value="@i" />
+                                            <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                                            <button class="btn-star" type="submit"><i class="star-hover ion-ios-star"></i></button>
+                                        </form>
+
+                                    }
+                                    else
+                                    {
+                                        <form action="/Site/Rate/Add" method="post">
+
+                                            <input type="hidden" name="Point" value="@i" />
+                                            <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                                            <button class="btn-star" type="submit"><i class="star-hover ion-ios-star-outline"></i></button>
+                                        </form>
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                @for (int i = 1; i <= 10; i++)
+                                {
+                                    <form action="/Site/Rate/Add" method="post">
+
+                                        <input type="hidden" name="Point" value="@i" />
+                                        <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                                        <button class="btn-star" type="submit"><i class="star-hover ion-ios-star-outline"></i></button>
+                                    </form>
+
+                                }
+                            }
+
                         </div>
                     </div>
                     <div class="movie-tabs">
@@ -157,16 +207,19 @@
                                                 <div class="mv-user-review-item" id="c_@item.ID">
                                                     <h3>@item.Header</h3>
                                                     <div class="no-star">
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star last"></i>
+
+                                                        @for (int i = 1; i <= 10; i++)
+                                                        {
+                                                            if (i <= item.Movie.Rates.Where(q => q.UserID == item.UserID && q.IsDeleted == false).Select(q => Convert.ToInt32(q.Point)).FirstOrDefault())
+                                                            {
+                                                                <i class="ion-android-star"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="ion-android-star last"></i>
+
+                                                            }
+                                                        }
                                                     </div>
                                                     <p class="time">
                                                         @item.AddDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-US")) by <a href="#">@item.User.UserName</a>
@@ -276,16 +329,18 @@
                                                         <div>
                                                             <h3>@item.Header</h3>
                                                             <div class="no-star">
-                                                                <i class="ion-android-star"></i>
-                                                                <i class="ion-android-star"></i>
-                                                                <i class="ion-android-star"></i>
-                                                                <i class="ion-android-star"></i>
-                                                                <i class="ion-android-star"></i>
-                                                                <i class="ion-android-star"></i>
-                                                                <i class="ion-android-star last"></i>
-                                                                <i class="ion-android-star last"></i>
-                                                                <i class="ion-android-star last"></i>
-                                                                <i class="ion-android-star last"></i>
+                                                                @for (int i = 1; i <= 10; i++)
+                                                                {
+                                                                    if (i <= item.Movie.Rates.Where(q => q.UserID == item.UserID && q.IsDeleted == false).Select(q => Convert.ToInt32(q.Point)).FirstOrDefault())
+                                                                    {
+                                                                        <i class="ion-android-star"></i>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <i class="ion-android-star last"></i>
+
+                                                                    }
+                                                                }
                                                             </div>
                                                             <p class="time">
                                                                 @item.AddDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-US")) by <a href="#">@item.User.UserName</a>
@@ -307,7 +362,7 @@
                                                             <div>
                                                                 <div class="row">
                                                                     <div class="rv-hd">
-                                                      
+
                                                                         <a href="/Site/Comment/Edit/@item.ID" style="padding: 0px 16px;
                                                                            font-size: 20px;" class="redbtn"><i style="margin:0;" class="ion-android-create"></i></a>
                                                                     </div>
@@ -598,7 +653,7 @@
                                         @foreach (var item in Model.MovieList)
                                         {
                                             <div class="movie-item-style-2">
-                                                    <img src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                <img src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                 <div class="mv-item-infor">
                                                     <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                                                     <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>

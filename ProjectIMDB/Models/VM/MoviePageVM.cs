@@ -10,6 +10,7 @@ namespace ProjectIMDB.Models.VM
     {
 
         public List<Movie> MovieList { get; set; }
+        public Rate Rate { get; set; }
         public Movie MovieDetail { get; set; }
        
 

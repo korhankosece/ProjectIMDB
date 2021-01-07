@@ -8,8 +8,6 @@ namespace ProjectIMDB.Models.VM
 {
     public class UserPageVM
     {
-       
-        
         public List<WatchList> UserWatch { get; set; }
     }
 }

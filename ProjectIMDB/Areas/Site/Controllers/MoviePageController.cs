@@ -30,11 +30,15 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         public IActionResult Detail(int id)
         {
+            int userID = Convert.ToInt32(TempData["ID"]);
+
             MoviePageVM model = new MoviePageVM();
-            model.MovieDetail = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x =>x.Comments).ThenInclude(Comment => Comment.User).Include(x =>x.WatchLists).Where(q => q.IsDeleted == false && q.ID == id).FirstOrDefault(q =>q.ID==id);
+            model.MovieDetail = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x =>x.Comments).ThenInclude(Comment => Comment.User).Include(x =>x.WatchLists).Include(x => x.Rates).Where(q => q.IsDeleted == false && q.ID == id).FirstOrDefault(q =>q.ID==id);
 
 
             model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.WatchLists).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
+
+            model.Rate = _context.Rates.Include(x => x.Movie).Where(q => q.MovieID == id && q.UserID == userID && q.IsDeleted == false).FirstOrDefault();
 
 
             return View(model);
