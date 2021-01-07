@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
@@ -41,14 +42,42 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         public IActionResult Add(WatchlistVM model )
         {
+
             WatchList watchList = new WatchList();
+
             watchList.MovieID = model.movieid;
             watchList.UserID = Convert.ToInt32(TempData["ID"]);
 
-            _context.WatchLists.Add(watchList);
-            _context.SaveChanges();
+            UserPageVM user = new UserPageVM();
 
-            return RedirectToAction("Index", "Home");
+            user.UserWatch = _context.WatchLists.Include(x => x.Movie).Where(q => q.UserID == Convert.ToInt32(TempData["ID"])).ToList();
+
+            int counter = 0;
+
+            foreach (var item in user.UserWatch)
+            {
+                if (model.movieid == item.MovieID)
+                {
+                    counter++;
+
+                }
+
+            }
+
+
+            if (counter == 0)
+            {
+
+                _context.WatchLists.Add(watchList);
+                _context.SaveChanges();
+                
+                return Redirect("/Site/User/WatchList");
+
+
+            }
+
+            return Redirect("/Site/User/WatchList");
+
         }
     }
 }
