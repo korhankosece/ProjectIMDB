@@ -31,8 +31,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
-            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Include(q => q.User).Where(q => q.UserID == id && q.IsDeleted==false).ToList();
+            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Where(q => q.UserID == id && q.IsDeleted==false).ToList();
 
+            model.User = _context.Users.FirstOrDefault(q => q.ID == id);
 
             return View(model);
 
@@ -45,7 +46,11 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
-            model.UserRate = _context.Rates.Include(x => x.Movie).ThenInclude(Movie => Movie.Comments).Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(q => q.User).ThenInclude(User =>User.Comments).Where(q => q.UserID == id && q.IsDeleted == false).ToList();
+            model.UserRate = _context.Rates.Include(x => x.Movie).ThenInclude(Movie => Movie.Comments).Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.UserID == id && q.IsDeleted == false).ToList();
+
+            model.User = _context.Users.FirstOrDefault(q => q.ID == id);
+
+
 
             return View(model);
 
@@ -67,9 +72,12 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 user.Password = model.password;
                 _context.Users.Add(user);
                 _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
 
             }
             return RedirectToAction("Index", "Home");
+
+
 
         }
 
@@ -143,9 +151,13 @@ namespace ProjectIMDB.Areas.Site.Controllers
             {
 
                 user.Password = model.newpassword;
+              
                 _context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+
+
+                return RedirectToAction("Index", "Home");  //Nereye gitmeli??
             }
+
             else
             {
                 model.username = user.UserName;
@@ -156,6 +168,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 model.birthdate = user.BirthDate;
                 model.password = user.Password;
                 return View("Edit", model);
+
+             
+
             }
 
 

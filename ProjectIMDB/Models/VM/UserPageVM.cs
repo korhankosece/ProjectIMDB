@@ -10,6 +10,7 @@ namespace ProjectIMDB.Models.VM
     {
         public List<WatchList> UserWatch { get; set; }
         public List<Rate> UserRate { get; set; }
+        public User User { get; set; }
 
     }
 }

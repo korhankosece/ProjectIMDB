@@ -12,7 +12,7 @@ using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
-    [SiteAuth]
+    [Authorize]
     [Area("Site")]
     public class CommentController : BaseController
     {
@@ -29,6 +29,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             CommentVM model = new CommentVM();
             
+            
 
             int a = Convert.ToInt32(TempData["ID"]);
             User user = _context.Users.Where(q => q.IsDeleted == false).FirstOrDefault(q => q.ID == a);
@@ -40,7 +41,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
 
 
-        
+       
 
         [HttpPost]
 

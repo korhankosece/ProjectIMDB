@@ -12,7 +12,7 @@ namespace ProjectIMDB.Models.VM
         public int id { get; set; }
 
         [DisplayName("Username")]
-        [Required(ErrorMessage = "The Username field is required")]
+        [Required/*(ErrorMessage = "The Username field is required")*/]
         public string username { get; set; }
 
         [DisplayName("Name")]
@@ -28,7 +28,7 @@ namespace ProjectIMDB.Models.VM
         public string country { get; set; }
 
         [DisplayName("EMail")]
-        [Required(ErrorMessage = "The Email field is required")]
+        [Required(ErrorMessage = "The EMail field is required")]
         public string email { get; set; }
 
         public string password { get; set; }

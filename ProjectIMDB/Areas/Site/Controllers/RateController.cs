@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
@@ -10,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
+    [Authorize]
     [Area("Site")]
-    [SiteAuth]
 
     public class RateController : BaseController
     {
@@ -22,7 +23,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
-        [SiteAuth]
+        
         [HttpPost]
         public IActionResult Add(RateVM model)
         {
@@ -31,13 +32,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int userID = Convert.ToInt32(TempData["ID"]);
             var oldRates = _context.Rates.Where(q => q.MovieID == id && q.UserID == userID).ToList();
 
-            if (userID ==0)
-            {
-                return Redirect("/Site/MoviePage/Detail/" + id);
-            }
-
-            else
-            {
+         
                 foreach (var item in oldRates)
                 {
                     item.IsDeleted = true;
@@ -53,8 +48,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 _context.SaveChanges();
 
                 return Redirect("/Site/MoviePage/Detail/" + id);
-            }
-          
+       
+
         }
     }
 }

@@ -62,11 +62,14 @@ namespace ProjectIMDB.Areas.Site.Controllers
                     TempData["error"] = "Username or password wrong!";
 
                     return RedirectToAction("Index", "Home");
+                    //return Redirect("/Site/Home/Index/" + model);
+
 
                 }
             }
             else
             {
+  
 
                 return RedirectToAction("Index", "Home");
             }
