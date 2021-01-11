@@ -21,7 +21,5 @@ namespace ProjectIMDB.Models.VM
             }
         }
 
-        public List<Movie> SearchMovies { get; set; }
-
     }
 }

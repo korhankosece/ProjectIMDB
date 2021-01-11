@@ -29,6 +29,7 @@ namespace ProjectIMDB.Models.Attributes
             }
             else
             {
+
                 context.HttpContext.Response.Redirect("/Site/Home");
 
             }

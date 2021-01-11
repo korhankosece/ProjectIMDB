@@ -21,10 +21,14 @@
         }
     }*/
 
-
-
-
-
+    .movie-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
 
 </style>
 <div class="slider movie-items">
@@ -38,12 +42,12 @@
                 <a href="#"><i class="ion-social-youtube"></i></a>
             </div>
             <div class="slick-multiItemSlider">
-                @foreach (var item in Model.BannerMovies)
+                @foreach (var item in Model.BannerMovies.OrderByDescending(q => q.ID).Take(10))
                 {
 
                     <div class="movie-item">
                         <div class="mv-img">
-
+                            <a class="movie-container" href="/Site/MoviePage/Detail/@item.ID"></a>
                             <img class="poster" src="/adminsite/movieposter/@item.PosterURL" alt="">
                         </div>
                         <div class="title-in">
@@ -55,10 +59,21 @@
                             }
 
                             <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                            <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                        </div>
+                            <p>
+                                <i class="ion-android-star"></i><span>
+                                 @{double rateTotal = 0;
+                                     }
+                                    @foreach (var rate in item.Rates.Where(q => q.IsDeleted == false))
+                                    {
+                                        rateTotal += rate.Point;
+                                    }
+                                     @Math.Round(Decimal.Divide(Convert.ToDecimal(rateTotal), Convert.ToDecimal(item.Rates.Where(q => q.IsDeleted == false).Count())),1)
+
+                            </span> /10
+                        </p>
                     </div>
-                }
+                </div>
+            }
 
                 @*<div class="movie-item">
                         <div class="mv-img">
@@ -89,10 +104,9 @@
                 </div>
                 <div class="tabs">
                     <ul class="tab-links">
-                        <li class="active"><a href="#tab1">#Popular</a></li>
-                        <li><a href="#tab2"> #Coming soon</a></li>
-                        <li><a href="#tab3">  #Top rated  </a></li>
-                        <li><a href="#tab4"> #Most reviewed</a></li>
+                        <li class="active"><a href="#tab1">#Crime</a></li>
+                        <li><a href="#tab2"> #Horror</a></li>
+                        <li><a href="#tab3">  #Thriller  </a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="tab1" class="tab active">
@@ -100,23 +114,27 @@
                                 <div class="slick-multiItem">
                                     @foreach (var item in Model.BannerMovies)
                                     {
-                                        <div class="slide-it">
-                                            <div class="movie-item">
-                                                <div class="mv-img">
-                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" >
-                                                </div>
-                                                <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                </div>
-                                                <div class="title-in">
-                                                    <h6><a href="#">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                        @if (item.MovieGenres.Where(q => q.GenreID == 3).Any())
+                                        {
+                                            <div class="slide-it">
+                                                <div class="movie-item">
+                                                    <div class="mv-img">
+                                                        <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                    </div>
+                                                    <div class="hvr-inner">
+                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    </div>
+                                                    <div class="title-in">
+                                                        <h6><a href="#">@item.Name</a></h6>
+                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+
                                     }
 
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -125,21 +143,24 @@
                                 <div class="slick-multiItem">
                                     @foreach (var item in Model.BannerMovies)
                                     {
-                                        <div class="slide-it">
-                                            <div class="movie-item">
-                                                <div class="mv-img">
-                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" >
-                                                </div>
-                                                <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                </div>
-                                                <div class="title-in">
-                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                        @if (item.MovieGenres.Where(q => q.GenreID == 1).Any())
+                                        {
+                                            <div class="slide-it">
+                                                <div class="movie-item">
+                                                    <div class="mv-img">
+                                                        <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                    </div>
+                                                    <div class="hvr-inner">
+                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    </div>
+                                                    <div class="title-in">
+                                                        <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        }
                                     }
 
                                 </div>
@@ -150,50 +171,29 @@
                                 <div class="slick-multiItem">
                                     @foreach (var item in Model.BannerMovies)
                                     {
-                                        <div class="slide-it">
-                                            <div class="movie-item">
-                                                <div class="mv-img">
-                                                    <img style="width:185px; height:250px;"src="/adminsite/movieposter/@item.PosterURL" alt="" width="185" height="284">
-                                                </div>
-                                                <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                </div>
-                                                <div class="title-in">
-                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                        @if (item.MovieGenres.Where(q => q.GenreID == 16).Any())
+                                        {
+                                            <div class="slide-it">
+                                                <div class="movie-item">
+                                                    <div class="mv-img">
+                                                        <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" width="185" height="284">
+                                                    </div>
+                                                    <div class="hvr-inner">
+                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    </div>
+                                                    <div class="title-in">
+                                                        <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
 
                                 </div>
                             </div>
                         </div>
-                        <div id="tab4" class="tab">
-                            <div class="row">
-                                <div class="slick-multiItem">
-                                    @foreach (var item in Model.BannerMovies)
-                                    {
-                                        <div class="slide-it">
-                                            <div class="movie-item">
-                                                <div class="mv-img">
-                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" >
-                                                </div>
-                                                <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                </div>
-                                                <div class="title-in">
-                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
 
-                                    
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="title-hd">
@@ -211,430 +211,95 @@
                         <div id="tab21" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item2.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                    @foreach (var item in Model.BannerMovies)
+                                    {
+                                        <div class="slide-it">
+                                            <div class="movie-item">
+                                                <div class="mv-img">
+                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                </div>
+                                                <div class="hvr-inner">
+                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                </div>
+                                                <div class="title-in">
+                                                    <h6><a href="#">@item.Name</a></h6>
+                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item3.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item4.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The walk</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item3.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div id="tab22" class="tab active">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item5.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item6.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                    @foreach (var item in Model.BannerMovies)
+                                    {
+                                        <div class="slide-it">
+                                            <div class="movie-item">
+                                                <div class="mv-img">
+                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                </div>
+                                                <div class="hvr-inner">
+                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                </div>
+                                                <div class="title-in">
+                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item7.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item8.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The walk</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item2.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item3.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item4.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The walk</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item5.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item6.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div id="tab23" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item1.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item2.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                    @foreach (var item in Model.BannerMovies)
+                                    {
+                                        <div class="slide-it">
+                                            <div class="movie-item">
+                                                <div class="mv-img">
+                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                </div>
+                                                <div class="hvr-inner">
+                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                </div>
+                                                <div class="title-in">
+                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item3.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item4.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The walk</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item5.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item6.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item7.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item8.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The walk</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item3.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div id="tab24" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item5.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Interstellar</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item6.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The revenant</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                    @foreach (var item in Model.BannerMovies)
+                                    {
+                                        <div class="slide-it">
+                                            <div class="movie-item">
+                                                <div class="mv-img">
+                                                    <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
+                                                </div>
+                                                <div class="hvr-inner">
+                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                </div>
+                                                <div class="title-in">
+                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item7.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item8.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">The walk</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="images/uploads/mv-item3.jpg" alt="" width="185" height="284">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">Die hard</a></h6>
-                                                <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                    }
                                 </div>
                             </div>
                         </div>

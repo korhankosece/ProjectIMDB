@@ -47,8 +47,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult HomeSearch(SearchVM search)
         {
             MoviePageVM model = new MoviePageVM();
-            model.MovieList = _context.Movies.Where(q => q.Name.ToLower().Contains(search.name)).Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
 
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name.ToLower().Contains(search.name) || q.MoviePeople.Where(q => q.Person.Name.ToLower().Contains(search.name)).Any() || q.MoviePeople.Where(q => q.Person.SurName.ToLower().Contains(search.name)).Any() && q.IsDeleted == false).OrderByDescending(q => q.ID).Take(15).ToList();
 
 
             return View("Index", model);
@@ -56,3 +56,4 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
     }
 }
+
