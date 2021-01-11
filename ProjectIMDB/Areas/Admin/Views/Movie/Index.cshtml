@@ -129,7 +129,7 @@
             $(document).on("click", ".delete", function () {
                 let id = $(this).attr("id");
                 $.ajax({
-                    url: "/Movie/Delete",
+                    url: "/Admin/Movie/Delete",
                     type: "POST",
                     data: { id: id },
                     success: function (msg) {

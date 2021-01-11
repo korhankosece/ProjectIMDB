@@ -135,7 +135,8 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 }
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Movie");
+                //return RedirectToAction("Index", "Movie");
+                return Redirect("/Admin/Movie/Index");
             }
             else
             {
@@ -274,7 +275,9 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
                 _context.SaveChanges();
 
-                return RedirectToAction("Index", "Movie");
+                //return RedirectToAction("Index", "Movie");
+                return Redirect("/Admin/Movie/Index");
+
             }
             else
             {
