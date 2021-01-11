@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
-    [Authorize]
+    [SiteAuth]
+
     [Area("Site")]
 
     public class RateController : BaseController

@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ProjectIMDB.Models.Attributes
 {
-    public class SiteAuth : Attribute, IAuthorizationFilter
-    {
+    public class SiteAuth : AuthorizeAttribute, IAuthorizationFilter
 
+    {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             if (context.HttpContext.User.Identity.IsAuthenticated)

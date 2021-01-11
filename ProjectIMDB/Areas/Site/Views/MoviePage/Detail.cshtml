@@ -70,13 +70,13 @@
 
 
                 <div class="social-btn">
-                    @if (TempData["ID"] != null)
-                    {
+                    @*@if (TempData["ID"] != null)
+                    {*@
                         <form action="/Site/WatchList/Add" method="post">
                             <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
                             <button style="background-color: transparent; border:none;outline:none" type="submit" class="parent-btn"><i class="ion-heart"></i> Add to Watchlist</button>
                         </form>
-                    }
+                    @*}
                     else
                     {
                         <div class="hover-bnt">
@@ -87,7 +87,7 @@
 
                             </div>
                         </div>
-                    }
+                    }*@
 
 
 

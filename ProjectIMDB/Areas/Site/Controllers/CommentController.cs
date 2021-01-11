@@ -12,7 +12,8 @@ using ProjectIMDB.Models.VM;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
-    [Authorize]
+    [SiteAuth]
+
     [Area("Site")]
     public class CommentController : BaseController
     {
@@ -102,7 +103,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
 
-        [SiteAuth]
+      
 
         [HttpPost]
 

@@ -150,12 +150,12 @@
                             <a href="/Site/MoviePage">Movies</a>
                         </li>
                         @*<li class="dropdown first">
-                                <a href="celebritygrid01.html">Celebrities</a>
-                            </li>*@
+                        <a href="celebritygrid01.html">Celebrities</a>
+                    </li>*@
 
                     </ul>
                     <ul class="nav navbar-nav flex-child-menu menu-right">
-                     
+
                         <li id="must-login-err" style=" color: #dd003f; font-weight: bold;"></li>
                         <li style=" color: #dd003f; font-weight: bold;">@TempData["username"]</li>
                         <li id="account-modal" class="dropdown first">
@@ -169,9 +169,30 @@
             </nav>
 
             <!-- top search form -->
-            <div class="top-search">
-                <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
-            </div>
+            
+
+                <form  action="/Site/MoviePage/HomeSearch" method="post">
+                    <div class="top-search">
+                        <input type="text" name="name" value="" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+                    </div>
+                </form>
+            
+
+
+            @*<form action="/Product/SearchProduct" method="post">
+                <label>Ad:</label>
+                <input type="text" name="name" value="" />
+                <label>Fiyat:</label>
+                <input type="text" name="minprice" value="" />
+                <label>ile</label>
+                <input type="text" name="maxprice" value="" />
+
+                <button type="submit">Ara</button>
+            </form>*@
+
+
+
+
         </div>
     </header>
     <!-- END | Header -->

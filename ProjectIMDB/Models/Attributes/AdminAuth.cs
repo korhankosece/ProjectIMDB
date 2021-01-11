@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectIMDB.Models.Attributes
 {
-    public class AdminAuth : Attribute, IAuthorizationFilter
+    public class AdminAuth : AuthorizeAttribute, IAuthorizationFilter
     {
 
         public void OnAuthorization(AuthorizationFilterContext context)
