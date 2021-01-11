@@ -45,7 +45,7 @@
     <!--login form popup-->
     <div class="login-wrapper" id="login-content">
         <div class="login-content">
-            <a href="#" class="close">x</a>
+            <a href="#"  style="display:inline" class="close">x</a>
             <h3>Login</h3>
             <p style="color:red">@TempData["error"]</p>
             <form method="post" action="/Site/UserLogin/Index">
@@ -85,10 +85,12 @@
     </div>
     <!--end of login form popup-->
     <!--signup form popup-->
-    <div class="login-wrapper" id="signup-content">
+    <div class="login-wrapper"  style="display:inline" id="signup-content">
         <div class="login-content">
-            <a href="#" class="close">x</a>
+            <a href="#" style="display:inline" class="close">x</a>
             <h3>sign up</h3>
+            <p style="color:red">@TempData["error2"]</p>
+
             <form method="post" action="/Site/User/Register">
                 <div class="row">
                     <label for="username-2">
@@ -112,7 +114,7 @@
                 <div class="row">
                     <label for="repassword-2">
                         re-type Password:
-                        <input type="password" name="confirmpassword" id="repassword-2" @*pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"*@ required="required"  placeholder="" />
+                        <input type="password" name="confirmpassword" id="repassword-2" @*pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"*@ required="required" placeholder="" />
                     </label>
                 </div>
                 <div class="row">
@@ -153,7 +155,7 @@
 
                     </ul>
                     <ul class="nav navbar-nav flex-child-menu menu-right">
-                        <li style=" color: #dd003f; font-weight: bold;">@TempData["error"]</li>
+                     
                         <li id="must-login-err" style=" color: #dd003f; font-weight: bold;"></li>
                         <li style=" color: #dd003f; font-weight: bold;">@TempData["username"]</li>
                         <li id="account-modal" class="dropdown first">
@@ -260,6 +262,26 @@
             document.getElementById("signUp-modal").style.display = "none"
         }
 
+        if ("@TempData["error"]" != '' && "@TempData["error"]" != null) {
+
+
+            setTimeout(function () {
+                $("#login-content").parent().addClass("openform")
+            }, 1000);
+
+
+        }
+
+
+        if ("@TempData["error2"]" != '' && "@TempData["error2"]" != null) {
+
+
+            setTimeout(function () {
+                $("#signup-content").parent().addClass("openform")
+            }, 1000);
+
+
+        }
     </script>
     @RenderSection("scripts", false)
 

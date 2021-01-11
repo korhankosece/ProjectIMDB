@@ -75,7 +75,16 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            return RedirectToAction("Index", "Home");
+
+            else
+            {
+                 TempData["error2"] = "Passwords not match!";
+
+
+                return RedirectToAction("Index", "Home");
+
+
+            }
 
 
 
