@@ -23,7 +23,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult Index()
         {
             MoviePageVM model = new MoviePageVM();
-            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.Rates).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
 
             return View(model);
         }
@@ -36,7 +36,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             model.MovieDetail = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.WatchLists).Include(x => x.Rates).Where(q => q.IsDeleted == false && q.ID == id).FirstOrDefault(q => q.ID == id);
 
 
-            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.WatchLists).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.Rates).Include(x => x.WatchLists).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(10).ToList();
 
             model.Rate = _context.Rates.Include(x => x.Movie).Where(q => q.MovieID == id && q.UserID == userID && q.IsDeleted == false).FirstOrDefault();
 
@@ -48,7 +48,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             MoviePageVM model = new MoviePageVM();
 
-            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name.ToLower().Contains(search.name) || q.MoviePeople.Where(q => q.Person.Name.ToLower().Contains(search.name)).Any() || q.MoviePeople.Where(q => q.Person.SurName.ToLower().Contains(search.name)).Any() && q.IsDeleted == false).OrderByDescending(q => q.ID).Take(15).ToList();
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name.ToLower().Contains(search.name) || q.MoviePeople.Where(q => q.Person.Name.ToLower().Contains(search.name)).Any() || q.MoviePeople.Where(q => q.Person.SurName.ToLower().Contains(search.name)).Any() && q.IsDeleted == false).Include(q =>q.Rates).OrderByDescending(q => q.ID).Take(21).ToList();
 
 
             return View("Index", model);

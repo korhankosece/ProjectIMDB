@@ -29,7 +29,6 @@
         left: 0;
         z-index: 999;
     }
-
 </style>
 <div class="slider movie-items">
     <div class="container">
@@ -61,19 +60,17 @@
                             <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
                             <p>
                                 <i class="ion-android-star"></i><span>
-                                 @{double rateTotal = 0;
-                                     }
-                                    @foreach (var rate in item.Rates.Where(q => q.IsDeleted == false))
+                                    @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
                                     {
-                                        rateTotal += rate.Point;
-                                    }
-                                     @Math.Round(Decimal.Divide(Convert.ToDecimal(rateTotal), Convert.ToDecimal(item.Rates.Where(q => q.IsDeleted == false).Count())),1)
+                                        @item.AvrPoint
 
-                            </span> /10
-                        </p>
+                                    }
+
+                                </span> /10
+                            </p>
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
                 @*<div class="movie-item">
                         <div class="mv-img">
@@ -104,9 +101,12 @@
                 </div>
                 <div class="tabs">
                     <ul class="tab-links">
-                        <li class="active"><a href="#tab1">#Crime</a></li>
-                        <li><a href="#tab2"> #Horror</a></li>
-                        <li><a href="#tab3">  #Thriller  </a></li>
+                        <li class="active"><a href="#tab1">  #Action  </a></li>
+                        <li><a href="#tab2">#Crime</a></li>
+                        <li><a href="#tab3"> #Horror</a></li>
+                        <li><a href="#tab4">  #Thriller  </a></li>
+
+
                     </ul>
                     <div class="tab-content">
                         <div id="tab1" class="tab active">
@@ -114,7 +114,7 @@
                                 <div class="slick-multiItem">
                                     @foreach (var item in Model.BannerMovies)
                                     {
-                                        @if (item.MovieGenres.Where(q => q.GenreID == 3).Any())
+                                        @if (item.MovieGenres.Where(q => q.GenreID == 5).Any())
                                         {
                                             <div class="slide-it">
                                                 <div class="movie-item">
@@ -126,7 +126,17 @@
                                                     </div>
                                                     <div class="title-in">
                                                         <h6><a href="#">@item.Name</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                        <p>
+                                                            <i class="ion-android-star"></i><span>
+                                                                @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                                {
+                                                                    @item.AvrPoint
+                                                                }
+
+
+                                                            </span> /10
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,7 +153,7 @@
                                 <div class="slick-multiItem">
                                     @foreach (var item in Model.BannerMovies)
                                     {
-                                        @if (item.MovieGenres.Where(q => q.GenreID == 1).Any())
+                                        @if (item.MovieGenres.Where(q => q.GenreID == 3).Any())
                                         {
                                             <div class="slide-it">
                                                 <div class="movie-item">
@@ -155,7 +165,18 @@
                                                     </div>
                                                     <div class="title-in">
                                                         <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                        <p>
+                                                            <i class="ion-android-star"></i><span>
+
+                                                                @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                                {
+                                                                    @item.AvrPoint
+                                                                }
+
+
+                                                            </span> /10
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,6 +188,46 @@
                             </div>
                         </div>
                         <div id="tab3" class="tab">
+                            <div class="row">
+                                <div class="slick-multiItem">
+                                    @foreach (var item in Model.BannerMovies)
+                                    {
+                                        @if (item.MovieGenres.Where(q => q.GenreID == 1).Any())
+                                        {
+                                            <div class="slide-it">
+                                                <div class="movie-item">
+                                                    <div class="mv-img">
+                                                        <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" width="185" height="284">
+                                                    </div>
+                                                    <div class="hvr-inner">
+                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    </div>
+                                                    <div class="title-in">
+                                                        <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                        <p>
+                                                            <i class="ion-android-star"></i><span>
+
+
+                                                                @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                                {
+                                                                    @item.AvrPoint
+                                                                }
+
+
+                                                            </span> /10
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab4" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
                                     @foreach (var item in Model.BannerMovies)
@@ -183,7 +244,16 @@
                                                     </div>
                                                     <div class="title-in">
                                                         <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                        <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                        <p>
+                                                            <i class="ion-android-star"></i><span>
+                                                                @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                                {
+                                                                    @item.AvrPoint
+                                                                }
+
+                                                            </span> /10
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -202,17 +272,19 @@
                 </div>
                 <div class="tabs">
                     <ul class="tab-links-2">
-                        <li><a href="#tab21">#Popular</a></li>
-                        <li class="active"><a href="#tab22"> #Coming soon</a></li>
+                        <li class="active"><a href="#tab21"> #Popular</a></li>
+                        <li><a href="#tab22"> #Coming soon</a></li>
                         <li><a href="#tab23">  #Top rated  </a></li>
                         <li><a href="#tab24"> #Most reviewed</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="tab21" class="tab">
+                        <div id="tab21" class="tab active">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    @foreach (var item in Model.BannerMovies)
+                                    @foreach (var item in Model.BannerMovies.Where(q => q.IsDeleted == false).OrderByDescending(item => item.WatchLists.Count()).Take(10))
                                     {
+
+
                                         <div class="slide-it">
                                             <div class="movie-item">
                                                 <div class="mv-img">
@@ -223,7 +295,16 @@
                                                 </div>
                                                 <div class="title-in">
                                                     <h6><a href="#">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    <p>
+                                                        <i class="ion-android-star"></i><span>
+                                                            @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                            {
+                                                                @item.AvrPoint
+                                                            }
+
+                                                        </span> /10
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,10 +312,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="tab22" class="tab active">
+                        <div id="tab22" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    @foreach (var item in Model.BannerMovies)
+                                    @foreach (var item in Model.BannerMovies.Where(q => q.IsDeleted == false && q.ReleaseDate > DateTime.Now).OrderByDescending(item => item.ReleaseDate))
                                     {
                                         <div class="slide-it">
                                             <div class="movie-item">
@@ -246,7 +327,17 @@
                                                 </div>
                                                 <div class="title-in">
                                                     <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    <p>
+                                                        <i class="ion-android-star"></i><span>
+                                                            @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                            {
+                                                                @item.AvrPoint
+                                                            }
+
+
+                                                        </span> /10
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,10 +346,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div id="tab23" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    @foreach (var item in Model.BannerMovies)
+
+                                    @foreach (var item in Model.BannerMovies.Where(q =>q.IsDeleted == false && q.Rates.Where(q => q.IsDeleted == false).Count() != 0).OrderByDescending(item => item.AvrPoint).Take(10))
                                     {
                                         <div class="slide-it">
                                             <div class="movie-item">
@@ -270,7 +363,12 @@
                                                 </div>
                                                 <div class="title-in">
                                                     <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    <p>
+                                                        <i class="ion-android-star"></i><span>
+                                                                @item.AvrPoint
+                                                            
+                                                        </span> /10
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,7 +392,15 @@
                                                 </div>
                                                 <div class="title-in">
                                                     <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
-                                                    <p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+                                                    <p>
+                                                        <i class="ion-android-star"></i><span>
+                                                            @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
+
+                                                            {
+                                                                @item.AvrPoint
+                                                            }
+                                                        </span> /10
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>

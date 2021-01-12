@@ -12,6 +12,9 @@ namespace ProjectIMDB.Models.ORM.Entities
         public DateTime ReleaseDate { get; set; }
         public string PosterURL { get; set; }
         public string Description { get; set; }
+        public double TotalRate { get; set; }
+        public double AvrPoint { get; set; }
+
 
         public List<Comment> Comments { get; set; }
         public List<Rate> Rates { get; set; }

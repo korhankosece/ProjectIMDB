@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
@@ -48,8 +49,25 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 _context.Rates.Add(rate);
                 _context.SaveChanges();
 
-                return Redirect("/Site/MoviePage/Detail/" + id);
-       
+            Movie movie = _context.Movies.Include(q => q.Rates).FirstOrDefault(q => q.ID == id);
+
+            double totalrate = movie.TotalRate + rate.Point;
+            movie.TotalRate = totalrate;
+
+            _context.SaveChanges();
+
+            double rated = movie.Rates.Where(q =>q.IsDeleted==false).Count();
+            double awrpoint = totalrate / rated;
+            double awerate = Math.Round(awrpoint, 1, MidpointRounding.AwayFromZero);
+
+
+
+            movie.AvrPoint = awerate;
+
+            _context.SaveChanges();
+
+            return Redirect("/Site/MoviePage/Detail/" + id);
+
 
         }
     }

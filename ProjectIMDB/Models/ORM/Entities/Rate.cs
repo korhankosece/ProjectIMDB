@@ -13,7 +13,6 @@ namespace ProjectIMDB.Models.ORM.Entities
         public double Point { get; set; }
 
 
-
         [ForeignKey("UserID")]
         public User User { get; set; }
         [ForeignKey("MovieID")]

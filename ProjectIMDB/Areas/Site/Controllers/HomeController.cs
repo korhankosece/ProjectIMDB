@@ -21,7 +21,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult Index()
         {
             SiteHomeVM model = new SiteHomeVM();
-            model.BannerMovies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Rates).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(15).ToList();
+            model.BannerMovies = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Rates).Include(x=>x.WatchLists).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
 
             return View(model);
 

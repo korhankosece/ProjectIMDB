@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjectIMDB.Models.ORM.Context;
@@ -9,9 +10,10 @@ using ProjectIMDB.Models.ORM.Context;
 namespace ProjectIMDB.Migrations
 {
     [DbContext(typeof(IMDBContext))]
-    partial class IMDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210112201652_AddTotalRateColumnToRate")]
+    partial class AddTotalRateColumnToRate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,9 +161,6 @@ namespace ProjectIMDB.Migrations
                     b.Property<DateTime>("AddDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<double>("AvrPoint")
-                        .HasColumnType("double precision");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -179,9 +178,6 @@ namespace ProjectIMDB.Migrations
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<double>("TotalRate")
-                        .HasColumnType("double precision");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
@@ -335,6 +331,9 @@ namespace ProjectIMDB.Migrations
                         .HasColumnType("integer");
 
                     b.Property<double>("Point")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("TotalRate")
                         .HasColumnType("double precision");
 
                     b.Property<DateTime>("UpdateDate")

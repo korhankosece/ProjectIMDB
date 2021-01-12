@@ -9,153 +9,163 @@
 @model ProjectIMDB.Models.VM.UserPageVM
 
 
-    <style>
+<style>
 
-        .movie-container {
-            width: 224px;
-            height: 337px;
-            position: absolute;
-        }
-    </style>
+    .movie-container {
+        width: 224px;
+        height: 337px;
+        position: absolute;
+    }
+</style>
 
-    <div class="hero user-hero">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="hero-ct">
-
-
-                        @if (Model.User.Name != null && Model.User.SurName != null)
-                        {
-                            <h1 style="margin-left: -75px;" >@Model.User.Name @Model.User.SurName’s Watchlist</h1>
-
-                        }
-                        else
-                        {
-                            <h1 style="margin-left: -75px;">@Model.User.UserName’s Watchlist</h1>
-
-                        }
+<div class="hero user-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
 
 
+                    @if (Model.User.Name != null && Model.User.SurName != null)
+                    {
+                        <h1 style="margin-left: -75px;">@Model.User.Name @Model.User.SurName’s Watchlist</h1>
+
+                    }
+                    else
+                    {
+                        <h1 style="margin-left: -75px;">@Model.User.UserName’s Watchlist</h1>
+
+                    }
 
 
 
-                        <ul class="breadcumb">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li> <span class="ion-ios-arrow-right"></span>Favorite movies</li>
+
+
+                    <ul class="breadcumb">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span>Favorite movies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-single userfav_list">
+    <div class="container">
+        <div class="row ipad-width2">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="user-information">
+                    <div class="user-img">
+                        <a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
+                        <a href="#" class="redbtn">Change avatar</a>
+                    </div>
+                    <div class="user-fav">
+                        <p>Account Details</p>
+                        <ul>
+                            <li><a href="/Site/User/Edit/@TempData["ID"]">Profile</a></li>
+                            <li class="active"><a href="/Site/User/Watchlist">My Watchlist</a></li>
+                            <li><a href="/Site/User/RateList">Rated movies</a></li>
+                        </ul>
+                    </div>
+                    <div class="user-fav">
+                        <p>Others</p>
+                        <ul>
+                            <li><a href="/Site/User/Edit/@TempData["ID"]">Change password</a></li>
+                            <li><a href="/Site/UserLogin/Logout">Log out</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="page-single userfav_list">
-        <div class="container">
-            <div class="row ipad-width2">
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="user-information">
-                        <div class="user-img">
-                            <a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
-                            <a href="#" class="redbtn">Change avatar</a>
-                        </div>
-                        <div class="user-fav">
-                            <p>Account Details</p>
-                            <ul>
-                                <li><a href="/Site/User/Edit/@TempData["ID"]">Profile</a></li>
-                                <li class="active"><a href="/Site/User/Watchlist">My Watchlist</a></li>
-                                <li><a href="/Site/User/RateList">Rated movies</a></li>
-                            </ul>
-                        </div>
-                        <div class="user-fav">
-                            <p>Others</p>
-                            <ul>
-                                <li><a href="/Site/User/Edit/@TempData["ID"]">Change password</a></li>
-                                <li><a href="/Site/UserLogin/Logout">Log out</a></li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="topbar-filter user">
+                    <p>Found <span>@Model.UserWatch.Count()</span> in total</p>
+                    <label>Sort by:</label>
+                    <select>
+                        <option value="range">-- Choose option --</option>
+                        <option value="saab">-- Choose option 2--</option>
+                    </select>
+                    <a href="userfavoritelist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
+                    <a href="userfavoritegrid.html" class="grid"><i class="ion-grid "></i></a>
                 </div>
-                <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="topbar-filter user">
-                        <p>Found <span>@Model.UserWatch.Count()</span> in total</p>
-                        <label>Sort by:</label>
-                        <select>
-                            <option value="range">-- Choose option --</option>
-                            <option value="saab">-- Choose option 2--</option>
-                        </select>
-                        <a href="userfavoritelist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
-                        <a href="userfavoritegrid.html" class="grid"><i class="ion-grid "></i></a>
-                    </div>
-                    <div class="flex-wrap-movielist user-fav-list">
+                <div class="flex-wrap-movielist user-fav-list">
 
-                        @foreach (var item in Model.UserWatch)
-                        {
-                            <div class="movie-item-style-2">
-                                <a class="movie-container" href="/Site/MoviePage/Detail/@item.MovieID"></a>
-                                <img src="/adminsite/movieposter/@item.Movie.PosterURL" alt="">
+                    @foreach (var item in Model.UserWatch)
+                    {
 
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">@item.Movie.Name<span>(@item.Movie.ReleaseDate.Year)</span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-                                    <p class="describe">@item.Movie.Description</p>
-                                    <p class="run-time"> Run Time: @item.Movie.Duration    .     <span>MMPA: PG-13 </span>    .     <span>Release: @item.Movie.ReleaseDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></p>
+                        <div class="movie-item-style-2">
+                            <a class="movie-container" href="/Site/MoviePage/Detail/@item.MovieID"></a>
+                            <img src="/adminsite/movieposter/@item.Movie.PosterURL" alt="">
 
-                                    <p>
-                                        Director:
-                                        @foreach (var data in item.Movie.MoviePeople.Where(q => q.JobID == 1))
+                            <div class="mv-item-infor">
+                                <h6><a href="#">@item.Movie.Name<span>(@item.Movie.ReleaseDate.Year)</span></a></h6>
+                                <p class="rate">
+                                    <i class="ion-android-star"></i><span>
+                                        @if (item.Movie.Rates.Where(q => q.IsDeleted == false).Count() != 0)
                                         {
-                                            <a href="#">@data.Person.Name @data.Person.SurName</a>
-
+                                            
+                                               @item.Movie.AvrPoint
                                         }
-                                    </p>
 
-                                    <p>
-                                        Stars:
-                                        @foreach (var data in item.Movie.MoviePeople.Where(q => q.JobID == 3))
-                                        {
-                                            <a href="#">@data.Person.Name @data.Person.SurName,</a>
-                                        }
-                                    </p>
+                                    </span> /10
+                                </p>
+                                <p class="describe">@item.Movie.Description</p>
+                                <p class="run-time"> Run Time: @item.Movie.Duration    .     <span>MMPA: PG-13 </span>    .     <span>Release: @item.Movie.ReleaseDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></p>
 
-                                </div>
+                                <p>
+                                    Director:
+                                    @foreach (var data in item.Movie.MoviePeople.Where(q => q.JobID == 1))
+                                    {
+                                        <a href="#">@data.Person.Name @data.Person.SurName</a>
+
+                                    }
+                                </p>
+
+                                <p>
+                                    Stars:
+                                    @foreach (var data in item.Movie.MoviePeople.Where(q => q.JobID == 3))
+                                    {
+                                        <a href="#">@data.Person.Name @data.Person.SurName,</a>
+                                    }
+                                </p>
+
                             </div>
-
-                        }
-
-                        @*<div class="movie-item-style-2">
-                                <img src="images/uploads/mv2.jpg" alt="">
-                                <div class="mv-item-infor">
-                                    <h6><a href="#">into the wild <span>(2014)</span></a></h6>
-                                    <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                                    <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                    <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                                    <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                                </div>
-                            </div>*@
-
-                    </div>
-                    <div class="topbar-filter">
-                        <label>Movies per page:</label>
-                        <select>
-                            <option value="range">5 Movies</option>
-                            <option value="saab">10 Movies</option>
-                        </select>
-
-                        <div class="pagination2">
-                            <span>Page 1 of 2:</span>
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">...</a>
-                            <a href="#">78</a>
-                            <a href="#">79</a>
-                            <a href="#"><i class="ion-arrow-right-b"></i></a>
                         </div>
+
+                    }
+
+                    @*<div class="movie-item-style-2">
+                            <img src="images/uploads/mv2.jpg" alt="">
+                            <div class="mv-item-infor">
+                                <h6><a href="#">into the wild <span>(2014)</span></a></h6>
+                                <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
+                                <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
+                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+                                <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
+                                <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
+                            </div>
+                        </div>*@
+
+                </div>
+                <div class="topbar-filter">
+                    <label>Movies per page:</label>
+                    <select>
+                        <option value="range">5 Movies</option>
+                        <option value="saab">10 Movies</option>
+                    </select>
+
+                    <div class="pagination2">
+                        <span>Page 1 of 2:</span>
+                        <a class="active" href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">...</a>
+                        <a href="#">78</a>
+                        <a href="#">79</a>
+                        <a href="#"><i class="ion-arrow-right-b"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 

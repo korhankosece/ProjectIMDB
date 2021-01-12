@@ -31,7 +31,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
-            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Where(q => q.UserID == id && q.IsDeleted==false).ToList();
+            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Include(x => x.Movie).ThenInclude(Movie =>Movie.Rates).Where(q => q.UserID == id && q.IsDeleted==false).ToList();
 
             model.User = _context.Users.FirstOrDefault(q => q.ID == id);
 

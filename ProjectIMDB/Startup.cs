@@ -38,7 +38,7 @@ namespace ProjectIMDB
             .AddCookie(options =>
             {
                 options.LoginPath = "/Site/Home/Index/";
-                //options.LoginPath = "/Admin/AdminLogin/Index/";
+                options.LoginPath = "/Admin/AdminLogin/Index/";
             }); ;
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

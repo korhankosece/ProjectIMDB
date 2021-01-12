@@ -54,12 +54,21 @@
 
                 @foreach (var item in Model.MovieList)
                 {
+
                     <div class="movie-item-style-2">
                         <a class="movie-container" href="/Site/MoviePage/Detail/@item.ID"></a>
                         <img src="/adminsite/movieposter/@item.PosterURL" alt="" width="285" height="437">
                         <div class="mv-item-infor">
                             <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
-                            <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                            <p class="rate">
+                                <i class="ion-android-star"></i><span>
+                                    @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0  )
+                                    {
+                                      @item.AvrPoint
+                                    }
+
+                                </span> /10
+                            </p>
                             <p class="describe">@item.Description</p>
                             <p class="run-time"> Run Time: @item.Duration <span>Release Date: @item.ReleaseDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></p>
 
