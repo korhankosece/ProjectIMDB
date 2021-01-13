@@ -49,12 +49,18 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 _context.Rates.Add(rate);
                 _context.SaveChanges();
 
-            Movie movie = _context.Movies.Include(q => q.Rates).FirstOrDefault(q => q.ID == id);
+            Movie movie = _context.Movies.Include(q => q.Rates.Where(q => q.IsDeleted ==false)).FirstOrDefault(q => q.ID == id);
 
-            double totalrate = movie.TotalRate + rate.Point;
-            movie.TotalRate = totalrate;
+            double totalrate = 0;
 
-            _context.SaveChanges();
+            foreach (var item in  movie.Rates.Where(item => item.IsDeleted == false))
+            {
+                totalrate += item.Point;
+
+            }
+            //movie.TotalRate = totalrate;
+
+            //_context.SaveChanges();
 
             double rated = movie.Rates.Where(q =>q.IsDeleted==false).Count();
             double awrpoint = totalrate / rated;

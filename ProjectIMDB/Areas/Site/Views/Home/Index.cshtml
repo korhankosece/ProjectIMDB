@@ -96,7 +96,7 @@
         <div class="row ipad-width">
             <div class="col-md-8">
                 <div class="title-hd">
-                    <h2>in theater</h2>
+                    <h2>Genre Lists</h2>
                     <a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
                 </div>
                 <div class="tabs">
@@ -267,7 +267,7 @@
                     </div>
                 </div>
                 <div class="title-hd">
-                    <h2>on tv</h2>
+                    <h2>Users Choose</h2>
                     <a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
                 </div>
                 <div class="tabs">
@@ -380,7 +380,7 @@
                         <div id="tab24" class="tab">
                             <div class="row">
                                 <div class="slick-multiItem">
-                                    @foreach (var item in Model.BannerMovies)
+                                    @foreach (var item in Model.BannerMovies.Where(q => q.IsDeleted == false && q.Comments.Where(q => q.IsDeleted == false).Count() != 0).OrderByDescending(item => item.Comments.Count()).Take(10))
                                     {
                                         <div class="slide-it">
                                             <div class="movie-item">
