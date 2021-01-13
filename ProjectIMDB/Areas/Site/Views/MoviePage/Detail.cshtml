@@ -229,28 +229,30 @@
                                             <!-- movie user review -->
                                             @foreach (var item in Model.MovieDetail.Comments.Where(q => q.IsDeleted == false))
                                             {
-                                                <div class="mv-user-review-item" id="c_@item.ID">
-                                                    <h3>@item.Header</h3>
-                                                    <div class="no-star">
+                                        <div class="mv-user-review-item" id="c_@item.ID">
+                                            <h3>@item.Header</h3>
+                                            <div class="no-star">
 
-                                                        @for (int i = 1; i <= 10; i++)
-                                                        {
-                                                            if (i <= item.Movie.Rates.Where(q => q.UserID == item.UserID && q.IsDeleted == false).Select(q => Convert.ToInt32(q.Point)).FirstOrDefault())
-                                                            {
-                                                                <i class="ion-android-star"></i>
-                                                            }
-                                                            else
-                                                            {
-                                                                <i class="ion-android-star last"></i>
+                                                @for (int i = 1; i <= 10; i++)
+                                                {
+                                                    if (i <= item.Movie.Rates.Where(q => q.UserID == item.UserID && q.IsDeleted == false).Select(q => Convert.ToInt32(q.Point)).FirstOrDefault())
+                                                    {
+                                                        <i class="ion-android-star"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="ion-android-star last"></i>
 
-                                                            }
-                                                        }
-                                                    </div>
-                                                    <p class="time">
-                                                        @item.AddDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-US")) by <a href="#">@item.User.UserName</a>
-                                                    </p>
-                                                    <p>@item.Content</p>
-                                                </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <p class="time">
+                                                @item.AddDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-US")) by <a href="#">@item.User.UserName</a>
+                                            </p>
+                                            <p>@item.Content</p>
+                                            <br />
+
+                                        </div>
                                             }
 
                                         </div>

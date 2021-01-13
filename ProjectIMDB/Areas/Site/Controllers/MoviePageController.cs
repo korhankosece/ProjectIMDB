@@ -23,7 +23,9 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult Index()
         {
             MoviePageVM model = new MoviePageVM();
-            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.Rates).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person)./*Include(x => x.Comments).ThenInclude(Comment => Comment.User).*/Include(x => x.Rates).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
+
+            model.GenreList = _context.Genres.ToList();
 
             return View(model);
         }
@@ -48,12 +50,43 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             MoviePageVM model = new MoviePageVM();
 
-            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name.ToLower().Contains(search.name) || q.MoviePeople.Where(q => q.Person.Name.ToLower().Contains(search.name)).Any() || q.MoviePeople.Where(q => q.Person.SurName.ToLower().Contains(search.name)).Any() && q.IsDeleted == false).Include(q =>q.Rates).Where(Movie  => Movie.IsDeleted==false).OrderByDescending(q => q.ID).Take(21).ToList();
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name.ToLower().Contains(search.name) || q.MoviePeople.Where(q => q.Person.Name.ToLower().Contains(search.name)).Any() || q.MoviePeople.Where(q => q.Person.SurName.ToLower().Contains(search.name)).Any() && q.IsDeleted == false).Include(q => q.Rates).Where(Movie => Movie.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
 
 
             return View("Index", model);
 
         }
+
+        public async Task<IActionResult> SearchForMovie(SearchVM search)
+        {
+
+            var data = _context.Movies.ToList();
+            if (!string.IsNullOrEmpty(search.name))
+            {
+                data = await _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name./*ToLower().*/Contains(search.name)).Include(q => q.Rates).Where(Movie => Movie.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToListAsync();
+            }
+
+            if (search.genrename != 0)
+            {
+                data = await _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.MovieGenres.Where(q => q.Genre.ID == search.genrename && q.IsDeleted == false).Any()).Include(q => q.Rates).Where(Movie => Movie.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToListAsync();
+
+            }
+            
+            var MoviePageVM = new MoviePageVM
+            {
+                MovieList = data,
+
+            };
+            MoviePageVM.GenreList = _context.Genres.ToList();
+
+
+
+
+
+            return View("Index", MoviePageVM);
+
+        }
+
     }
 }
 

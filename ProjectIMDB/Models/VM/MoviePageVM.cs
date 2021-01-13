@@ -13,7 +13,10 @@ namespace ProjectIMDB.Models.VM
         public List<Person> PersonList { get; set; }
         public Rate Rate { get; set; }
         public Movie MovieDetail { get; set; }
-       
+        public List<Genre> GenreList { get; set; }
+
+
+
 
         //public string Name { get; set; }
         //public string Poster { get; set; }
