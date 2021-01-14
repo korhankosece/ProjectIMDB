@@ -25,51 +25,49 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
-        
+
         [HttpPost]
         public IActionResult Add(RateVM model)
         {
-           
+
             int id = model.movieid;
             int userID = Convert.ToInt32(TempData["ID"]);
             var oldRates = _context.Rates.Where(q => q.MovieID == id && q.UserID == userID).ToList();
 
-         
-                foreach (var item in oldRates)
-                {
-                    item.IsDeleted = true;
-                }
-                _context.SaveChanges();
+            Rate rate = new Rate();
+            rate.MovieID = id;
+            rate.Point = model.point;
+            rate.UserID = userID;
 
-                Rate rate = new Rate();
-                rate.MovieID = id;
-                rate.Point = model.point;
-                rate.UserID = userID;
+            Movie movie = _context.Movies.Include(q => q.Rates.Where(q => q.IsDeleted == false)).FirstOrDefault(q => q.ID == id);
 
-                _context.Rates.Add(rate);
-                _context.SaveChanges();
+            double totalrate = movie.TotalRate;
 
-            Movie movie = _context.Movies.Include(q => q.Rates.Where(q => q.IsDeleted ==false)).FirstOrDefault(q => q.ID == id);
-
-            double totalrate = 0;
-
-            foreach (var item in  movie.Rates.Where(item => item.IsDeleted == false))
+            if (oldRates.Count() != 0)
             {
-                totalrate += item.Point;
-
+                totalrate = movie.TotalRate - oldRates[0].Point;
             }
+
+            totalrate += model.point;
+
+            foreach (var item in oldRates)
+            {
+                //item.IsDeleted = true;
+                _context.Rates.Remove(item);
+            }
+            movie.TotalRate = totalrate;
+            _context.Rates.Add(rate);
+            _context.SaveChanges();
+
             //movie.TotalRate = totalrate;
 
             //_context.SaveChanges();
 
-            double rated = movie.Rates.Where(q =>q.IsDeleted==false).Count();
+            double rated = movie.Rates.Where(q => q.IsDeleted == false).Count();
             double awrpoint = totalrate / rated;
             double awerate = Math.Round(awrpoint, 1, MidpointRounding.AwayFromZero);
 
-
-
             movie.AvrPoint = awerate;
-
             _context.SaveChanges();
 
             return Redirect("/Site/MoviePage/Detail/" + id);

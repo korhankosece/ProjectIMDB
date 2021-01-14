@@ -8,22 +8,22 @@ namespace ProjectIMDB.Models.VM
 {
     public class SearchVM
     {
-        //private string _name;
-        //public string name
-        //{
-        //    get
-        //    {
-        //        return _name;
-        //    }
-        //    set
-        //    {
-        //        _name = value.ToLower();
-        //    }
-        //}
+        private string _name;
+        public string name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value?.ToLower();
+            }
+        }
 
-        public string name { get; set; }
+        //public string name { get; set; }
 
-        public int genrename { get; set; }
+        public List<int> genrename { get; set; }
         
 
     }

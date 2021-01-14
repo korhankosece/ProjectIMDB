@@ -57,19 +57,19 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         }
 
-        public async Task<IActionResult> SearchForMovie(SearchVM search)
+        public IActionResult SearchForMovie(SearchVM search)
         {
 
-            var data = _context.Movies.ToList();
+            var data = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(q => q.Rates).ToList();
+
             if (!string.IsNullOrEmpty(search.name))
             {
-                data = await _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name./*ToLower().*/Contains(search.name)).Include(q => q.Rates).Where(Movie => Movie.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToListAsync();
+                data = data.Where(q => q.Name.ToLower().Contains(search.name)).Where(Movie => Movie.IsDeleted == false).ToList();
             }
 
-            if (search.genrename != 0)
+            if (search.genrename != null && search.genrename.Count() != 0)
             {
-                data = await _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.MovieGenres.Where(q => q.Genre.ID == search.genrename && q.IsDeleted == false).Any()).Include(q => q.Rates).Where(Movie => Movie.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToListAsync();
-
+                data = data.Where(q => q.MovieGenres.Where(q => search.genrename.Contains(q.Genre.ID) && q.IsDeleted == false).Any()).Where(Movie => Movie.IsDeleted == false).ToList();
             }
             
             var MoviePageVM = new MoviePageVM
@@ -78,9 +78,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             };
             MoviePageVM.GenreList = _context.Genres.ToList();
-
-
-
 
 
             return View("Index", MoviePageVM);
