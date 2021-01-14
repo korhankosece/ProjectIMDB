@@ -25,6 +25,14 @@
         object-fit: cover;
     }
 
+    .media-img {
+        width: 154px;
+        height: 133px;
+        object-fit: cover;
+    }
+    .tabs ul.tabs-mv li a {
+        font-size: 17px;
+    }
 </style>
 
 <div class="hero mv-single-hero">
@@ -199,7 +207,7 @@
                                                     @foreach (var item in Model.MovieDetail.MovieImages.OrderByDescending(q => q.ID).Take(1))
                                                     {
                                                         <img class="vd-img overview-img" src="/Adminsite/movieimages/@item.ImagePath" alt="">
-                                                        <a class="fancybox-media hvr-grow" id="vd-popup" href="https://www.youtube.com/watch?v=g3dl32LaOls" ><img src="/Site/images/uploads/play-vd.png" alt=""></a>
+                                                        <a class="fancybox-media hvr-grow" id="vd-popup" href="https://www.youtube.com/watch?v=g3dl32LaOls"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
                                                     }
                                                 </div>
                                             </div>
@@ -644,30 +652,13 @@
                                             </div>
                                         </div>
                                         <div class="title-hd-sm">
-                                            <h4>Photos <span> (21)</span></h4>
+                                            <h4>Photos <span>(@Model.MovieDetail.MovieImages.Count())</span></h4>
                                         </div>
                                         <div class="mvsingle-item">
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image11.jpg"><img src="/Site/images/uploads/image1.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image21.jpg"><img src="/Site/images/uploads/image2.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image31.jpg"><img src="/Site/images/uploads/image3.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image41.jpg"><img src="/Site/images/uploads/image4.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image51.jpg"><img src="/Site/images/uploads/image5.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image61.jpg"><img src="/Site/images/uploads/image6.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image71.jpg"><img src="/Site/images/uploads/image7.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image81.jpg"><img src="/Site/images/uploads/image8.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image91.jpg"><img src="/Site/images/uploads/image9.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image101.jpg"><img src="/Site/images/uploads/image10.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image111.jpg"><img src="/Site/images/uploads/image1-1.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image121.jpg"><img src="/Site/images/uploads/image12.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image131.jpg"><img src="/Site/images/uploads/image13.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image141.jpg"><img src="/Site/images/uploads/image14.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image151.jpg"><img src="/Site/images/uploads/image15.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image161.jpg"><img src="/Site/images/uploads/image16.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image171.jpg"><img src="/Site/images/uploads/image17.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image181.jpg"><img src="/Site/images/uploads/image18.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image191.jpg"><img src="/Site/images/uploads/image19.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image201.jpg"><img src="/Site/images/uploads/image20.jpg" alt=""></a>
-                                            <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image211.jpg"><img src="/Site/images/uploads/image2-1.jpg" alt=""></a>
+                                            @foreach (var item in @Model.MovieDetail.MovieImages)
+                                            {
+                                                <a class="img-lightbox " data-fancybox-group="gallery" href="/Adminsite/movieimages/@item.ImagePath"><img class="media-img" src="/Adminsite/movieimages/@item.ImagePath" alt=""></a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -814,10 +805,11 @@
             })
         });
 
-        $(document).on("click", "#vd-popup", async function() {
-            console.log("yoket")
-            await $(".fancybox-prev").css("display", "none");
-            await $(".fancybox-next").css("display", "none");
+        $(document).on("click", "#vd-popup", function () {
+            setTimeout(function () {
+                $(".fancybox-prev").css("display", "none");
+                $(".fancybox-next").css("display", "none");
+            }, 800);
         });
 
 
