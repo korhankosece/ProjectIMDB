@@ -60,7 +60,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult SearchForMovie(SearchVM search)
         {
 
-            var data = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(q => q.Rates).ToList();
+            var data = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(q => q.Rates).Where(q => q.IsDeleted == false).ToList();
 
             if (!string.IsNullOrEmpty(search.name))
             {
@@ -71,13 +71,17 @@ namespace ProjectIMDB.Areas.Site.Controllers
             {
                 data = data.Where(q => q.MovieGenres.Where(q => search.genrename.Contains(q.Genre.ID) && q.IsDeleted == false).Any()).Where(Movie => Movie.IsDeleted == false).ToList();
             }
-            
+
+            if (!string.IsNullOrEmpty(search.raterange))
+            {
+                data = data.Where(q => q.AvrPoint >= Convert.ToDouble(search.raterange.Split("-")[0]) && q.AvrPoint <= Convert.ToDouble(search.raterange.Split("-")[1])).Where(Movie => Movie.IsDeleted == false).ToList();
+            }
+
             var MoviePageVM = new MoviePageVM
             {
                 MovieList = data,
-
+                GenreList = _context.Genres.ToList()
             };
-            MoviePageVM.GenreList = _context.Genres.ToList();
 
 
             return View("Index", MoviePageVM);
