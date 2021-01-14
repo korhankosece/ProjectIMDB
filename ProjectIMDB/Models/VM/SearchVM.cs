@@ -25,6 +25,8 @@ namespace ProjectIMDB.Models.VM
 
         public List<int> genrename { get; set; }
         public string raterange { get; set; }
+        public DateTime yearrange { get; set; }
+
 
 
     }

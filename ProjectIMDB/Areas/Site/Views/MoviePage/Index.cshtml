@@ -169,11 +169,15 @@
                                     <label>Release Year</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <select>
+                                            <select name="yearrange">
                                                 <option value="range">From</option>
-                                                <option value="number">10</option>
-                                                <option value="number">20</option>
-                                                <option value="number">30</option>
+                                                @foreach (var item in Model.MovieList.Select(q =>q.ReleaseDate))
+                                                {
+                                            <option value="@item.Year">@item.Year</option>
+
+                                                }
+                                                @*<option value="number">20</option>
+                                                <option value="number">30</option>*@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
