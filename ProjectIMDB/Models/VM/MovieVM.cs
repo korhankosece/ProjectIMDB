@@ -21,8 +21,12 @@ namespace ProjectIMDB.Models.VM
         [DisplayName("Release Date")]
         [Required(ErrorMessage = "The release date field is required")]
         public DateTime releasedate { get; set; }
+        [DisplayName("Movie Poster")]
         public IFormFile movieposter { set; get; }
         public string posterurl { get; set; }
+        [DisplayName("Movie Images")]
+        public List<IFormFile> movieImages { set; get; }
+        public List<string> imagepaths { get; set; }
 
         [DisplayName("Description")]
         [Required(ErrorMessage = "The description field is required")]

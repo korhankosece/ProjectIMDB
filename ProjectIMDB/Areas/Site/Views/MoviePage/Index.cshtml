@@ -62,7 +62,7 @@
                             <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                             <p class="rate">
                                 <i class="ion-android-star"></i><span>
-                                    @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0  )
+                                    @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
                                     {
                                       @item.AvrPoint
                                     }
@@ -139,7 +139,7 @@
                                         <select name="genrename" multiple="" class="ui fluid dropdown">
                                             <option value="">Enter to filter genres</option>
                                            
-                                                @foreach (var data in Model.GenreList.Where(q =>q.IsDeleted == false))
+                                                @foreach (var data in Model.GenreList.Where(q => q.IsDeleted == false))
                                                 {
                                                    <option value="@data.ID">@data.Name</option>
 
@@ -160,7 +160,7 @@
 
                                         @for (int i = 0; i < 10; i++)
                                         {
-                                            <option value="@(i+"-"+(i+1))">@(i+"-"+(i+1)) </option>
+                                            <option value="@(i + "-" + (i + 1))">@(i + "-" + (i + 1)) </option>
                                         }
                                     </select>
 
@@ -169,23 +169,22 @@
                                     <label>Release Year</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <select name="yearrange">
-                                                <option value="range">From</option>
-                                                @foreach (var item in Model.MovieList.Select(q =>q.ReleaseDate))
+                                            <select name="yearrangefrom">
+                                                <option value="">From</option>
+                                                @{DateTime now = DateTime.Now;}
+                                                @for (int i = Convert.ToInt32(now.Year); i > 1900; i--)
                                                 {
-                                            <option value="@item.Year">@item.Year</option>
-
+                                                    <option value="@i">@i</option>
                                                 }
-                                                @*<option value="number">20</option>
-                                                <option value="number">30</option>*@
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <select>
-                                                <option value="range">To</option>
-                                                <option value="number">20</option>
-                                                <option value="number">30</option>
-                                                <option value="number">40</option>
+                                            <select name="yearrangeto">
+                                                <option value="">To</option>
+                                                @for (int i = Convert.ToInt32(now.Year); i > 1900; i--)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>

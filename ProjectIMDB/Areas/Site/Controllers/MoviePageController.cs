@@ -35,8 +35,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int userID = Convert.ToInt32(TempData["ID"]);
 
             MoviePageVM model = new MoviePageVM();
-            model.MovieDetail = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.WatchLists).Include(x => x.Rates).Where(q => q.IsDeleted == false && q.ID == id).FirstOrDefault(q => q.ID == id);
-
+            model.MovieDetail = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.WatchLists).Include(x => x.Rates).Include(q => q.MovieImages).Where(q => q.IsDeleted == false && q.ID == id).FirstOrDefault(q => q.ID == id);
 
             model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.Rates).Include(x => x.WatchLists).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
 
@@ -52,7 +51,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.Name.ToLower().Contains(search.name) || q.MoviePeople.Where(q => q.Person.Name.ToLower().Contains(search.name)).Any() || q.MoviePeople.Where(q => q.Person.SurName.ToLower().Contains(search.name)).Any() && q.IsDeleted == false).Include(q => q.Rates).Where(Movie => Movie.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
 
-
+            model.GenreList = _context.Genres.Where(q => q.IsDeleted == false).ToList();
             return View("Index", model);
 
         }
@@ -75,6 +74,16 @@ namespace ProjectIMDB.Areas.Site.Controllers
             if (!string.IsNullOrEmpty(search.raterange))
             {
                 data = data.Where(q => q.AvrPoint >= Convert.ToDouble(search.raterange.Split("-")[0]) && q.AvrPoint <= Convert.ToDouble(search.raterange.Split("-")[1])).Where(Movie => Movie.IsDeleted == false).ToList();
+            }
+
+            if (search.yearrangefrom != 0)
+            {
+                data = data.Where(q => q.ReleaseDate.Year > search.yearrangefrom).Where(Movie => Movie.IsDeleted == false).ToList();
+            }
+
+            if (search.yearrangeto != 0)
+            {
+                data = data.Where(q => q.ReleaseDate.Year < search.yearrangeto).Where(Movie => Movie.IsDeleted == false).ToList();
             }
 
             var MoviePageVM = new MoviePageVM

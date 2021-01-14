@@ -81,6 +81,33 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 imagepath = guid + ".jpg";
             }
 
+            List<string> paths = new List<string>();
+
+            string imgpaths = "";
+
+            if (model.movieImages != null)
+            {
+                foreach (var item in model.movieImages)
+                {
+                    var guid = Guid.NewGuid().ToString();
+
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot/adminsite/movieimages", guid + ".jpg");
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        item.CopyTo(stream);
+                    }
+
+                    imgpaths = guid + ".jpg";
+                    paths.Add(imgpaths);
+                }
+
+            }
+
+            model.imagepaths = paths;
+
+
             if (ModelState.IsValid)
             {
                 Movie movie = new Movie();
@@ -132,6 +159,15 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                     moviePerson.JobID = 3;
                     _context.MoviePeople.Add(moviePerson);
 
+                }
+
+                foreach (var item in model.imagepaths)
+                {
+                    MovieImages image = new MovieImages();
+                    image.ImagePath = item;
+                    image.MovieID = MovieID;
+
+                    _context.MovieImages.Add(image);
                 }
                 _context.SaveChanges();
 
@@ -203,6 +239,32 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                 imagepath = guid + ".jpg";
             }
 
+            List<string> paths = new List<string>();
+
+            string imgpaths = "";
+
+            if (model.movieImages != null)
+            {
+                foreach (var item in model.movieImages)
+                {
+                    var guid = Guid.NewGuid().ToString();
+
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot/adminsite/movieimages", guid + ".jpg");
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        item.CopyTo(stream);
+                    }
+
+                    imgpaths = guid + ".jpg";
+                    paths.Add(imgpaths);
+                }
+
+            }
+
+            model.imagepaths = paths;
+
             if (ModelState.IsValid)
             {
                 movie.Name = model.name;
@@ -271,6 +333,15 @@ namespace ProjectIMDB.Areas.Admin.Controllers
                     moviePerson.JobID = 3;
                     _context.MoviePeople.Add(moviePerson);
 
+                }
+
+                foreach (var item in model.imagepaths)
+                {
+                    MovieImages image = new MovieImages();
+                    image.ImagePath = item;
+                    image.MovieID = MovieID;
+
+                    _context.MovieImages.Add(image);
                 }
 
                 _context.SaveChanges();

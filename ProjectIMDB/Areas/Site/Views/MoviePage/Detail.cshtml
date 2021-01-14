@@ -18,6 +18,13 @@
     .star-hover:hover {
         color: red !important;
     }
+
+    .overview-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
 </style>
 
 <div class="hero mv-single-hero">
@@ -46,7 +53,7 @@
                         </div>
                         <div class="btn-transform transform-vertical">
                             <div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
-                            <div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
+                            <div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i>No ticket</a></div>
                         </div>
                     </div>
                 </div>
@@ -184,12 +191,16 @@
                                                 <a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <div class="mvsingle-item ov-item">
-                                                <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image11.jpg"><img src="/Site/images/uploads/image1.jpg" alt=""></a>
-                                                <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image21.jpg"><img src="/Site/images/uploads/image2.jpg" alt=""></a>
-                                                <a class="img-lightbox" data-fancybox-group="gallery" href="/Site/images/uploads/image31.jpg"><img src="/Site/images/uploads/image3.jpg" alt=""></a>
+                                                @foreach (var item in Model.MovieDetail.MovieImages.Take(3))
+                                                {
+                                                    <a class="img-lightbox" data-fancybox-group="gallery" href="/Adminsite/movieimages/@item.ImagePath"><img class="overview-img" src="/Adminsite/movieimages/@item.ImagePath" alt=""></a>
+                                                }
                                                 <div class="vd-it">
-                                                    <img class="vd-img" src="/Site/images/uploads/image4.jpg" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
+                                                    @foreach (var item in Model.MovieDetail.MovieImages.OrderByDescending(q => q.ID).Take(1))
+                                                    {
+                                                        <img class="vd-img overview-img" src="/Adminsite/movieimages/@item.ImagePath" alt="">
+                                                        <a class="fancybox-media hvr-grow" id="vd-popup" href="https://www.youtube.com/watch?v=g3dl32LaOls" ><img src="/Site/images/uploads/play-vd.png" alt=""></a>
+                                                    }
                                                 </div>
                                             </div>
                                             <div class="title-hd-sm">
@@ -229,30 +240,30 @@
                                             <!-- movie user review -->
                                             @foreach (var item in Model.MovieDetail.Comments.Where(q => q.IsDeleted == false))
                                             {
-                                        <div class="mv-user-review-item" id="c_@item.ID">
-                                            <h3>@item.Header</h3>
-                                            <div class="no-star">
+                                                <div class="mv-user-review-item" id="c_@item.ID">
+                                                    <h3>@item.Header</h3>
+                                                    <div class="no-star">
 
-                                                @for (int i = 1; i <= 10; i++)
-                                                {
-                                                    if (i <= item.Movie.Rates.Where(q => q.UserID == item.UserID && q.IsDeleted == false).Select(q => Convert.ToInt32(q.Point)).FirstOrDefault())
-                                                    {
-                                                        <i class="ion-android-star"></i>
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="ion-android-star last"></i>
+                                                        @for (int i = 1; i <= 10; i++)
+                                                        {
+                                                            if (i <= item.Movie.Rates.Where(q => q.UserID == item.UserID && q.IsDeleted == false).Select(q => Convert.ToInt32(q.Point)).FirstOrDefault())
+                                                            {
+                                                                <i class="ion-android-star"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="ion-android-star last"></i>
 
-                                                    }
-                                                }
-                                            </div>
-                                            <p class="time">
-                                                @item.AddDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-US")) by <a href="#">@item.User.UserName</a>
-                                            </p>
-                                            <p>@item.Content</p>
-                                            <br />
+                                                            }
+                                                        }
+                                                    </div>
+                                                    <p class="time">
+                                                        @item.AddDate.ToString("MMMM dd, yyyy", CultureInfo.CreateSpecificCulture("en-US")) by <a href="#">@item.User.UserName</a>
+                                                    </p>
+                                                    <p>@item.Content</p>
+                                                    <br />
 
-                                        </div>
+                                                </div>
                                             }
 
                                         </div>
@@ -743,16 +754,16 @@
 
 
                                         @*<div class="movie-item-style-2">
-                                            <img src="/Site/images/uploads/mv2.jpg" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">into the wild <span>(2014)</span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                                                <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                                                <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                                            </div>
-                                        </div>*@
+                                                <img src="/Site/images/uploads/mv2.jpg" alt="">
+                                                <div class="mv-item-infor">
+                                                    <h6><a href="#">into the wild <span>(2014)</span></a></h6>
+                                                    <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
+                                                    <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
+                                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+                                                    <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
+                                                    <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
+                                                </div>
+                                            </div>*@
 
                                         <div class="topbar-filter">
                                             <label>Movies per page:</label>
@@ -802,6 +813,13 @@
                 }
             })
         });
+
+        $(document).on("click", "#vd-popup", async function() {
+            console.log("yoket")
+            await $(".fancybox-prev").css("display", "none");
+            await $(".fancybox-next").css("display", "none");
+        });
+
 
     </script>
 

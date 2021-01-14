@@ -18,6 +18,7 @@ namespace ProjectIMDB.Models.ORM.Entities
 
         public List<Comment> Comments { get; set; }
         public List<Rate> Rates { get; set; }
+        public List<MovieImages> MovieImages { get; set; }
         public List<WatchList> WatchLists { get; set; }
         public List<MovieGenre> MovieGenres { get; set; }
         public List<MoviePerson> MoviePeople { get; set; }
