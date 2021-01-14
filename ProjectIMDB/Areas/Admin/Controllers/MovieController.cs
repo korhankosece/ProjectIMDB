@@ -182,6 +182,40 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         }
 
 
+
+        public IActionResult AddVideo()
+        {
+            MovieVM model = new MovieVM();
+            model.movies = _context.Movies.Where(x => x.IsDeleted == false).ToList();
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult AddVideo(VideoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                MovieVideos movieVideos = new Movie();
+                movieVideos.VideoPath = model.;
+                movieVideos.MovieID = model.;
+
+                _context.MovieVideos.Add(movieVideos);
+                _context.SaveChanges();
+
+
+                return View(model);
+            }
+            else
+            {
+                MovieVM movie = new MovieVM();
+                movie.movies = _context.Movies.Where(x => x.IsDeleted == false).ToList();
+                return View(movie);
+            }
+        }
+
+
         [RoleControl(EnumRole.MovieDelete)]
 
         [HttpPost]

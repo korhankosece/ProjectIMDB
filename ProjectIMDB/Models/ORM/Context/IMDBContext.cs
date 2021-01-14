@@ -18,6 +18,7 @@ namespace ProjectIMDB.Models.ORM.Context
         public DbSet<User> Users { get; set; }
         public DbSet<WatchList> WatchLists { get; set; }
         public DbSet<MovieImages> MovieImages { get; set; }
+        public DbSet<MovieVideos> MovieVideos { get; set; }
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MoviePerson> MoviePeople { get; set; }
         public DbSet<PersonJob> PersonJobs { get; set; }

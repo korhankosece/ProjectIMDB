@@ -64,6 +64,8 @@ namespace ProjectIMDB.Models.VM
         public List<int> stararray { get; set; }
 
 
+        [Required(ErrorMessage = "Movie field is required")]
+        public List<Movie> movies { get; set; }
 
 
     }
