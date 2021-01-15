@@ -26,12 +26,17 @@
     }
 
     .media-img {
-        width: 154px;
+        width: 150px;
         height: 133px;
         object-fit: cover;
     }
     .tabs ul.tabs-mv li a {
         font-size: 17px;
+    }
+    .media-vd-img {
+        width: 150px;
+        height: 115px;
+        object-fit: cover;
     }
 </style>
 
@@ -56,7 +61,7 @@
                     <img src="/adminsite/movieposter/@Model.MovieDetail.PosterURL" alt="">
                     <div class="movie-btn">
                         <div class="btn-transform transform-vertical red">
-                            <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
+                            <div><a href="@Model.MovieDetail.MovieVideos[0].VideoPath" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
                             <div><a href="https://www.youtube.com/embed/o-0hcF97wy0" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
                         </div>
                         <div class="btn-transform transform-vertical">
@@ -567,20 +572,28 @@
                                             </div>
                                         </div>
                                         <div class="title-hd-sm">
-                                            <h4>Videos <span>(8)</span></h4>
+                                            <h4>Videos <span>(@Model.MovieDetail.MovieVideos.Count())</span></h4>
                                         </div>
                                         <div class="mvsingle-item media-item">
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" src="/Site/images/uploads/vd-item1.jpg" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
+
+                                            @{ int j = 0;}
+                                            @foreach (var item in Model.MovieDetail.MovieVideos)
+                                            {
+
+                                                <div class="vd-item">
+                                                    <div class="vd-it">
+                                                        <img class="vd-img media-vd-img" src="/Adminsite/movieimages/@Model.MovieDetail.MovieImages[j].ImagePath" alt="">
+                                                        <a class="fancybox-media hvr-grow" href="@item.VideoPath"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
+                                                    </div>
+                                                    <div class="vd-infor">
+                                                        <h6> <a href="#">Trailer:  Watch New Scenes</a></h6>
+                                                        <p class="time"> 1: 31</p>
+                                                    </div>
                                                 </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Trailer:  Watch New Scenes</a></h6>
-                                                    <p class="time"> 1: 31</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
+                                                j++;
+                                            }
+
+                                            @*<div class="vd-item">
                                                 <div class="vd-it">
                                                     <img class="vd-img" src="/Site/images/uploads/vd-item2.jpg" alt="">
                                                     <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
@@ -649,7 +662,7 @@
                                                     <h6> <a href="#">Official Trailer #2</a></h6>
                                                     <p class="time"> 3:27</p>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                         <div class="title-hd-sm">
                                             <h4>Photos <span>(@Model.MovieDetail.MovieImages.Count())</span></h4>

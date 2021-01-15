@@ -185,7 +185,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
         public IActionResult AddVideo()
         {
-            MovieVM model = new MovieVM();
+            VideoVM model = new VideoVM();
             model.movies = _context.Movies.Where(x => x.IsDeleted == false).ToList();
 
             return View(model);
@@ -195,22 +195,26 @@ namespace ProjectIMDB.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddVideo(VideoVM model)
         {
+            VideoVM movie = new VideoVM();
+            movie.movies = _context.Movies.Where(x => x.IsDeleted == false).ToList();
+
             if (ModelState.IsValid)
             {
-                MovieVideos movieVideos = new Movie();
-                movieVideos.VideoPath = model.;
-                movieVideos.MovieID = model.;
+                MovieVideos movieVideos = new MovieVideos();
+                movieVideos.VideoPath = model.videopath;
+                movieVideos.MovieID = model.movieid;
+              
+
 
                 _context.MovieVideos.Add(movieVideos);
                 _context.SaveChanges();
 
 
-                return View(model);
+                return View(movie);
             }
             else
             {
-                MovieVM movie = new MovieVM();
-                movie.movies = _context.Movies.Where(x => x.IsDeleted == false).ToList();
+        
                 return View(movie);
             }
         }

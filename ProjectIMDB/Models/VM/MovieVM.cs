@@ -11,6 +11,8 @@ namespace ProjectIMDB.Models.VM
 {
     public class MovieVM
     {
+        [DisplayName("Name")]
+
         public int id { get; set; }
         [DisplayName("Name")]
         [Required(ErrorMessage = "The name field is required")]
@@ -64,8 +66,6 @@ namespace ProjectIMDB.Models.VM
         public List<int> stararray { get; set; }
 
 
-        [Required(ErrorMessage = "Movie field is required")]
-        public List<Movie> movies { get; set; }
 
 
     }
