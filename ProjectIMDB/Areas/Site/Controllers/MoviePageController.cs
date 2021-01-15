@@ -23,7 +23,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult Index()
         {
             MoviePageVM model = new MoviePageVM();
-            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person)./*Include(x => x.Comments).ThenInclude(Comment => Comment.User).*/Include(x => x.Rates).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
+            model.MovieList = _context.Movies.Include(x => x.MovieGenres).ThenInclude(MovieGenres => MovieGenres.Genre).Include(x => x.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Include(x => x.Comments).ThenInclude(Comment => Comment.User).Include(x => x.Rates).Where(q => q.IsDeleted == false).OrderByDescending(q => q.ID).Take(21).ToList();
 
             model.GenreList = _context.Genres.ToList();
 
