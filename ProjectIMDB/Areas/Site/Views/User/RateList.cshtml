@@ -102,11 +102,16 @@
                                 <p class="time sm-text">your rate:</p>
                                 <p class="rate"><i class="ion-android-star"></i><span>@item.Point</span> /10</p>
                                 <p class="time sm-text">your reviews:</p>
-                                @foreach (var data in item.Movie.Comments.Where(x => x.IsDeleted == false))
+                                @foreach (var data in item.User.Comments.Where(x => x.IsDeleted == false))
                                 {
-                                    <h6>@data.Header </h6>
-                                    <p class="time sm">@data.AddDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</p>
-                                    <p>“@data.Content”</p>
+                                    if (data.MovieID == item.MovieID)
+                                    {
+                                        <h6>@data.Header </h6>
+                                        <p class="time sm">@data.AddDate.ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</p>
+                                        <p>“@data.Content”</p>
+                                        <br/>
+                                    }
+
                                 }
 
                             </div>

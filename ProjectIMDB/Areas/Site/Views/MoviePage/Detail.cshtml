@@ -40,6 +40,13 @@
         height: 115px;
         object-fit: cover;
     }
+
+
+    .movie-container {
+        width: 224px;
+        height: 337px;
+        position: absolute;
+    }
 </style>
 
 <div class="hero mv-single-hero">
@@ -155,7 +162,7 @@
 
                                             <input type="hidden" name="Point" value="@i" />
                                             <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
-                                           
+
 
                                             <button class="btn-star" type="submit"><i class="star-hover ion-ios-star"></i></button>
                                         </form>
@@ -167,7 +174,7 @@
 
                                             <input type="hidden" name="Point" value="@i" />
                                             <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
-                                     
+
 
                                             <button class="btn-star" type="submit"><i class="star-hover ion-ios-star-outline"></i></button>
                                         </form>
@@ -183,7 +190,7 @@
 
                                         <input type="hidden" name="Point" value="@i" />
                                         <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
-                               
+
 
                                         <button class="btn-star" type="submit"><i class="star-hover ion-ios-star-outline"></i></button>
                                     </form>
@@ -293,7 +300,16 @@
                                                 <h6>Director: </h6>
                                                 @foreach (var item in @Model.MovieDetail.MoviePeople.Where(q => q.JobID == 1))
                                                 {
-                                                    <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName </a></p>
+                                                    @if (Model.MovieDetail.MoviePeople.Where(q => q.JobID == 1).LastOrDefault() == item)
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName </a></p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+
+                                                    }
 
                                                 }
                                             </div>
@@ -301,7 +317,16 @@
                                                 <h6>Writer: </h6>
                                                 @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 2))
                                                 {
-                                                    <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+                                                    @if (Model.MovieDetail.MoviePeople.Where(q => q.JobID == 2).LastOrDefault() == item)
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName </a></p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+
+                                                    }
 
                                                 }
                                             </div>
@@ -309,7 +334,16 @@
                                                 <h6>Stars: </h6>
                                                 @foreach (var item in Model.MovieDetail.MoviePeople.Where(q => q.JobID == 3))
                                                 {
-                                                    <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+                                                    @if (Model.MovieDetail.MoviePeople.Where(q => q.JobID == 3).LastOrDefault() == item)
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName </a></p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Person.Name @item.Person.SurName, </a></p>
+
+                                                    }
 
                                                 }
 
@@ -319,7 +353,17 @@
                                                 <h6>Genres:</h6>
                                                 @foreach (var item in Model.MovieDetail.MovieGenres.Where(q => q.IsDeleted == false))
                                                 {
-                                                    <p style="display:inline;"><a href="#">@item.Genre.Name, </a></p>
+                                                    @if (Model.MovieDetail.MovieGenres.Where(q => q.IsDeleted == false).LastOrDefault() == item)
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Genre.Name </a></p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p style="display:inline;"><a href="#">@item.Genre.Name, </a></p>
+
+                                                    }
+
 
                                                 }
                                             </div>
@@ -659,6 +703,7 @@
                                                         exist.Add(item.ID);
 
                                                         <div class="movie-item-style-2">
+                                                            <a class="movie-container" href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"></a>
                                                             <img src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                             <div class="mv-item-infor">
                                                                 <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
@@ -678,7 +723,17 @@
                                                                     Director:
                                                                     @foreach (var moviePerson in item.MoviePeople.Where(q => q.JobID == 1))
                                                                     {
-                                                                        <a href="#">@moviePerson.Person.Name @moviePerson.Person.SurName</a>
+                                                                        @if (item.MoviePeople.Where(q => q.JobID == 1).LastOrDefault() == moviePerson)
+                                                                        {
+                                                                            <a href="#">@moviePerson.Person.Name @moviePerson.Person.SurName</a>
+
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="#">@moviePerson.Person.Name @moviePerson.Person.SurName,</a>
+
+                                                                        }
                                                                     }
                                                                 </p>
 
@@ -686,7 +741,17 @@
                                                                     Stars:
                                                                     @foreach (var x in item.MoviePeople.Where(q => q.JobID == 3))
                                                                     {
-                                                                        <a href="#">@x.Person.Name @x.Person.SurName,</a>
+                                                                        @if (item.MoviePeople.Where(q => q.JobID == 3).LastOrDefault() == x)
+                                                                        {
+                                                                            <a href="#">@x.Person.Name @x.Person.SurName</a>
+
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="#">@x.Person.Name @x.Person.SurName,</a>
+
+                                                                        }
                                                                     }
                                                                 </p>
 

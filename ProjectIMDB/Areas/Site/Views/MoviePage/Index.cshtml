@@ -75,7 +75,16 @@
                                 Director:
                                 @foreach (var data in item.MoviePeople.Where(q => q.JobID == 1))
                                 {
-                                    <a href="#">@data.Person.Name @data.Person.SurName</a>
+                                    @if (item.MoviePeople.Where(q => q.JobID == 1).LastOrDefault() == data)
+                                    {
+                                        <a href="#">@data.Person.Name @data.Person.SurName</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a href="#">@data.Person.Name @data.Person.SurName,</a>
+
+                                    }
                                 }
                             </p>
 
@@ -83,7 +92,16 @@
                                 Stars:
                                 @foreach (var x in item.MoviePeople.Where(q => q.JobID == 3))
                                 {
-                                    <a href="#">@x.Person.Name @x.Person.SurName,</a>
+                                    @if (item.MoviePeople.Where(q => q.JobID == 3).LastOrDefault() == x)
+                                    {
+                                        <a href="#">@x.Person.Name @x.Person.SurName</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a href="#">@x.Person.Name @x.Person.SurName,</a>
+
+                                    }
                                 }
                             </p>
 
