@@ -25,6 +25,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
         [SiteAuth]
+        [Route("/watchlist")]
         public IActionResult Watchlist()
 
         {
@@ -39,7 +40,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         }
 
-
+        [Route("/ratelist")]
         public IActionResult RateList()
 
         {
@@ -92,6 +93,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
 
         [SiteAuth]
+        [Route("profile/{id}")]
         public IActionResult Edit(int id)
         {
             UserVM model = new UserVM();

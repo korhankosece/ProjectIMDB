@@ -20,6 +20,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             _context = context;
         }
+
+        [Route("movies/")]
         public IActionResult Index()
         {
             MoviePageVM model = new MoviePageVM();
@@ -30,7 +32,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View(model);
         }
 
-        public IActionResult Detail(int id)
+        [Route("movie/{id}/{name}")]
+        public IActionResult Detail(int id, string name)
         {
             int userID = Convert.ToInt32(TempData["ID"]);
 
@@ -45,6 +48,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View(model);
         }
 
+        [Route("search")]
         public IActionResult HomeSearch(SearchVM search)
         {
             MoviePageVM model = new MoviePageVM();
@@ -55,6 +59,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return View("Index", model);
 
         }
+
+        [Route("detailsearch")]
 
         public IActionResult SearchForMovie(SearchVM search)
         {

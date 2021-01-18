@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjectIMDB.Models.Helpers;
+
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
@@ -34,13 +36,14 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int userID = Convert.ToInt32(TempData["ID"]);
             var oldRates = _context.Rates.Where(q => q.MovieID == id && q.UserID == userID).ToList();
 
+
             Rate rate = new Rate();
             rate.MovieID = id;
             rate.Point = model.point;
             rate.UserID = userID;
-
+       
             Movie movie = _context.Movies.Include(q => q.Rates.Where(q => q.IsDeleted == false)).FirstOrDefault(q => q.ID == id);
-
+            var name = movie.Name;
             double totalrate = movie.TotalRate;
 
             if (oldRates.Count() != 0)
@@ -59,9 +62,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context.Rates.Add(rate);
             _context.SaveChanges();
 
-            //movie.TotalRate = totalrate;
-
-            //_context.SaveChanges();
+        
 
             double rated = movie.Rates.Where(q => q.IsDeleted == false).Count();
             double awrpoint = totalrate / rated;
@@ -70,7 +71,14 @@ namespace ProjectIMDB.Areas.Site.Controllers
             movie.AvrPoint = awerate;
             _context.SaveChanges();
 
-            return Redirect("/Site/MoviePage/Detail/" + id);
+
+
+            string url = "/movie/" + id + "/" + UrlHelper.FriendlyUrl(name);
+            return Redirect(url);
+
+
+
+
 
 
         }

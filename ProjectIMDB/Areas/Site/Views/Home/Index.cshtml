@@ -4,7 +4,7 @@
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
 
-@model ProjectIMDB.Models.VM.SiteHomeVM
+@model SiteHomeVM
 
 <style>
     @@media screen and (min-width:680px) {
@@ -46,7 +46,7 @@
 
                     <div class="movie-item">
                         <div class="mv-img">
-                            <a class="movie-container" href="/Site/MoviePage/Detail/@item.ID"></a>
+                            <a class="movie-container" href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"></a>
                             <img class="poster" src="/adminsite/movieposter/@item.PosterURL" alt="">
                         </div>
                         <div class="title-in">
@@ -57,7 +57,7 @@
                                 </div>
                             }
 
-                            <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                            <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                             <p>
                                 <i class="ion-android-star"></i><span>
                                     @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
@@ -122,7 +122,7 @@
                                                         <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                     </div>
                                                     <div class="hvr-inner">
-                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                        <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                     </div>
                                                     <div class="title-in">
                                                         <h6><a href="#">@item.Name</a></h6>
@@ -161,10 +161,10 @@
                                                         <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                     </div>
                                                     <div class="hvr-inner">
-                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                        <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                     </div>
                                                     <div class="title-in">
-                                                        <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                        <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                         <p>
                                                             <i class="ion-android-star"></i><span>
 
@@ -200,10 +200,10 @@
                                                         <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" width="185" height="284">
                                                     </div>
                                                     <div class="hvr-inner">
-                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                        <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                     </div>
                                                     <div class="title-in">
-                                                        <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                        <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                         <p>
                                                             <i class="ion-android-star"></i><span>
 
@@ -240,10 +240,10 @@
                                                         <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="" width="185" height="284">
                                                     </div>
                                                     <div class="hvr-inner">
-                                                        <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                        <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                     </div>
                                                     <div class="title-in">
-                                                        <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                        <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                         <p>
                                                             <i class="ion-android-star"></i><span>
                                                                 @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
@@ -291,10 +291,10 @@
                                                     <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                 </div>
                                                 <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                 </div>
                                                 <div class="title-in">
-                                                    <h6><a href="#">@item.Name</a></h6>
+                                                    <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                     <p>
                                                         <i class="ion-android-star"></i><span>
                                                             @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
@@ -323,10 +323,10 @@
                                                     <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                 </div>
                                                 <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                 </div>
                                                 <div class="title-in">
-                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                    <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                     <p>
                                                         <i class="ion-android-star"></i><span>
                                                             @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)
@@ -359,10 +359,10 @@
                                                     <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                 </div>
                                                 <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                 </div>
                                                 <div class="title-in">
-                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                    <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                     <p>
                                                         <i class="ion-android-star"></i><span>
                                                                 @item.AvrPoint
@@ -388,10 +388,10 @@
                                                     <img style="width:185px; height:250px;" src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                 </div>
                                                 <div class="hvr-inner">
-                                                    <a href="/Site/MoviePage/Detail/@item.ID"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                                                    <a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)"> Read more <i class="ion-android-arrow-dropright"></i> </a>
                                                 </div>
                                                 <div class="title-in">
-                                                    <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name</a></h6>
+                                                    <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name</a></h6>
                                                     <p>
                                                         <i class="ion-android-star"></i><span>
                                                             @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)

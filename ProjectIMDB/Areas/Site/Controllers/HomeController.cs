@@ -18,6 +18,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
         {
             _context = context;
         }
+
+        [Route("/")]
         public IActionResult Index()
         {
             SiteHomeVM model = new SiteHomeVM();

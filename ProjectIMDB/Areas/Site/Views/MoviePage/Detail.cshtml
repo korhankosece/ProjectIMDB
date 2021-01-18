@@ -2,9 +2,9 @@
     ViewData["Title"] = "Detail";
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
-@using System.Globalization;
 
-@model ProjectIMDB.Models.VM.MoviePageVM
+
+@model MoviePageVM
 
 <style>
     .btn-star {
@@ -30,9 +30,11 @@
         height: 133px;
         object-fit: cover;
     }
+
     .tabs ul.tabs-mv li a {
         font-size: 17px;
     }
+
     .media-vd-img {
         width: 150px;
         height: 115px;
@@ -153,6 +155,8 @@
 
                                             <input type="hidden" name="Point" value="@i" />
                                             <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                                           
+
                                             <button class="btn-star" type="submit"><i class="star-hover ion-ios-star"></i></button>
                                         </form>
 
@@ -163,6 +167,8 @@
 
                                             <input type="hidden" name="Point" value="@i" />
                                             <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                                     
+
                                             <button class="btn-star" type="submit"><i class="star-hover ion-ios-star-outline"></i></button>
                                         </form>
 
@@ -177,6 +183,8 @@
 
                                         <input type="hidden" name="Point" value="@i" />
                                         <input type="hidden" name="MovieID" value="@Model.MovieDetail.ID" />
+                               
+
                                         <button class="btn-star" type="submit"><i class="star-hover ion-ios-star-outline"></i></button>
                                     </form>
 
@@ -352,7 +360,7 @@
                                                 <h3>Reviews Of</h3>
                                                 <h2>@Model.MovieDetail.Name</h2>
                                             </div>
-                                            <a href="/Site/Comment/Add/@Model.MovieDetail.ID" class="redbtn">Write Review</a>
+                                            <a href="/comment/@Model.MovieDetail.ID" class="redbtn">Write Review</a>
                                             @*@Html.HiddenFor(q => q.MovieDetail.ID)*@
                                         </div>
                                         <div class="topbar-filter">
@@ -414,7 +422,7 @@
                                                                 <div class="row">
                                                                     <div class="rv-hd">
 
-                                                                        <a href="/Site/Comment/Edit/@item.ID" style="padding: 0px 16px;
+                                                                        <a href="/commentedit/@item.ID" style="padding: 0px 16px;
                                                                            font-size: 20px;" class="redbtn"><i style="margin:0;" class="ion-android-create"></i></a>
                                                                     </div>
                                                                 </div>
@@ -594,16 +602,16 @@
                                             }
 
                                             @*<div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" src="/Site/images/uploads/vd-item2.jpg" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Featurette: “Avengers Re-Assembled</a></h6>
-                                                    <p class="time"> 1: 03</p>
-                                                </div>
-                                            </div>*@
-                                            
+                                                    <div class="vd-it">
+                                                        <img class="vd-img" src="/Site/images/uploads/vd-item2.jpg" alt="">
+                                                        <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img src="/Site/images/uploads/play-vd.png" alt=""></a>
+                                                    </div>
+                                                    <div class="vd-infor">
+                                                        <h6> <a href="#">Featurette: “Avengers Re-Assembled</a></h6>
+                                                        <p class="time"> 1: 03</p>
+                                                    </div>
+                                                </div>*@
+
                                         </div>
                                         <div class="title-hd-sm">
                                             <h4>Photos <span>(@Model.MovieDetail.MovieImages.Count())</span></h4>
@@ -653,7 +661,7 @@
                                                         <div class="movie-item-style-2">
                                                             <img src="/adminsite/movieposter/@item.PosterURL" alt="">
                                                             <div class="mv-item-infor">
-                                                                <h6><a href="/Site/MoviePage/Detail/@item.ID">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
+                                                                <h6><a href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Name)">@item.Name  <span>(@item.ReleaseDate.Year)</span></a></h6>
                                                                 <p class="rate">
                                                                     <i class="ion-android-star"></i><span>
                                                                         @if (item.Rates.Where(q => q.IsDeleted == false).Count() != 0)

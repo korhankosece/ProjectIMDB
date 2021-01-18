@@ -131,7 +131,7 @@
                             <span></span>
                         </div>
                     </div>
-                    <a href="/Site/Home"><img class="logo" src="/Site/images/logo1.png" alt="" width="119" height="58"></a>
+                    <a href="/"><img class="logo" src="/Site/images/logo1.png" alt="" width="119" height="58"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
@@ -140,7 +140,7 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="dropdown first">
-                            <a href="/Site/MoviePage">Movies</a>
+                            <a href="/movies/">Movies</a>
                         </li>
                         @*<li class="dropdown first">
                         <a href="celebritygrid01.html">Celebrities</a>
@@ -152,7 +152,7 @@
                         <li id="must-login-err" style=" color: #dd003f; font-weight: bold;"></li>
                         <li style=" color: #dd003f; font-weight: bold;">@TempData["username"]</li>
                         <li id="account-modal" class="dropdown first">
-                            <a id="myAccLink" href="/Site/User/Edit/@TempData["ID"]">My Account</a>
+                            <a id="myAccLink" href="/profile/@TempData["ID"]">My Account</a>
                         </li>
                         <li id="login-modal" class="loginLink"><a href="#">LOG In</a></li>
                         <li id="signUp-modal" class="btn signupLink"><a href="#">sign up</a></li>
@@ -164,11 +164,11 @@
             <!-- top search form -->
             
 
-                <form  action="/Site/MoviePage/HomeSearch" method="post">
+                <form  action="/search" method="post">
                     <div class="top-search">
                         <input type="text" name="name" value="" placeholder="Search for a movie or celebrity that you are looking for">
                     </div>
-                </form>
+               </form>
             
 
 
@@ -202,7 +202,7 @@
         <div class="container">
             <div class="flex-parent-ft">
                 <div class="flex-child-ft item1">
-                    <a href="/Site/Home"><img class="logo" src="/Site/images/logo1.png" alt=""></a>
+                    <a href="/"><img class="logo" src="/Site/images/logo1.png" alt=""></a>
                     <p>
                         5th Avenue st, manhattan<br>
                         New York, NY 10001

@@ -4,9 +4,7 @@
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
 
-@using System.Globalization;
-
-@model ProjectIMDB.Models.VM.UserPageVM
+@model UserPageVM
 
 
 <style>
@@ -61,15 +59,15 @@
                     <div class="user-fav">
                         <p>Account Details</p>
                         <ul>
-                            <li><a href="/Site/User/Edit/@TempData["ID"]">Profile</a></li>
-                            <li class="active"><a href="/Site/User/Watchlist">My Watchlist</a></li>
-                            <li><a href="/Site/User/RateList">Rated movies</a></li>
+                            <li><a href="/profile/@TempData["ID"]">Profile</a></li>
+                            <li class="active"><a href="/watchlist">My Watchlist</a></li>
+                            <li><a href="/ratelist">Rated movies</a></li>
                         </ul>
                     </div>
                     <div class="user-fav">
                         <p>Others</p>
                         <ul>
-                            <li><a href="/Site/User/Edit/@TempData["ID"]">Change password</a></li>
+                            <li><a href="/profile/@TempData["ID"]">Change password</a></li>
                             <li><a href="/Site/UserLogin/Logout">Log out</a></li>
                         </ul>
                     </div>
@@ -92,7 +90,7 @@
                     {
 
                         <div class="movie-item-style-2">
-                            <a class="movie-container" href="/Site/MoviePage/Detail/@item.MovieID"></a>
+                            <a class="movie-container" href="/movie/@item.ID/@UrlHelper.FriendlyUrl(item.Movie.Name)"></a>
                             <img src="/adminsite/movieposter/@item.Movie.PosterURL" alt="">
 
                             <div class="mv-item-infor">

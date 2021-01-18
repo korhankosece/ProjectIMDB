@@ -25,7 +25,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             _context = context;
         }
 
-        
+        [Route("/comment/{id}")]
+
         public IActionResult Add(int id)
         {
             CommentVM model = new CommentVM();
@@ -42,8 +43,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
 
 
-       
-
+      
         [HttpPost]
 
         public IActionResult Add(CommentVM model)
@@ -63,7 +63,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+
+        [Route("/commentedit/{id}")]
 
         public IActionResult Edit(int id)
         {
@@ -79,7 +80,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
 
-        
+
+ 
 
         [HttpPost]
 

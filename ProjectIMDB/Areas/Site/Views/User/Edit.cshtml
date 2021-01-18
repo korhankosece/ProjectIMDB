@@ -4,7 +4,7 @@
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
 
-@model ProjectIMDB.Models.VM.UserVM
+@model UserVM
 
 
 
@@ -55,15 +55,15 @@
                     <div class="user-fav">
                         <p>Account Details</p>
                         <ul>
-                            <li class="active"><a href="/Site/User/Edit/@TempData["ID"]">Profile</a></li>
-                            <li><a href="/Site/User/Watchlist">My Watchlist</a></li>
-                            <li><a href="/Site/User/RateList">Rated movies</a></li>
+                            <li class="active"><a href="/profile/@TempData["ID"]">Profile</a></li>
+                            <li><a href="/watchlist">My Watchlist</a></li>
+                            <li><a href="/ratelist">Rated movies</a></li>
                         </ul>
                     </div>
                     <div class="user-fav">
                         <p>Others</p>
                         <ul>
-                            <li><a href="/Site/User/Edit/@TempData["ID"]">Change password</a></li>
+                            <li><a href="/profile/@TempData["ID"]">Change password</a></li>
                             <li><a href="/Site/UserLogin/Logout">Log out</a></li>
                         </ul>
                     </div>

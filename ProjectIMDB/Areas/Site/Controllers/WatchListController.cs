@@ -72,12 +72,12 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 _context.WatchLists.Add(watchList);
                 _context.SaveChanges();
                 
-                return Redirect("/Site/User/WatchList");
+                return Redirect("/watchlist");
 
 
             }
 
-            return Redirect("/Site/User/WatchList");
+            return Redirect("/watchlist");
 
         }
     }
