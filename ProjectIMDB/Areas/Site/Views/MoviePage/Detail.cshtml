@@ -501,6 +501,7 @@
 
                                         <div class="topbar-filter">
                                             <label>Reviews per page:</label>
+                                            
                                             <select>
                                                 <option value="range">5 Reviews</option>
                                                 <option value="saab">10 Reviews</option>
@@ -840,6 +841,39 @@
         });
 
 
+
+        @*$(".fa").mouseover(function () {
+        $(this).removeClass('fa-star-o').addClass('fa-star');
+                $(this).prevAll(".fa").removeClass('fa-star-o').addClass('fa-star');
+                $(this).nextAll(".fa").removeClass('fa-star').addClass('fa-star-o');
+
+
+    })
+
+
+
+        $(".fa").mouseout(function () {
+
+            $(this).removeClass('fa-star').addClass('fa-star-o');
+            $(this).prevAll(".fa").removeClass('fa-star').addClass('fa-star-o');
+
+            var stars = $("#stars").children();
+            var id =@Model.Rate.MovieID;
+            var average = @Model.Rate.Point;
+
+            for (var i = 1; i <= 5; i++) {
+                if (i <= average) {
+
+                    stars[i].attributes[0].value = "fa fa-star";
+                }
+
+            }
+
+    })*@
+
+
     </script>
+
+
 
 }

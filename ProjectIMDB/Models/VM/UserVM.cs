@@ -9,6 +9,7 @@ namespace ProjectIMDB.Models.VM
 {
     public class UserVM
     {
+
         public int id { get; set; }
 
         [DisplayName("Username")]
@@ -33,7 +34,7 @@ namespace ProjectIMDB.Models.VM
 
         public string password { get; set; }
 
-        [Compare("password", ErrorMessage = "Not match")]
+       // [Compare("password", ErrorMessage = "Not match")]
         [Display(Name = "Old Password")]
         public string oldpassword { get; set; }
 

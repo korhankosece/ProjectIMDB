@@ -81,12 +81,12 @@
                             <div class="col-md-6 form-it">
                                 @Html.LabelFor(q => q.username)
                                 @Html.TextBoxFor(q => q.username, new { @type = "text", @placeholder = "Username" })
-                                @Html.ValidationMessageFor(q => q.username, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(q => q.username)
                             </div>
                             <div class="col-md-6 form-it">
                                 @Html.LabelFor(q => q.email)
                                 @Html.TextBoxFor(q => q.email, new { @type = "email", @placeholder = "Email Address" })
-                                @Html.ValidationMessageFor(q => q.email, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(q => q.email, null, new { @class = "text-danger" })
 
 
                             </div>
@@ -134,6 +134,7 @@
                         <h4>02. Change password</h4>
                         @Html.HiddenFor(q => q.id)
                         @Html.HiddenFor(q => q.password)
+                        @Html.HiddenFor(q => q.username)
 
                         <div class="row">
                             <div class="col-md-6 form-it">

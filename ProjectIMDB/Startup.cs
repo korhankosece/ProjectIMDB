@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectIMDB.Models.Helpers;
 using ProjectIMDB.Models.ORM.Context;
 
 namespace ProjectIMDB
@@ -37,9 +38,9 @@ namespace ProjectIMDB
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
-                options.LoginPath = "/Site/Home/Index/";
-                options.LoginPath = "/Admin/AdminLogin/Index/";
-            }); 
+                options.LoginPath = "/";
+                //options.LoginPath = "/Admin/AdminLogin/Index/";
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
