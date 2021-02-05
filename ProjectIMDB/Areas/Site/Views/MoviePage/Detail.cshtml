@@ -2,7 +2,9 @@
     ViewData["Title"] = "Detail";
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
-
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Core.Common;
 
 @model MoviePageVM
 
@@ -46,6 +48,11 @@
         width: 224px;
         height: 337px;
         position: absolute;
+      
+    }
+
+    .topbar-filter span {
+        padding-left: 20px !important;
     }
 </style>
 
@@ -216,7 +223,7 @@
                                             <p>@Model.MovieDetail.Description</p>
                                             <div class="title-hd-sm">
                                                 <h4>Videos & Photos</h4>
-                                                <a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
+                                                <a href="#" class="time">All @Model.MovieDetail.MovieVideos.Count() Videos & @Model.MovieDetail.MovieImages.Count() Photos <i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <div class="mvsingle-item ov-item">
                                                 @foreach (var item in Model.MovieDetail.MovieImages.Take(3))
@@ -266,7 +273,7 @@
                                                 <a href="#" class="time">See All @Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).Count() Reviews <i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <!-- movie user review -->
-                                            @foreach (var item in Model.MovieDetail.Comments.Where(q => q.IsDeleted == false))
+                                            @foreach (var item in Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).OrderByDescending(q=>q.AddDate).Take(1))
                                             {
                                                 <div class="mv-user-review-item" id="c_@item.ID">
                                                     <h3>@item.Header</h3>
@@ -497,11 +504,28 @@
 
 
 
-
-
                                         <div class="topbar-filter">
+                                            <label style=" font-weight: bold;">Reviews per page:</label>
+                                            <select style="width: 130px; padding: 6px 24px; font-weight: bold;">
+
+                                                <option value="range">5 Reviews</option>
+                                                @*<option value="saab">10 Reviews</option>*@
+                                            </select>
+                                            <span  style=" color: #abb7c4; font-size: 14px; font-weight: bold; font-family: 'Nunito', sans-serif;  ">Page @Model.MovieList.PageNumber of @Model.MovieList.PageCount: </span>
+                                            <div class="pagination2">
+
+
+                                                @Html.PagedListPager((IPagedList)Model.MovieList, page => Url.Action("Detail", "MoviePage", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                                                @*<a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#"><i class="ion-arrow-right-b"></i></a>*@
+                                            </div>
+                                        </div>
+
+
+                                        @*<div class="topbar-filter">
                                             <label>Reviews per page:</label>
-                                            
+
                                             <select>
                                                 <option value="range">5 Reviews</option>
                                                 <option value="saab">10 Reviews</option>
@@ -515,8 +539,9 @@
                                                 <a href="#">5</a>
                                                 <a href="#">6</a>
                                                 <a href="#"><i class="ion-arrow-right-b"></i></a>
+
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                                 <div id="cast" class="tab">
@@ -674,7 +699,7 @@
                                         <h3>Related Movies To</h3>
                                         <h2>@Model.MovieDetail.Name</h2>
                                         <div class="topbar-filter">
-                                            <p>Found <span>@Model.MovieList.Count()</span> in total</p>
+                                            <p>Found <span>@Model.MovieList.TotalItemCount</span> in total</p>
                                             <label>Sort by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>
@@ -773,31 +798,37 @@
 
 
                                         @*<div class="movie-item-style-2">
-                                                <img src="/Site/images/uploads/mv2.jpg" alt="">
-                                                <div class="mv-item-infor">
-                                                    <h6><a href="#">into the wild <span>(2014)</span></a></h6>
-                                                    <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                                                    <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                                                    <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                    <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                                                    <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                                                </div>
-                                            </div>*@
+            <img src="/Site/images/uploads/mv2.jpg" alt="">
+            <div class="mv-item-infor">
+                <h6><a href="#">into the wild <span>(2014)</span></a></h6>
+                <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
+                <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
+                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+                <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
+                <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
+            </div>
+        </div>*@
+
 
                                         <div class="topbar-filter">
-                                            <label>Movies per page:</label>
-                                            <select>
+                                            <label style=" font-weight: bold;">Movies per page:</label>
+                                            <select style="width: 130px; padding: 6px 24px; font-weight: bold;">
+
                                                 <option value="range">5 Movies</option>
-                                                <option value="saab">10 Movies</option>
+                                                @*<option value="saab">10 Movies</option>*@
                                             </select>
+                                            <span style=" color: #abb7c4; font-size: 14px; font-weight: bold; font-family: 'Nunito', sans-serif ">Page @Model.MovieList.PageNumber of @Model.MovieList.PageCount: </span>
                                             <div class="pagination2">
-                                                <span>Page 1 of 2:</span>
-                                                <a class="active" href="#">1</a>
-                                                <a href="#">2</a>
-                                                <a href="#"><i class="ion-arrow-right-b"></i></a>
+
+
+                                                @Html.PagedListPager((IPagedList)Model.MovieList, page => Url.Action("Detail", "MoviePage", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                                                @*<a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#"><i class="ion-arrow-right-b"></i></a>*@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

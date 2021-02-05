@@ -10,6 +10,7 @@ using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
+using X.PagedList;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
@@ -26,13 +27,15 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         [SiteAuth]
         [Route("/watchlist")]
-        public IActionResult Watchlist()
+        public IActionResult Watchlist(int? page)
 
         {
+            var pagenumber = page ?? 1;
+
             int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
-            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Include(x => x.Movie).ThenInclude(Movie =>Movie.Rates).Where(q => q.UserID == id && q.IsDeleted==false).ToList();
+            model.UserWatch = _context.WatchLists.Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person ).Include(x => x.Movie).ThenInclude(Movie =>Movie.Rates).Where(q => q.UserID == id && q.IsDeleted==false).ToList().ToPagedList(pagenumber, 5);
 
             model.User = _context.Users.FirstOrDefault(q => q.ID == id);
 
@@ -41,13 +44,15 @@ namespace ProjectIMDB.Areas.Site.Controllers
         }
 
         [Route("/ratelist")]
-        public IActionResult RateList()
+        public IActionResult RateList(int? page)
 
         {
+            var pagenumber = page ?? 1;
+
             int id = Convert.ToInt32(TempData["ID"]);
             UserPageVM model = new UserPageVM();
 
-            model.UserRate = _context.Rates.Include(x => x.Movie).ThenInclude(Movie => Movie.Comments).Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.UserID == id && q.IsDeleted == false).ToList();
+            model.UserRate = _context.Rates.Include(x => x.Movie).ThenInclude(Movie => Movie.Comments).Include(x => x.Movie).ThenInclude(Movie => Movie.MoviePeople).ThenInclude(MoviePerson => MoviePerson.Person).Where(q => q.UserID == id && q.IsDeleted == false).ToList().ToPagedList(pagenumber, 5);
 
             model.User = _context.Users.FirstOrDefault(q => q.ID == id);
 

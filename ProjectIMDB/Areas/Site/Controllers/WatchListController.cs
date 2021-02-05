@@ -9,6 +9,7 @@ using ProjectIMDB.Models.Attributes;
 using ProjectIMDB.Models.ORM.Context;
 using ProjectIMDB.Models.ORM.Entities;
 using ProjectIMDB.Models.VM;
+using X.PagedList;
 
 namespace ProjectIMDB.Areas.Site.Controllers
 {
@@ -51,7 +52,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             UserPageVM user = new UserPageVM();
 
-            user.UserWatch = _context.WatchLists.Include(x => x.Movie).Where(q => q.UserID == Convert.ToInt32(TempData["ID"])).ToList();
+            user.UserWatch = _context.WatchLists.Include(x => x.Movie).Where(q => q.UserID == Convert.ToInt32(TempData["ID"])).ToList().ToPagedList();
 
             int counter = 0;
 
