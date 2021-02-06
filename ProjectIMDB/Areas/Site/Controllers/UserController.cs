@@ -84,7 +84,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             else
             {
-                 TempData["error2"] = "Passwords not match!";
+                 TempData["error2"] = "Passwords do not match!";
 
 
                 return RedirectToAction("Index", "Home");

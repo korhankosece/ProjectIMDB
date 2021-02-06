@@ -20,17 +20,19 @@
             <div class="col-md-12">
                 <div class="hero-ct">
 
+                        @if (Model.UserEdit.name != null && Model.UserEdit.surname != null)
+                        {
+                            <h1>@Model.UserEdit.name @Model.UserEdit.surname’s profile</h1>
 
-                    @*@if (Model.UserEdit.name != null && Model.UserEdit.surname != null)
-                    {
-                        <h1>@Model.UserEdit.name @Model.UserEdit.surname’s profile</h1>
+                        }
+                        else
+                        {
+                            <h1>@Model.UserEdit.username’s profile</h1>
 
-                    }
-                    else
-                    {
-                        <h1>@Model.UserEdit.username’s profile</h1>
+                        }
+                    
 
-                    }*@
+
 
                     <ul class="breadcumb">
                         <li class="active"><a href="#">Home</a></li>

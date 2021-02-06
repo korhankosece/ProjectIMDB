@@ -414,7 +414,7 @@
                                             @*@Html.HiddenFor(q => q.MovieDetail.ID)*@
                                         </div>
                                         <div class="topbar-filter">
-                                            <p>Found <span>@Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).Count()</span> in total</p>
+                                            <p>Found <span style="padding-left: 0px !important">@Model.MovieDetail.Comments.Where(q => q.IsDeleted == false).Count() reviews</span> in total</p>
                                             <label>Filter by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>
@@ -698,7 +698,7 @@
                                         <h3>Related Movies To</h3>
                                         <h2>@Model.MovieDetail.Name</h2>
                                         <div class="topbar-filter">
-                                            <p>Found <span>@Model.MovieList.TotalItemCount</span> in total</p>
+                                            <p>Found <span style="padding-left: 0px !important">@Model.MovieList.TotalItemCount</span> movies in total</p>
                                             <label>Sort by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>

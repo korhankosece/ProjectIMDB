@@ -14,7 +14,6 @@ using ProjectIMDB.Models.Helpers;
 namespace ProjectIMDB.Areas.Site.Controllers
 {
     [SiteAuth]
-
     [Area("Site")]
     public class CommentController : BaseController
     {
@@ -31,8 +30,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
         public IActionResult Add(int id)
         {
             CommentVM model = new CommentVM();
-
-
 
             int a = Convert.ToInt32(TempData["ID"]);
             User user = _context.Users.Where(q => q.IsDeleted == false).FirstOrDefault(q => q.ID == a);
@@ -58,7 +55,6 @@ namespace ProjectIMDB.Areas.Site.Controllers
             int id = model.movieid;
             Movie movie = _context.Movies.Include(q => q.Comments.Where(q => q.IsDeleted == false)).FirstOrDefault(q => q.ID == id);
             var name = movie.Name;
-
 
 
             _context.Comments.Add(comment);

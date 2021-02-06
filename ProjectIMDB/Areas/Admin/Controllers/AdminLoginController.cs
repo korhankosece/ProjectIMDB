@@ -47,7 +47,7 @@ namespace ProjectIMDB.Areas.Admin.Controllers
 
                     ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 
-                    await HttpContext.SignInAsync("A",principal);
+                    await HttpContext.SignInAsync(principal);
 
                     adminuser.LastLoginDate = DateTime.Now;
 
