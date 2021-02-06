@@ -34,18 +34,18 @@ namespace ProjectIMDB.Models.VM
 
         public string password { get; set; }
 
-       // [Compare("password", ErrorMessage = "Not match")]
-        [Display(Name = "Old Password")]
-        public string oldpassword { get; set; }
+        //[Compare("password", ErrorMessage = "Not match")]
+        //[Display(Name = "Old Password")]
+        //public string oldpassword { get; set; }
 
 
-        [Display(Name = "New Password")]
-        public string newpassword { get; set; }
+        //[Display(Name = "New Password")]
+        //public string newpassword { get; set; }
 
 
-        [Compare("newpassword", ErrorMessage = "Not match")]
-        [Display(Name = "Confirm Password")]
-        public string confirmpassword { get; set; }
+        //[Compare("newpassword", ErrorMessage = "Not match")]
+        //[Display(Name = "Confirm Password")]
+        //public string confirmpassword { get; set; }
 
         [DisplayName("Add Date")]
         public DateTime adddate { get; set; }

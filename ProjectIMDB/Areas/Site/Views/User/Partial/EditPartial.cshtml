@@ -1,0 +1,66 @@
+﻿
+@model UserVM
+<form action="/Site/User/Edit" method="post" class="user">
+    <h4>01. Profile details</h4>
+    @Html.HiddenFor(q => q.id)
+
+
+
+    <div class="row">
+        <div class="col-md-6 form-it">
+            @Html.LabelFor(q => q.username)
+            @Html.TextBoxFor(q => q.username, new { @type = "text", @placeholder = "Username" })
+            @Html.ValidationMessageFor(q => q.username, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-6 form-it">
+            @Html.LabelFor(q => q.email)
+            @Html.TextBoxFor(q => q.email, new { @type = "email", @placeholder = "Email Address" })
+            @Html.ValidationMessageFor(q => q.email, "", new { @class = "text-danger" })
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-it">
+
+            @Html.LabelFor(q => q.name)
+            @Html.TextBoxFor(q => q.name, new { @type = "text", @placeholder = "First Name" })
+            @Html.ValidationMessageFor(q => q.name, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="col-md-6 form-it">
+
+            @Html.LabelFor(q => q.surname)
+            @Html.TextBoxFor(q => q.surname, new { @type = "text", @placeholder = "Last Name" })
+            @Html.ValidationMessageFor(q => q.surname, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-it">
+            @Html.LabelFor(q => q.birthdate)
+            @Html.TextBoxFor(q => q.birthdate, "{0:yyyy-MM-dd}", new { @type = "date" })
+
+            @Html.ValidationMessageFor(q => q.birthdate, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-6 form-it">
+
+            @Html.LabelFor(q => q.country)
+           
+                @await Html.PartialAsync("Partial/CountryDropdown")
+            
+
+            @Html.ValidationMessageFor(q => q.country, "", new { @class = "text-danger" })
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+
+            <input class="submit" type="submit" value="save">
+        </div>
+    </div>
+
+</form>

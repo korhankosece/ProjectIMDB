@@ -96,6 +96,14 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
         }
 
+        public IActionResult Index()
+        {
+            var model = new EditVM();
+            model.UserEdit = new UserVM();
+            model.Change = new ChangeVM();
+            return View(model);
+        }
+
 
         [SiteAuth]
         [Route("profile/{id}")]
@@ -104,7 +112,7 @@ namespace ProjectIMDB.Areas.Site.Controllers
             UserVM model = new UserVM();
 
             User user = _context.Users.FirstOrDefault(q => q.ID == id);
-            //model.id = user.ID; //dene olmalı mı
+         /*   model.UserEdit.id = user.ID; *///dene olmalı mı
             model.username = user.UserName;
             model.email = user.EMail;
             model.name = user.Name;
@@ -113,8 +121,8 @@ namespace ProjectIMDB.Areas.Site.Controllers
             model.birthdate = user.BirthDate;
             model.password = user.Password;
 
+            return View("Index", new EditVM { UserEdit = model, Change = null });
 
-            return View(model);
         }
 
         [SiteAuth]
@@ -152,18 +160,18 @@ namespace ProjectIMDB.Areas.Site.Controllers
                 model.country = user.Country;
                 model.birthdate = user.BirthDate;
                 model.password = user.Password;
-                return View(model);
+                return View("Index", new EditVM { UserEdit = model, Change = null });
             }
         }
 
         [SiteAuth]
         [HttpPost]
-        public IActionResult Change(UserVM model)
+        public IActionResult Change(ChangeVM model)
         {
 
             User user = _context.Users.FirstOrDefault(x => x.ID == model.id);
 
-            if (model.password == model.oldpassword && model.newpassword == model.confirmpassword)
+            if (user.Password == model.oldpassword && model.newpassword == model.confirmpassword)
             {
 
                 user.Password = model.newpassword;
@@ -176,16 +184,29 @@ namespace ProjectIMDB.Areas.Site.Controllers
 
             else
             {
-                model.username = user.UserName;
-                model.email = user.EMail;
-                model.name = user.Name;
-                model.surname = user.SurName;
-                model.country = user.Country;
-                model.birthdate = user.BirthDate;
-                model.password = user.Password;
-                return View("Edit", model);
 
-             
+      
+
+                //model.username = user.UserName;
+                //model.email = user.EMail;
+                //model.name = user.Name;
+                //model.surname = user.SurName;
+                //model.country = user.Country;
+                //model.birthdate = user.BirthDate;
+                //model.password = user.Password;
+
+                UserVM model2 = new UserVM();
+
+                model2.username = user.UserName;
+                model2.email = user.EMail;
+                model2.name = user.Name;
+                model2.surname = user.SurName;
+                model2.country = user.Country;
+                model2.birthdate = user.BirthDate;
+                model2.password = user.Password;
+                return View("Index", new EditVM { UserEdit = model2, Change = model });
+
+
 
             }
 

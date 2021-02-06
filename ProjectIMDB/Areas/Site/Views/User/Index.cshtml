@@ -1,13 +1,11 @@
 ﻿
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Index";
     Layout = "~/Areas/Site/Views/Shared/_SiteLayout.cshtml";
 }
 
+
 @model EditVM
-
-
-
 
 
 <style>
@@ -23,7 +21,7 @@
                 <div class="hero-ct">
 
 
-                    @if (Model.UserEdit.name != null && Model.UserEdit.surname != null)
+                    @*@if (Model.UserEdit.name != null && Model.UserEdit.surname != null)
                     {
                         <h1>@Model.UserEdit.name @Model.UserEdit.surname’s profile</h1>
 
@@ -32,7 +30,7 @@
                     {
                         <h1>@Model.UserEdit.username’s profile</h1>
 
-                    }
+                    }*@
 
                     <ul class="breadcumb">
                         <li class="active"><a href="#">Home</a></li>
